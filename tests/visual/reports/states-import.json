@@ -304,14 +304,14 @@
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
           "family": "btn btn-sm btn-ghost|",
           "text": "高级设置",
-          "foreground": "rgb(44, 53, 69)",
-          "background": "rgba(243, 244, 246, 0.294)",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
-            242.41176470588232,
-            244.2941176470588,
-            245.70588235294116
+            243,
+            244,
+            246
           ],
-          "contrast": 11.216138380099638,
+          "contrast": 9.365938485902875,
           "textual": true,
           "disabled": false,
           "width": 98.015625,
@@ -835,14 +835,14 @@
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
           "family": "btn btn-sm btn-ghost|",
           "text": "高级设置",
-          "foreground": "rgb(235, 237, 240)",
-          "background": "rgba(55, 65, 81, 0.294)",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
-            54.705882352941174,
+            55,
             65,
-            81.29411764705881
+            81
           ],
-          "contrast": 8.791265189080354,
+          "contrast": 8.3252023126051,
           "textual": true,
           "disabled": false,
           "width": 98.015625,

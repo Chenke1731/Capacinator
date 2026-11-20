@@ -7661,13 +7661,13 @@
           "family": "btn btn-ghost btn-sm pw-delete-btn|",
           "text": "",
           "foreground": "rgb(185, 28, 28)",
-          "background": "rgb(247, 248, 250)",
+          "background": "rgb(249, 250, 251)",
           "effectiveBackground": [
-            247,
-            248,
-            250
+            249,
+            250,
+            251
           ],
-          "contrast": 6.088687200849665,
+          "contrast": 6.191277348008749,
           "textual": false,
           "disabled": false,
           "width": 40,
@@ -17660,13 +17660,13 @@
           "family": "btn btn-ghost btn-sm pw-delete-btn|",
           "text": "",
           "foreground": "rgb(239, 68, 68)",
-          "background": "rgb(45, 55, 70)",
+          "background": "rgb(31, 41, 55)",
           "effectiveBackground": [
-            45,
-            55,
-            70
+            31,
+            41,
+            55
           ],
-          "contrast": 3.1952413172139877,
+          "contrast": 3.9007760898120396,
           "textual": false,
           "disabled": false,
           "width": 40,

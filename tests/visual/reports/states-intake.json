@@ -145,14 +145,14 @@
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953407-jkgdb41ey\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -161,22 +161,22 @@
             255
           ],
           "contrast": 17.73971700407407,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953407-jkgdb41ey\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(153, 27, 27)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -185,17 +185,17 @@
             255
           ],
           "contrast": 8.310050481211189,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         },
         {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953424-02xfdvrdz\"]",
@@ -241,14 +241,14 @@
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953424-02xfdvrdz\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -257,22 +257,22 @@
             255
           ],
           "contrast": 17.73971700407407,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953424-02xfdvrdz\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(153, 27, 27)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -281,17 +281,17 @@
             255
           ],
           "contrast": 8.310050481211189,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         },
         {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953435-q23mus20a\"]",
@@ -337,14 +337,14 @@
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953435-q23mus20a\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -353,22 +353,22 @@
             255
           ],
           "contrast": 17.73971700407407,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953435-q23mus20a\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(153, 27, 27)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -377,17 +377,17 @@
             255
           ],
           "contrast": 8.310050481211189,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         }
       ],
       "issues": [],
@@ -540,14 +540,14 @@
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953407-jkgdb41ey\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -556,22 +556,22 @@
             255
           ],
           "contrast": 17.73971700407407,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953407-jkgdb41ey\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(153, 27, 27)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -580,17 +580,17 @@
             255
           ],
           "contrast": 8.310050481211189,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         },
         {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953424-02xfdvrdz\"]",
@@ -636,14 +636,14 @@
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953424-02xfdvrdz\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -652,22 +652,22 @@
             255
           ],
           "contrast": 17.73971700407407,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953424-02xfdvrdz\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(153, 27, 27)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -676,17 +676,17 @@
             255
           ],
           "contrast": 8.310050481211189,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         },
         {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953435-q23mus20a\"]",
@@ -732,14 +732,14 @@
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953435-q23mus20a\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -748,22 +748,22 @@
             255
           ],
           "contrast": 17.73971700407407,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953435-q23mus20a\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(153, 27, 27)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -772,17 +772,17 @@
             255
           ],
           "contrast": 8.310050481211189,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         }
       ],
       "issues": [],
@@ -934,14 +934,14 @@
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953407-jkgdb41ey\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -950,22 +950,22 @@
             255
           ],
           "contrast": 17.73971700407407,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953407-jkgdb41ey\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(153, 27, 27)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -974,17 +974,17 @@
             255
           ],
           "contrast": 8.310050481211189,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         },
         {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953424-02xfdvrdz\"]",
@@ -1030,14 +1030,14 @@
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953424-02xfdvrdz\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -1046,22 +1046,22 @@
             255
           ],
           "contrast": 17.73971700407407,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953424-02xfdvrdz\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(153, 27, 27)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -1070,17 +1070,17 @@
             255
           ],
           "contrast": 8.310050481211189,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         },
         {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953435-q23mus20a\"]",
@@ -1126,14 +1126,14 @@
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953435-q23mus20a\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -1142,22 +1142,22 @@
             255
           ],
           "contrast": 17.73971700407407,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953435-q23mus20a\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(153, 27, 27)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -1166,17 +1166,17 @@
             255
           ],
           "contrast": 8.310050481211189,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         }
       ],
       "issues": [],
@@ -1328,14 +1328,14 @@
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953407-jkgdb41ey\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -1344,22 +1344,22 @@
             255
           ],
           "contrast": 17.73971700407407,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953407-jkgdb41ey\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(153, 27, 27)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -1368,17 +1368,17 @@
             255
           ],
           "contrast": 8.310050481211189,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         },
         {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953424-02xfdvrdz\"]",
@@ -1424,14 +1424,14 @@
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953424-02xfdvrdz\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -1440,22 +1440,22 @@
             255
           ],
           "contrast": 17.73971700407407,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953424-02xfdvrdz\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(153, 27, 27)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -1464,17 +1464,17 @@
             255
           ],
           "contrast": 8.310050481211189,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         },
         {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953435-q23mus20a\"]",
@@ -1520,14 +1520,14 @@
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953435-q23mus20a\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -1536,22 +1536,22 @@
             255
           ],
           "contrast": 17.73971700407407,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953435-q23mus20a\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(153, 27, 27)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -1560,17 +1560,17 @@
             255
           ],
           "contrast": 8.310050481211189,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         }
       ],
       "issues": [],
@@ -1722,14 +1722,14 @@
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953407-jkgdb41ey\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -1738,22 +1738,22 @@
             255
           ],
           "contrast": 17.73971700407407,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953407-jkgdb41ey\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(153, 27, 27)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -1762,17 +1762,17 @@
             255
           ],
           "contrast": 8.310050481211189,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         },
         {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953424-02xfdvrdz\"]",
@@ -1818,14 +1818,14 @@
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953424-02xfdvrdz\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -1834,22 +1834,22 @@
             255
           ],
           "contrast": 17.73971700407407,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953424-02xfdvrdz\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(153, 27, 27)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -1858,17 +1858,17 @@
             255
           ],
           "contrast": 8.310050481211189,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         },
         {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953435-q23mus20a\"]",
@@ -1914,14 +1914,14 @@
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953435-q23mus20a\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -1930,22 +1930,22 @@
             255
           ],
           "contrast": 17.73971700407407,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953435-q23mus20a\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(153, 27, 27)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -1954,17 +1954,17 @@
             255
           ],
           "contrast": 8.310050481211189,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         }
       ],
       "issues": [],
@@ -2116,14 +2116,14 @@
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953407-jkgdb41ey\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -2132,22 +2132,22 @@
             255
           ],
           "contrast": 17.73971700407407,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953407-jkgdb41ey\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(153, 27, 27)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -2156,17 +2156,17 @@
             255
           ],
           "contrast": 8.310050481211189,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         },
         {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953424-02xfdvrdz\"]",
@@ -2212,14 +2212,14 @@
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953424-02xfdvrdz\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -2228,22 +2228,22 @@
             255
           ],
           "contrast": 17.73971700407407,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953424-02xfdvrdz\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(153, 27, 27)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -2252,17 +2252,17 @@
             255
           ],
           "contrast": 8.310050481211189,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         },
         {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953435-q23mus20a\"]",
@@ -2308,14 +2308,14 @@
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953435-q23mus20a\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -2324,22 +2324,22 @@
             255
           ],
           "contrast": 17.73971700407407,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953435-q23mus20a\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(153, 27, 27)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -2348,17 +2348,17 @@
             255
           ],
           "contrast": 8.310050481211189,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         }
       ],
       "issues": [],
@@ -2510,14 +2510,14 @@
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953407-jkgdb41ey\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgba(0, 0, 0, 0.03)",
           "effectiveBackground": [
@@ -2526,22 +2526,22 @@
             247
           ],
           "contrast": 16.55894215257156,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953407-jkgdb41ey\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(153, 27, 27)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -2550,17 +2550,17 @@
             255
           ],
           "contrast": 8.310050481211189,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         },
         {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953424-02xfdvrdz\"]",
@@ -2606,14 +2606,14 @@
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953424-02xfdvrdz\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -2622,22 +2622,22 @@
             255
           ],
           "contrast": 17.73971700407407,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953424-02xfdvrdz\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(153, 27, 27)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -2646,17 +2646,17 @@
             255
           ],
           "contrast": 8.310050481211189,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         },
         {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953435-q23mus20a\"]",
@@ -2702,14 +2702,14 @@
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953435-q23mus20a\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -2718,22 +2718,22 @@
             255
           ],
           "contrast": 17.73971700407407,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953435-q23mus20a\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(153, 27, 27)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -2742,17 +2742,17 @@
             255
           ],
           "contrast": 8.310050481211189,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         }
       ],
       "issues": [],
@@ -2904,14 +2904,14 @@
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953407-jkgdb41ey\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -2920,22 +2920,22 @@
             255
           ],
           "contrast": 17.73971700407407,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953407-jkgdb41ey\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(153, 27, 27)",
           "background": "rgba(0, 0, 0, 0.03)",
           "effectiveBackground": [
@@ -2944,17 +2944,17 @@
             247
           ],
           "contrast": 7.756924485983811,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         },
         {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953424-02xfdvrdz\"]",
@@ -3000,14 +3000,14 @@
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953424-02xfdvrdz\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -3016,22 +3016,22 @@
             255
           ],
           "contrast": 17.73971700407407,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953424-02xfdvrdz\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(153, 27, 27)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -3040,17 +3040,17 @@
             255
           ],
           "contrast": 8.310050481211189,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         },
         {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953435-q23mus20a\"]",
@@ -3096,14 +3096,14 @@
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953435-q23mus20a\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -3112,22 +3112,22 @@
             255
           ],
           "contrast": 17.73971700407407,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953435-q23mus20a\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(153, 27, 27)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -3136,17 +3136,17 @@
             255
           ],
           "contrast": 8.310050481211189,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         }
       ],
       "issues": [],
@@ -3298,14 +3298,14 @@
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953407-jkgdb41ey\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -3314,41 +3314,41 @@
             255
           ],
           "contrast": 17.73971700407407,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953407-jkgdb41ey\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(153, 27, 27)",
-          "background": "rgba(0, 0, 0, 0.008)",
+          "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
-            253,
-            253,
-            253
+            255,
+            255,
+            255
           ],
-          "contrast": 8.169575411929747,
-          "textual": true,
+          "contrast": 8.310050481211189,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         },
         {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953424-02xfdvrdz\"]",
@@ -3394,14 +3394,14 @@
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953424-02xfdvrdz\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -3410,22 +3410,22 @@
             255
           ],
           "contrast": 17.73971700407407,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953424-02xfdvrdz\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(153, 27, 27)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -3434,17 +3434,17 @@
             255
           ],
           "contrast": 8.310050481211189,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         },
         {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953435-q23mus20a\"]",
@@ -3490,14 +3490,14 @@
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953435-q23mus20a\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -3506,22 +3506,22 @@
             255
           ],
           "contrast": 17.73971700407407,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953435-q23mus20a\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(153, 27, 27)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -3530,17 +3530,17 @@
             255
           ],
           "contrast": 8.310050481211189,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         }
       ],
       "issues": [],
@@ -3692,14 +3692,14 @@
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953407-jkgdb41ey\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -3708,22 +3708,22 @@
             39
           ],
           "contrast": 16.97538624440406,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953407-jkgdb41ey\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(254, 202, 202)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -3732,17 +3732,17 @@
             39
           ],
           "contrast": 12.261719107308613,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         },
         {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953424-02xfdvrdz\"]",
@@ -3788,14 +3788,14 @@
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953424-02xfdvrdz\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -3804,22 +3804,22 @@
             39
           ],
           "contrast": 16.97538624440406,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953424-02xfdvrdz\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(254, 202, 202)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -3828,17 +3828,17 @@
             39
           ],
           "contrast": 12.261719107308613,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         },
         {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953435-q23mus20a\"]",
@@ -3884,14 +3884,14 @@
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953435-q23mus20a\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -3900,22 +3900,22 @@
             39
           ],
           "contrast": 16.97538624440406,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953435-q23mus20a\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(254, 202, 202)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -3924,17 +3924,17 @@
             39
           ],
           "contrast": 12.261719107308613,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         }
       ],
       "issues": [],
@@ -4087,14 +4087,14 @@
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953407-jkgdb41ey\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -4103,22 +4103,22 @@
             39
           ],
           "contrast": 16.97538624440406,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953407-jkgdb41ey\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(254, 202, 202)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -4127,17 +4127,17 @@
             39
           ],
           "contrast": 12.261719107308613,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         },
         {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953424-02xfdvrdz\"]",
@@ -4183,14 +4183,14 @@
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953424-02xfdvrdz\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -4199,22 +4199,22 @@
             39
           ],
           "contrast": 16.97538624440406,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953424-02xfdvrdz\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(254, 202, 202)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -4223,17 +4223,17 @@
             39
           ],
           "contrast": 12.261719107308613,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         },
         {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953435-q23mus20a\"]",
@@ -4279,14 +4279,14 @@
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953435-q23mus20a\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -4295,22 +4295,22 @@
             39
           ],
           "contrast": 16.97538624440406,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953435-q23mus20a\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(254, 202, 202)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -4319,17 +4319,17 @@
             39
           ],
           "contrast": 12.261719107308613,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         }
       ],
       "issues": [],
@@ -4481,14 +4481,14 @@
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953407-jkgdb41ey\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -4497,22 +4497,22 @@
             39
           ],
           "contrast": 16.97538624440406,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953407-jkgdb41ey\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(254, 202, 202)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -4521,17 +4521,17 @@
             39
           ],
           "contrast": 12.261719107308613,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         },
         {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953424-02xfdvrdz\"]",
@@ -4577,14 +4577,14 @@
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953424-02xfdvrdz\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -4593,22 +4593,22 @@
             39
           ],
           "contrast": 16.97538624440406,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953424-02xfdvrdz\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(254, 202, 202)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -4617,17 +4617,17 @@
             39
           ],
           "contrast": 12.261719107308613,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         },
         {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953435-q23mus20a\"]",
@@ -4673,14 +4673,14 @@
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953435-q23mus20a\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -4689,22 +4689,22 @@
             39
           ],
           "contrast": 16.97538624440406,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953435-q23mus20a\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(254, 202, 202)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -4713,17 +4713,17 @@
             39
           ],
           "contrast": 12.261719107308613,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         }
       ],
       "issues": [],
@@ -4875,14 +4875,14 @@
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953407-jkgdb41ey\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -4891,22 +4891,22 @@
             39
           ],
           "contrast": 16.97538624440406,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953407-jkgdb41ey\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(254, 202, 202)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -4915,17 +4915,17 @@
             39
           ],
           "contrast": 12.261719107308613,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         },
         {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953424-02xfdvrdz\"]",
@@ -4971,14 +4971,14 @@
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953424-02xfdvrdz\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -4987,22 +4987,22 @@
             39
           ],
           "contrast": 16.97538624440406,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953424-02xfdvrdz\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(254, 202, 202)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -5011,17 +5011,17 @@
             39
           ],
           "contrast": 12.261719107308613,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         },
         {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953435-q23mus20a\"]",
@@ -5067,14 +5067,14 @@
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953435-q23mus20a\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -5083,22 +5083,22 @@
             39
           ],
           "contrast": 16.97538624440406,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953435-q23mus20a\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(254, 202, 202)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -5107,17 +5107,17 @@
             39
           ],
           "contrast": 12.261719107308613,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         }
       ],
       "issues": [],
@@ -5269,14 +5269,14 @@
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953407-jkgdb41ey\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -5285,22 +5285,22 @@
             39
           ],
           "contrast": 16.97538624440406,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953407-jkgdb41ey\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(254, 202, 202)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -5309,17 +5309,17 @@
             39
           ],
           "contrast": 12.261719107308613,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         },
         {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953424-02xfdvrdz\"]",
@@ -5365,14 +5365,14 @@
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953424-02xfdvrdz\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -5381,22 +5381,22 @@
             39
           ],
           "contrast": 16.97538624440406,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953424-02xfdvrdz\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(254, 202, 202)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -5405,17 +5405,17 @@
             39
           ],
           "contrast": 12.261719107308613,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         },
         {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953435-q23mus20a\"]",
@@ -5461,14 +5461,14 @@
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953435-q23mus20a\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -5477,22 +5477,22 @@
             39
           ],
           "contrast": 16.97538624440406,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953435-q23mus20a\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(254, 202, 202)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -5501,17 +5501,17 @@
             39
           ],
           "contrast": 12.261719107308613,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         }
       ],
       "issues": [],
@@ -5663,14 +5663,14 @@
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953407-jkgdb41ey\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -5679,22 +5679,22 @@
             39
           ],
           "contrast": 16.97538624440406,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953407-jkgdb41ey\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(254, 202, 202)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -5703,17 +5703,17 @@
             39
           ],
           "contrast": 12.261719107308613,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         },
         {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953424-02xfdvrdz\"]",
@@ -5759,14 +5759,14 @@
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953424-02xfdvrdz\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -5775,22 +5775,22 @@
             39
           ],
           "contrast": 16.97538624440406,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953424-02xfdvrdz\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(254, 202, 202)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -5799,17 +5799,17 @@
             39
           ],
           "contrast": 12.261719107308613,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         },
         {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953435-q23mus20a\"]",
@@ -5855,14 +5855,14 @@
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953435-q23mus20a\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -5871,22 +5871,22 @@
             39
           ],
           "contrast": 16.97538624440406,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953435-q23mus20a\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(254, 202, 202)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -5895,17 +5895,17 @@
             39
           ],
           "contrast": 12.261719107308613,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         }
       ],
       "issues": [],
@@ -6057,14 +6057,14 @@
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953407-jkgdb41ey\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgba(255, 255, 255, 0.05)",
           "effectiveBackground": [
@@ -6073,22 +6073,22 @@
             50.01176470588235
           ],
           "contrast": 14.903408662771534,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953407-jkgdb41ey\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(254, 202, 202)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -6097,17 +6097,17 @@
             39
           ],
           "contrast": 12.261719107308613,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         },
         {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953424-02xfdvrdz\"]",
@@ -6153,14 +6153,14 @@
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953424-02xfdvrdz\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -6169,22 +6169,22 @@
             39
           ],
           "contrast": 16.97538624440406,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953424-02xfdvrdz\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(254, 202, 202)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -6193,17 +6193,17 @@
             39
           ],
           "contrast": 12.261719107308613,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         },
         {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953435-q23mus20a\"]",
@@ -6249,14 +6249,14 @@
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953435-q23mus20a\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -6265,22 +6265,22 @@
             39
           ],
           "contrast": 16.97538624440406,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953435-q23mus20a\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(254, 202, 202)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -6289,17 +6289,17 @@
             39
           ],
           "contrast": 12.261719107308613,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         }
       ],
       "issues": [],
@@ -6451,14 +6451,14 @@
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953407-jkgdb41ey\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -6467,22 +6467,22 @@
             39
           ],
           "contrast": 16.97538624440406,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953407-jkgdb41ey\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(254, 202, 202)",
           "background": "rgba(255, 255, 255, 0.05)",
           "effectiveBackground": [
@@ -6491,17 +6491,17 @@
             50.01176470588235
           ],
           "contrast": 10.765081167126619,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         },
         {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953424-02xfdvrdz\"]",
@@ -6547,14 +6547,14 @@
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953424-02xfdvrdz\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -6563,22 +6563,22 @@
             39
           ],
           "contrast": 16.97538624440406,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953424-02xfdvrdz\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(254, 202, 202)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -6587,17 +6587,17 @@
             39
           ],
           "contrast": 12.261719107308613,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         },
         {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953435-q23mus20a\"]",
@@ -6643,14 +6643,14 @@
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953435-q23mus20a\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -6659,22 +6659,22 @@
             39
           ],
           "contrast": 16.97538624440406,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953435-q23mus20a\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(254, 202, 202)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -6683,17 +6683,17 @@
             39
           ],
           "contrast": 12.261719107308613,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         }
       ],
       "issues": [],
@@ -6845,14 +6845,14 @@
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953407-jkgdb41ey\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -6861,41 +6861,41 @@
             39
           ],
           "contrast": 16.97538624440406,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953407-jkgdb41ey\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(254, 202, 202)",
-          "background": "rgba(255, 255, 255, 0.024)",
+          "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
-            22.599999999999998,
-            29.435294117647057,
-            44.08235294117647
+            17,
+            24,
+            39
           ],
-          "contrast": 11.59334320578405,
-          "textual": true,
+          "contrast": 12.261719107308613,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 203.75,
           "clipTop": 100,
           "offsetTop": 103.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         },
         {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953424-02xfdvrdz\"]",
@@ -6941,14 +6941,14 @@
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953424-02xfdvrdz\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -6957,22 +6957,22 @@
             39
           ],
           "contrast": 16.97538624440406,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953424-02xfdvrdz\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(254, 202, 202)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -6981,17 +6981,17 @@
             39
           ],
           "contrast": 12.261719107308613,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 260.75,
           "clipTop": 100,
           "offsetTop": 160.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         },
         {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953435-q23mus20a\"]",
@@ -7037,14 +7037,14 @@
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1236.578125,
+          "left": 1290.6875,
           "clipLeft": 250,
-          "offsetLeft": 986.578125
+          "offsetLeft": 1040.6875
         },
         {
           "selector": "[data-testid=\"intake-reject-intake-1794294953435-q23mus20a\"]",
-          "family": "btn btn-outline btn-sm|",
-          "text": "拒绝",
+          "family": "btn btn-outline btn-sm intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -7053,22 +7053,22 @@
             39
           ],
           "contrast": 16.97538624440406,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1316.59375,
+          "left": 1370.703125,
           "clipLeft": 250,
-          "offsetLeft": 1066.59375
+          "offsetLeft": 1120.703125
         },
         {
           "selector": "[data-testid=\"intake-delete-intake-1794294953435-q23mus20a\"]",
-          "family": "btn btn-outline btn-sm intake-delete-btn|",
-          "text": "删除",
+          "family": "btn btn-outline btn-sm intake-delete-btn intake-icon-btn|",
+          "text": "",
           "foreground": "rgb(254, 202, 202)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -7077,17 +7077,17 @@
             39
           ],
           "contrast": 12.261719107308613,
-          "textual": true,
+          "textual": false,
           "disabled": false,
-          "width": 50.015625,
+          "width": 30,
           "height": 40,
           "font": 12,
           "top": 317.75,
           "clipTop": 100,
           "offsetTop": 217.75,
-          "left": 1372.609375,
+          "left": 1406.703125,
           "clipLeft": 250,
-          "offsetLeft": 1122.609375
+          "offsetLeft": 1156.703125
         }
       ],
       "issues": [],

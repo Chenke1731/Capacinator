@@ -24,7 +24,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
@@ -45,7 +48,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 382,
+          "clipLeft": 250,
+          "offsetLeft": 132
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
@@ -66,7 +72,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 482,
+          "clipLeft": 250,
+          "offsetLeft": 232
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
@@ -87,7 +96,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 610,
+          "clipLeft": 250,
+          "offsetLeft": 360
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
@@ -108,7 +120,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 730.515625,
+          "clipLeft": 250,
+          "offsetLeft": 480.515625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -125,11 +140,14 @@
           "textual": true,
           "disabled": false,
           "width": 62,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 275,
+          "clipLeft": 250,
+          "offsetLeft": 25
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -146,11 +164,14 @@
           "textual": true,
           "disabled": false,
           "width": 84.5625,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 349,
+          "clipLeft": 250,
+          "offsetLeft": 99
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -167,11 +188,14 @@
           "textual": true,
           "disabled": false,
           "width": 83.921875,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 966,
+          "clipLeft": 250,
+          "offsetLeft": 716
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -188,15 +212,45 @@
           "textual": true,
           "disabled": false,
           "width": 83.921875,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 1061.921875,
+          "clipLeft": 250,
+          "offsetLeft": 811.921875
         }
       ],
       "issues": [],
       "scope": ".unified-tab-container",
+      "staticGaps": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "static-top-gap",
+          "value": "offset 2.0"
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
+          "kind": "static-top-gap",
+          "value": "offset 2.0"
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
+          "kind": "static-top-gap",
+          "value": "offset 2.0"
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
+          "kind": "static-top-gap",
+          "value": "offset 2.0"
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
+          "kind": "static-top-gap",
+          "value": "offset 2.0"
+        }
+      ],
       "axe": [],
       "newIssues": []
     },
@@ -223,7 +277,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
@@ -244,7 +301,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 382,
+          "clipLeft": 250,
+          "offsetLeft": 132
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
@@ -265,7 +325,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 482,
+          "clipLeft": 250,
+          "offsetLeft": 232
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
@@ -286,7 +349,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 610,
+          "clipLeft": 250,
+          "offsetLeft": 360
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
@@ -307,7 +373,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 730.515625,
+          "clipLeft": 250,
+          "offsetLeft": 480.515625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -324,11 +393,14 @@
           "textual": true,
           "disabled": false,
           "width": 62,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 275,
+          "clipLeft": 250,
+          "offsetLeft": 25
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -345,11 +417,14 @@
           "textual": true,
           "disabled": false,
           "width": 84.5625,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 349,
+          "clipLeft": 250,
+          "offsetLeft": 99
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -366,11 +441,14 @@
           "textual": true,
           "disabled": false,
           "width": 83.921875,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 966,
+          "clipLeft": 250,
+          "offsetLeft": 716
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -387,11 +465,14 @@
           "textual": true,
           "disabled": false,
           "width": 83.921875,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 1061.921875,
+          "clipLeft": 250,
+          "offsetLeft": 811.921875
         }
       ],
       "issues": [],
@@ -422,7 +503,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
@@ -443,7 +527,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 382,
+          "clipLeft": 250,
+          "offsetLeft": 132
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
@@ -464,7 +551,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 482,
+          "clipLeft": 250,
+          "offsetLeft": 232
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
@@ -485,7 +575,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 610,
+          "clipLeft": 250,
+          "offsetLeft": 360
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
@@ -506,7 +599,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 730.515625,
+          "clipLeft": 250,
+          "offsetLeft": 480.515625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -523,11 +619,14 @@
           "textual": true,
           "disabled": false,
           "width": 62,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 275,
+          "clipLeft": 250,
+          "offsetLeft": 25
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -544,11 +643,14 @@
           "textual": true,
           "disabled": false,
           "width": 84.5625,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 349,
+          "clipLeft": 250,
+          "offsetLeft": 99
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -565,11 +667,14 @@
           "textual": true,
           "disabled": false,
           "width": 83.921875,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 966,
+          "clipLeft": 250,
+          "offsetLeft": 716
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -586,11 +691,14 @@
           "textual": true,
           "disabled": false,
           "width": 83.921875,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 1061.921875,
+          "clipLeft": 250,
+          "offsetLeft": 811.921875
         }
       ],
       "issues": [],
@@ -621,7 +729,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
@@ -642,7 +753,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 382,
+          "clipLeft": 250,
+          "offsetLeft": 132
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
@@ -663,7 +777,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 482,
+          "clipLeft": 250,
+          "offsetLeft": 232
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
@@ -684,7 +801,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 610,
+          "clipLeft": 250,
+          "offsetLeft": 360
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
@@ -705,7 +825,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 730.515625,
+          "clipLeft": 250,
+          "offsetLeft": 480.515625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -722,11 +845,14 @@
           "textual": true,
           "disabled": false,
           "width": 62,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 275,
+          "clipLeft": 250,
+          "offsetLeft": 25
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -743,11 +869,14 @@
           "textual": true,
           "disabled": false,
           "width": 84.5625,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 349,
+          "clipLeft": 250,
+          "offsetLeft": 99
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -764,11 +893,14 @@
           "textual": true,
           "disabled": false,
           "width": 83.921875,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 966,
+          "clipLeft": 250,
+          "offsetLeft": 716
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -785,11 +917,14 @@
           "textual": true,
           "disabled": false,
           "width": 83.921875,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 1061.921875,
+          "clipLeft": 250,
+          "offsetLeft": 811.921875
         }
       ],
       "issues": [],
@@ -820,7 +955,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
@@ -841,7 +979,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 382,
+          "clipLeft": 250,
+          "offsetLeft": 132
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
@@ -862,7 +1003,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 482,
+          "clipLeft": 250,
+          "offsetLeft": 232
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
@@ -883,7 +1027,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 610,
+          "clipLeft": 250,
+          "offsetLeft": 360
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
@@ -904,7 +1051,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 730.515625,
+          "clipLeft": 250,
+          "offsetLeft": 480.515625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -921,11 +1071,14 @@
           "textual": true,
           "disabled": false,
           "width": 62,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 275,
+          "clipLeft": 250,
+          "offsetLeft": 25
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -942,11 +1095,14 @@
           "textual": true,
           "disabled": false,
           "width": 84.5625,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 349,
+          "clipLeft": 250,
+          "offsetLeft": 99
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -963,11 +1119,14 @@
           "textual": true,
           "disabled": false,
           "width": 83.921875,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 966,
+          "clipLeft": 250,
+          "offsetLeft": 716
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -984,11 +1143,14 @@
           "textual": true,
           "disabled": false,
           "width": 83.921875,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 1061.921875,
+          "clipLeft": 250,
+          "offsetLeft": 811.921875
         }
       ],
       "issues": [],
@@ -1019,7 +1181,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1040,7 +1205,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 382,
+          "clipLeft": 250,
+          "offsetLeft": 132
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
@@ -1061,7 +1229,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 482,
+          "clipLeft": 250,
+          "offsetLeft": 232
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
@@ -1082,7 +1253,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 610,
+          "clipLeft": 250,
+          "offsetLeft": 360
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
@@ -1103,7 +1277,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 730.515625,
+          "clipLeft": 250,
+          "offsetLeft": 480.515625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1120,32 +1297,38 @@
           "textual": true,
           "disabled": false,
           "width": 62,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 275,
+          "clipLeft": 250,
+          "offsetLeft": 25
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
           "family": "btn btn-outline theme-option |",
           "text": "English",
           "foreground": "rgb(17, 24, 39)",
-          "background": "rgba(0, 0, 0, 0.008)",
+          "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
-            253,
-            253,
-            253
+            255,
+            255,
+            255
           ],
-          "contrast": 17.439840609723063,
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 84.5625,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 349,
+          "clipLeft": 250,
+          "offsetLeft": 99
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1162,11 +1345,14 @@
           "textual": true,
           "disabled": false,
           "width": 83.921875,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 966,
+          "clipLeft": 250,
+          "offsetLeft": 716
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1183,11 +1369,14 @@
           "textual": true,
           "disabled": false,
           "width": 83.921875,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 1061.921875,
+          "clipLeft": 250,
+          "offsetLeft": 811.921875
         }
       ],
       "issues": [],
@@ -1218,7 +1407,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1239,7 +1431,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 382,
+          "clipLeft": 250,
+          "offsetLeft": 132
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
@@ -1260,7 +1455,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 482,
+          "clipLeft": 250,
+          "offsetLeft": 232
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
@@ -1281,7 +1479,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 610,
+          "clipLeft": 250,
+          "offsetLeft": 360
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
@@ -1302,7 +1503,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 730.515625,
+          "clipLeft": 250,
+          "offsetLeft": 480.515625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1319,11 +1523,14 @@
           "textual": true,
           "disabled": false,
           "width": 62,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 275,
+          "clipLeft": 250,
+          "offsetLeft": 25
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1340,11 +1547,14 @@
           "textual": true,
           "disabled": false,
           "width": 84.5625,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 349,
+          "clipLeft": 250,
+          "offsetLeft": 99
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1361,11 +1571,14 @@
           "textual": true,
           "disabled": false,
           "width": 83.921875,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 966,
+          "clipLeft": 250,
+          "offsetLeft": 716
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1382,15 +1595,45 @@
           "textual": true,
           "disabled": false,
           "width": 83.921875,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 1061.921875,
+          "clipLeft": 250,
+          "offsetLeft": 811.921875
         }
       ],
       "issues": [],
       "scope": ".unified-tab-container",
+      "staticGaps": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "static-top-gap",
+          "value": "offset 2.0"
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
+          "kind": "static-top-gap",
+          "value": "offset 2.0"
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
+          "kind": "static-top-gap",
+          "value": "offset 2.0"
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
+          "kind": "static-top-gap",
+          "value": "offset 2.0"
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
+          "kind": "static-top-gap",
+          "value": "offset 2.0"
+        }
+      ],
       "axe": [],
       "newIssues": []
     },
@@ -1417,7 +1660,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1438,7 +1684,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 382,
+          "clipLeft": 250,
+          "offsetLeft": 132
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
@@ -1459,7 +1708,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 482,
+          "clipLeft": 250,
+          "offsetLeft": 232
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
@@ -1480,7 +1732,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 610,
+          "clipLeft": 250,
+          "offsetLeft": 360
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
@@ -1501,7 +1756,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 730.515625,
+          "clipLeft": 250,
+          "offsetLeft": 480.515625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1518,11 +1776,14 @@
           "textual": true,
           "disabled": false,
           "width": 62,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 275,
+          "clipLeft": 250,
+          "offsetLeft": 25
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1539,11 +1800,14 @@
           "textual": true,
           "disabled": false,
           "width": 84.5625,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 349,
+          "clipLeft": 250,
+          "offsetLeft": 99
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1560,11 +1824,14 @@
           "textual": true,
           "disabled": false,
           "width": 83.921875,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 966,
+          "clipLeft": 250,
+          "offsetLeft": 716
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1581,11 +1848,14 @@
           "textual": true,
           "disabled": false,
           "width": 83.921875,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 1061.921875,
+          "clipLeft": 250,
+          "offsetLeft": 811.921875
         }
       ],
       "issues": [],
@@ -1616,7 +1886,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1637,7 +1910,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 382,
+          "clipLeft": 250,
+          "offsetLeft": 132
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
@@ -1658,7 +1934,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 482,
+          "clipLeft": 250,
+          "offsetLeft": 232
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
@@ -1679,7 +1958,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 610,
+          "clipLeft": 250,
+          "offsetLeft": 360
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
@@ -1700,7 +1982,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 730.515625,
+          "clipLeft": 250,
+          "offsetLeft": 480.515625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1717,11 +2002,14 @@
           "textual": true,
           "disabled": false,
           "width": 62,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 275,
+          "clipLeft": 250,
+          "offsetLeft": 25
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1738,11 +2026,14 @@
           "textual": true,
           "disabled": false,
           "width": 84.5625,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 349,
+          "clipLeft": 250,
+          "offsetLeft": 99
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1759,11 +2050,14 @@
           "textual": true,
           "disabled": false,
           "width": 83.921875,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 966,
+          "clipLeft": 250,
+          "offsetLeft": 716
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1780,11 +2074,14 @@
           "textual": true,
           "disabled": false,
           "width": 83.921875,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 1061.921875,
+          "clipLeft": 250,
+          "offsetLeft": 811.921875
         }
       ],
       "issues": [],
@@ -1815,7 +2112,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1836,7 +2136,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 382,
+          "clipLeft": 250,
+          "offsetLeft": 132
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
@@ -1857,7 +2160,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 482,
+          "clipLeft": 250,
+          "offsetLeft": 232
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
@@ -1878,7 +2184,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 610,
+          "clipLeft": 250,
+          "offsetLeft": 360
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
@@ -1899,7 +2208,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 730.515625,
+          "clipLeft": 250,
+          "offsetLeft": 480.515625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1916,11 +2228,14 @@
           "textual": true,
           "disabled": false,
           "width": 62,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 275,
+          "clipLeft": 250,
+          "offsetLeft": 25
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1937,11 +2252,14 @@
           "textual": true,
           "disabled": false,
           "width": 84.5625,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 349,
+          "clipLeft": 250,
+          "offsetLeft": 99
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1958,11 +2276,14 @@
           "textual": true,
           "disabled": false,
           "width": 83.921875,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 966,
+          "clipLeft": 250,
+          "offsetLeft": 716
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1979,11 +2300,14 @@
           "textual": true,
           "disabled": false,
           "width": 83.921875,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 1061.921875,
+          "clipLeft": 250,
+          "offsetLeft": 811.921875
         }
       ],
       "issues": [],
@@ -2014,7 +2338,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
@@ -2035,7 +2362,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 382,
+          "clipLeft": 250,
+          "offsetLeft": 132
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
@@ -2056,7 +2386,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 482,
+          "clipLeft": 250,
+          "offsetLeft": 232
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
@@ -2077,7 +2410,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 610,
+          "clipLeft": 250,
+          "offsetLeft": 360
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
@@ -2098,7 +2434,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 730.515625,
+          "clipLeft": 250,
+          "offsetLeft": 480.515625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2115,11 +2454,14 @@
           "textual": true,
           "disabled": false,
           "width": 62,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 275,
+          "clipLeft": 250,
+          "offsetLeft": 25
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -2136,11 +2478,14 @@
           "textual": true,
           "disabled": false,
           "width": 84.5625,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 349,
+          "clipLeft": 250,
+          "offsetLeft": 99
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2157,11 +2502,14 @@
           "textual": true,
           "disabled": false,
           "width": 83.921875,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 966,
+          "clipLeft": 250,
+          "offsetLeft": 716
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -2178,11 +2526,14 @@
           "textual": true,
           "disabled": false,
           "width": 83.921875,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 1061.921875,
+          "clipLeft": 250,
+          "offsetLeft": 811.921875
         }
       ],
       "issues": [],
@@ -2213,7 +2564,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
@@ -2234,7 +2588,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 382,
+          "clipLeft": 250,
+          "offsetLeft": 132
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
@@ -2255,7 +2612,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 482,
+          "clipLeft": 250,
+          "offsetLeft": 232
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
@@ -2276,7 +2636,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 610,
+          "clipLeft": 250,
+          "offsetLeft": 360
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
@@ -2297,7 +2660,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 730.515625,
+          "clipLeft": 250,
+          "offsetLeft": 480.515625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2314,32 +2680,38 @@
           "textual": true,
           "disabled": false,
           "width": 62,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 275,
+          "clipLeft": 250,
+          "offsetLeft": 25
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
           "family": "btn btn-outline theme-option |",
           "text": "English",
           "foreground": "rgb(249, 250, 251)",
-          "background": "rgba(255, 255, 255, 0.024)",
+          "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
-            22.599999999999998,
-            29.435294117647057,
-            44.08235294117647
+            17,
+            24,
+            39
           ],
-          "contrast": 16.050072347915563,
+          "contrast": 16.97538624440406,
           "textual": true,
           "disabled": false,
           "width": 84.5625,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 349,
+          "clipLeft": 250,
+          "offsetLeft": 99
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2356,11 +2728,14 @@
           "textual": true,
           "disabled": false,
           "width": 83.921875,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 966,
+          "clipLeft": 250,
+          "offsetLeft": 716
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -2377,11 +2752,14 @@
           "textual": true,
           "disabled": false,
           "width": 83.921875,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 305.1875,
           "clipTop": 100,
-          "offsetTop": 205.1875
+          "offsetTop": 205.1875,
+          "left": 1061.921875,
+          "clipLeft": 250,
+          "offsetLeft": 811.921875
         }
       ],
       "issues": [],

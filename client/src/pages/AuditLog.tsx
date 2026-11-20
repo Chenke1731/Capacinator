@@ -227,7 +227,10 @@ export function AuditLog() {
         { value: 'people', label: t('enums:resources.person') },
         { value: 'projects', label: t('enums:resources.project') },
         { value: 'roles', label: t('enums:resources.role') },
-        { value: 'assignments', label: t('enums:resources.assignment') },
+        // G2 scenario-slice migration: assignment writes land in
+        // scenario_project_assignments; the legacy 'assignments' option
+        // filtered nothing for every write since the cutover.
+        { value: 'scenario_project_assignments', label: t('enums:resources.assignment') },
         { value: 'availability', label: t('enums:resources.resource') }
       ]
     },

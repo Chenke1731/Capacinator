@@ -1,16 +1,18 @@
 /**
  * Scenario-Aware Reports (modernized 2026-09-24, D13)
  * Reports are the scenario world: summary cards are .summary-card with an
- * h3 title and a .metric value (unit folded into the value text). Scenario
- * setup goes through the API (POST /api/scenarios + scenario assignment
- * upsert); switching uses the header dropdown (.scenario-button), which
- * only renders once a non-baseline scenario exists.
+ * h4 title (ReportSummaryCard migrated h3 to h4; redline suite was aligned
+ * then, this one was missed) and a .metric value (unit folded into the value
+ * text). Table section titles keep h3 (ReportTable). Scenario setup goes
+ * through the API (POST /api/scenarios + scenario assignment upsert);
+ * switching uses the header dropdown (.scenario-button), which only renders
+ * once a non-baseline scenario exists.
  */
 import { test, expect, type Page, type APIRequestContext } from '../../fixtures';
 
-const TOTAL_DEMAND = '.summary-card:has(h3:text-is("Total Demand")) .metric';
+const TOTAL_DEMAND = '.summary-card:has(h4:text-is("Total Demand")) .metric';
 const HIGH_DEMAND_ROLES = '.report-table-container:has(h3:text-is("High-Demand Roles"))';
-const OVERUTILIZED = '.summary-card:has(h3:text-is("# People Overutilized")) .metric';
+const OVERUTILIZED = '.summary-card:has(h4:text-is("# People Overutilized")) .metric';
 
 async function createBranch(
   apiContext: APIRequestContext,

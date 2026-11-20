@@ -52,6 +52,25 @@ Stop condition:
 3. `verify:pr` 是批末/提交点动作，不是每个小修后的默认动作。
 4. 共享面（全局 CSS、共享组件、API 契约、缓存键、审计/verify 工具）单独成批，不混入局部 UI 修复。
 
+## 迭代快检（替代逐项手拼命令）
+
+```bash
+# 改动文件 → lint/typecheck/Jest/U1/U3/states；CSS 改动追加 U2 strict
+node scripts/verify-affected.mjs --changed
+
+# 只看计划，不执行
+node scripts/verify-affected.mjs --changed --dry-run
+
+# 显式文件；states 自动按映射跑，可选 visual/e2e
+node scripts/verify-affected.mjs --files client/src/pages/People.tsx
+node scripts/verify-affected.mjs --files client/src/pages/People.tsx --visual
+node scripts/verify-affected.mjs --changed --all-states
+```
+
+`verify-affected` 是迭代期入口（页面改动约 60–90 秒，CSS 改动约 2 分钟），不是批末门禁；`verify:pr`、
+全量 visual、全量 states 仍在批末/里程碑跑一次。多 profile states 用
+`node scripts/verify-states-many.mjs --profiles a,b,c --parallel 3`。
+
 ## 升级与停止
 
 | 改动面 | 最低充分 oracle | 允许升级的条件 |

@@ -31,19 +31,19 @@ const value = (name) => {
   return index >= 0 ? argv[index + 1] : undefined;
 };
 const valid = new Set([
-  '--id', '--changed', '--all', '--route', '--profile', '--lang', '--viewports',
+  '--id', '--changed', '--files', '--all', '--route', '--profile', '--lang', '--viewports',
   '--theme', '--strict', '--json', '--selftest', '--settle', '--help',
   '--write-baseline', '--static-only', '--verbose', '--stress',
 ]);
 for (let i = 0; i < argv.length; i += 1) {
   if (!valid.has(argv[i])) throw new Error(`Unknown argument ${argv[i]}`);
-  if (['--id', '--route', '--profile', '--lang', '--viewports', '--theme', '--json', '--settle'].includes(argv[i])) {
+  if (['--id', '--files', '--route', '--profile', '--lang', '--viewports', '--theme', '--json', '--settle'].includes(argv[i])) {
     if (!argv[i + 1] || argv[i + 1].startsWith('--')) throw new Error(`Missing value for ${argv[i]}`);
     i += 1;
   }
 }
 if (has('--help')) {
-  console.log(`verify-invariants: --id U1,U3,D2 [--changed|--all|--route PATH|--profile NAME] [--lang zh-CN,en-US] [--viewports 1366x768,1600x900] [--theme light] [--strict] [--verbose] [--stress] [--static-only] [--json FILE] [--write-baseline] [--selftest]`);
+  console.log(`verify-invariants: --id U1,U3,D2 [--changed|--files a,b|--all|--route PATH|--profile NAME] [--lang zh-CN,en-US] [--viewports 1366x768,1600x900] [--theme light] [--strict] [--verbose] [--stress] [--static-only] [--json FILE] [--write-baseline] [--selftest]`);
   process.exit(0);
 }
 
@@ -129,7 +129,13 @@ async function runStatic(idsToRun) {
 }
 
 async function runRuntime(idsToRun) {
-  const routes = resolveRoutes({ changed: has('--changed'), all: has('--all'), route: value('--route'), profile: value('--profile') });
+  const routes = resolveRoutes({
+    changed: has('--changed'),
+    files: (value('--files') ?? '').split(',').map((file) => file.trim()).filter(Boolean),
+    all: has('--all'),
+    route: value('--route'),
+    profile: value('--profile'),
+  });
   if (!routes.length) throw new Error('No routes resolved');
   const auth = await authenticate();
   const browser = await chromium.launch({ executablePath: auditEnvironment.chrome });

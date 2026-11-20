@@ -175,10 +175,8 @@ function main() {
     for (const profile of profileNames) {
       if (!run(`verify-states --quick (${profile})`, 'node', ['scripts/verify-states.mjs', '--profile', profile, '--quick'])) return 1;
     }
-  } else {
-    for (const profile of profileNames) {
-      if (!run(`verify-states (${profile})`, 'node', ['scripts/verify-states.mjs', '--profile', profile])) return 1;
-    }
+  } else if (profileNames.length) {
+    if (!run('verify-states (parallel)', 'node', ['scripts/verify-states-many.mjs', '--profiles', profileNames.join(','), '--parallel', '3'])) return 1;
   }
 
   // T1 UI invariants: changed routes only; full matrix stays at T2/nightly.

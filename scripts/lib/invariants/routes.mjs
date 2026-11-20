@@ -100,16 +100,20 @@ function routesForChangedFiles(files) {
   return global ? curatedRoutes : uniqueByPath(routes);
 }
 
-export function resolveRoutes({ changed = false, all = false, route, profile } = {}) {
+export function resolveRoutes({ changed = false, files = [], all = false, route, profile } = {}) {
   if (route) return uniqueByPath([{ id: route, path: route }]);
   if (profile) {
     const routes = routesForProfiles([profile]);
     if (!routes.length) throw new Error(`Profile has no static route: ${profile}`);
     return uniqueByPath(routes);
   }
-  if (changed) {
-    const files = changedFiles();
+  if (files.length) {
     const routes = routesForChangedFiles(files);
+    return routes.length ? uniqueByPath(routes) : curatedRoutes;
+  }
+  if (changed) {
+    const changedList = changedFiles();
+    const routes = routesForChangedFiles(changedList);
     return routes.length ? uniqueByPath(routes) : curatedRoutes;
   }
   if (all) return curatedRoutes;

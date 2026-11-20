@@ -50,9 +50,14 @@ Applies to: client UI 布局、动作语义、API 信封、路由 CSS 生命周�
 ## 命令
 
 ```bash
+# 迭代期统一入口：按改动映射 lint/typecheck/Jest/U1/U3/states；CSS 改动追加 U2 strict
+node scripts/verify-affected.mjs --changed
+node scripts/verify-affected.mjs --changed --dry-run
+
 # 变异自证（不需要 dev server）
 node scripts/verify-invariants.mjs --selftest
 node scripts/verify-css-isolation.mjs --selftest
+node scripts/verify-states-many.mjs --selftest
 
 # 静态普查（快，无浏览器）
 node scripts/verify-invariants.mjs --id D2,U3 --static-only --json tmp/invariant-audit/static.json

@@ -203,6 +203,14 @@ export function classifyChangedFile(file) {
   if (
     p.startsWith('scripts/') ||
     p.startsWith('docs/') ||
+    p.startsWith('.zcode/') ||
+    p.startsWith('tests/visual/') ||
+    p.startsWith('tmp/') ||
+    p.startsWith('test-results/') ||
+    p.startsWith('dist/') ||
+    p.startsWith('dist-client/') ||
+    p.startsWith('dist-electron/') ||
+    p.startsWith('.e2e-data/') ||
     p.startsWith('.githooks/') ||
     p.startsWith('.github/') ||
     p.startsWith('security/') ||
@@ -256,6 +264,10 @@ export function selfTest() {
   if (!workloadComponent.profiles.includes('person-workload')) throw new Error('self-test failed: workload component');
   const globalCss = classifyChangedFile('client/src/index.css');
   if (!globalCss.wide) throw new Error('self-test failed: global CSS must escalate');
+  const userConfig = classifyChangedFile('.zcode/config.json');
+  if (userConfig.clientTests.length || userConfig.profiles.length || userConfig.wide) {
+    throw new Error('self-test failed: .zcode is user/tooling metadata and must not map to UI gates');
+  }
   let threw = false;
   try { classifyChangedFile('unknown-root/thing.ts'); } catch { threw = true; }
   if (!threw) throw new Error('self-test failed: unknown path must throw');

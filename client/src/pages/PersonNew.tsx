@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { ArrowLeft, Save, X } from 'lucide-react';
 import { api } from '../lib/api-client';
+import { asList } from '../lib/apiPayload';
 import { queryKeys } from '../lib/queryKeys';
 import { validateName } from '../lib/validation';
 import type { Person } from '../types';
@@ -57,7 +58,7 @@ export function PersonNew() {
     queryFn: async () => {
       const response = await api.roles.list();
       const payload = response.data;
-      return Array.isArray(payload) ? payload : payload?.data || [];
+      return asList(payload);
     }
   });
 

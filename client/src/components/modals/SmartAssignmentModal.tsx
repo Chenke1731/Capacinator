@@ -6,6 +6,7 @@ import {
   TrendingUp, Sparkles, Clock, BarChart3, Link2, RefreshCw, ExternalLink, Trash2
 } from 'lucide-react';
 import { api } from '../../lib/api-client';
+import { asList } from '@/lib/apiPayload';
 import { queryKeys } from '../../lib/queryKeys';
 import { invalidateSchedulingReads } from '../../lib/invalidateSchedulingReads';
 import { getLocale } from '../../i18n';
@@ -219,7 +220,7 @@ export function SmartAssignmentModal({
     queryFn: async () => {
       const response = await api.roles.list();
       const payload = response.data as any;
-      return Array.isArray(payload) ? payload : payload?.data || [];
+      return asList(payload);
     }
   });
 
@@ -229,7 +230,7 @@ export function SmartAssignmentModal({
     queryFn: async () => {
       const response = await api.phases.list();
       const payload = response.data as any;
-      return Array.isArray(payload) ? payload : payload?.data || [];
+      return asList(payload);
     }
   });
 
@@ -1002,7 +1003,7 @@ export function SmartAssignmentModal({
                       } />
                     </SelectTrigger>
                     <SelectContent>
-                      {Array.isArray(formData.project_id ? projectRoles : roles) && (formData.project_id ? projectRoles : roles).map((role: RoleWithDemand) => (
+                      {asList(formData.project_id ? projectRoles : roles).map((role: RoleWithDemand) => (
                         <SelectItem key={role.id} value={role.id}>
                           {role.name}
                         </SelectItem>

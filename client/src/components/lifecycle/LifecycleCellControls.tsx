@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { PopoverPortal } from '../PopoverPortal';
 import { queryKeys } from '../../lib/queryKeys';
 import { api } from '../../lib/api-client';
+import { asList } from '@/lib/apiPayload';
 import { useLifecycleTransition } from './useLifecycleTransition';
 import { stateLabelKey } from './LifecycleBanner';
 import { LifecycleStateList } from './LifecycleStateList';
@@ -55,11 +56,11 @@ export function LifecycleCellControls({ project }: { project: any }) {
     queryFn: async () => {
       const response = await api.roles.list();
       const payload = response.data as any;
-      return Array.isArray(payload) ? payload : payload?.data || [];
+      return asList(payload);
     },
     enabled: mode === 'schedule'
   });
-  const roleList = Array.isArray(roles) ? (roles as any[]) : ((roles as any)?.data ?? []);
+  const roleList = asList(roles);
   const devRole = roleList.find((r: { id: string; name: string }) => r.name === '开发');
   useEffect(() => {
     if (devRole && !poolForm.role_id) setPoolForm((f) => ({ ...f, role_id: devRole.id }));

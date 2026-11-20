@@ -5,6 +5,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { ArrowLeft, Edit2 } from 'lucide-react';
 import { api } from '../lib/api-client';
+import { asList } from '../lib/apiPayload';
 import { queryKeys } from '../lib/queryKeys';
 import type { ProjectType, ProjectSubType, ProjectPhase } from '../types';
 import PhaseTemplateDesigner from '../components/PhaseTemplateDesigner';
@@ -51,7 +52,7 @@ export default function ProjectTypeDetails() {
       const payload = response.data as any;
       // Shared ['roles'] cache must always hold an array — raw envelopes here
       // have crashed other consumers (roles?.find is not a function)
-      return Array.isArray(payload) ? payload : payload?.data || [];
+      return asList(payload);
     }
   });
 

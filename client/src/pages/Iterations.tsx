@@ -5,6 +5,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Plus, ChevronDown, ChevronRight, Pencil, Trash2, CalendarRange } from 'lucide-react';
 import { api } from '../lib/api-client';
+import { asList } from '../lib/apiPayload';
 import { useToast } from '../hooks/use-toast';
 import { categoryOfTypeName } from '../lib/projectCategories';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
@@ -390,7 +391,7 @@ export function Iterations() {
     queryFn: async () => (await api.iterations.list()).data,
   });
   const iterations: Iteration[] = useMemo(
-    () => (Array.isArray(itersResp) ? itersResp : (itersResp?.data ?? [])),
+    () => asList(itersResp),
     [itersResp]
   );
 
@@ -411,7 +412,7 @@ export function Iterations() {
     },
   });
   const items: any[] = useMemo(
-    () => (Array.isArray(itemsResp) ? itemsResp : (itemsResp?.data ?? [])),
+    () => asList(itemsResp),
     [itemsResp]
   );
 

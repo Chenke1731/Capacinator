@@ -9,6 +9,7 @@ import { queryKeys } from '../../lib/queryKeys';
 import { fetchPersonUtilization, personUtilizationRowsFrom } from '../../lib/personUtilizationData';
 import { useScenario } from '../../contexts/ScenarioContext';
 import { useCellPopover } from '../../hooks/useCellPopover';
+import { asList } from '@/lib/apiPayload';
 
 /**
  * 看板新格件(BOARD_REDESIGN_2026-09-23,实施日志 D2):
@@ -215,11 +216,11 @@ export function RoleCell({
     queryFn: async () => {
       const response = await api.roles.list();
       const payload: any = response.data;
-      return Array.isArray(payload) ? payload : payload?.data || [];
+      return asList(payload);
     },
     enabled: pop.open
   });
-  const roleList = Array.isArray(rolesResp) ? rolesResp : ((rolesResp as any)?.data ?? []);
+  const roleList = asList(rolesResp);
   const role = roleList.find((r: any) => r.name === label);
 
   const { data: peopleResp } = useQuery({
@@ -490,11 +491,11 @@ export function PrimaryDevCell({ primary, project, onSaved }: {
     queryFn: async () => {
       const response = await api.roles.list();
       const payload: any = response.data;
-      return Array.isArray(payload) ? payload : payload?.data || [];
+      return asList(payload);
     },
     enabled: pop.open
   });
-  const roleList = Array.isArray(rolesResp) ? rolesResp : [];
+  const roleList = asList(rolesResp);
   const devRole = roleList.find((r: any) => r.name === '开发');
 
   const { data: peopleResp } = useQuery({
@@ -690,7 +691,7 @@ export function IterationCell({ project, onSaved, readOnlyWindow }: {
     queryFn: async () => (await api.iterations.list()).data,
     enabled: pop.open
   });
-  const iterations: any[] = Array.isArray(itersResp) ? itersResp : (itersResp?.data ?? []);
+  const iterations: any[] = asList(itersResp);
 
   const attach = useMutation({
     mutationFn: (iterationId: string | null) =>

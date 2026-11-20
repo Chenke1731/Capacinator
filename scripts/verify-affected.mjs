@@ -32,7 +32,7 @@ const value = (name) => {
 };
 const valid = new Set([
   '--changed', '--files', '--base', '--parallel', '--all-states', '--visual', '--e2e',
-  '--dry-run', '--selftest', '--help',
+  '--skip-browser', '--dry-run', '--selftest', '--help',
 ]);
 for (let i = 0; i < argv.length; i += 1) {
   if (!valid.has(argv[i])) throw new Error(`Unknown argument ${argv[i]}`);
@@ -103,7 +103,7 @@ function selftest() {
 
 if (has('--selftest')) process.exit(selftest() ? 0 : 1);
 if (has('--help')) {
-  console.log('verify-affected: --changed | --files a,b [--base ref] [--parallel N] [--all-states] [--visual] [--e2e] [--dry-run] [--selftest]');
+  console.log('verify-affected: --changed | --files a,b [--base ref] [--parallel N] [--all-states] [--visual] [--e2e] [--skip-browser] [--dry-run] [--selftest]');
   process.exit(0);
 }
 
@@ -206,25 +206,25 @@ if (plan.plan.full) {
 }
 
 const browserSteps = [];
-if (plan.u1u3) {
+if (!has('--skip-browser') && plan.u1u3) {
   browserSteps.push({ label: 'U1/U3 changed routes', command: process.execPath, args: ['scripts/verify-invariants.mjs', '--id', 'U1,U3', '--files', files.join(',')] });
 }
-if (plan.u2) {
+if (!has('--skip-browser') && plan.u2) {
   browserSteps.push({ label: 'U2 CSS isolation strict', command: process.execPath, args: ['scripts/verify-css-isolation.mjs', '--all', '--strict'] });
 }
-if (plan.statesProfiles.length) {
+if (!has('--skip-browser') && plan.statesProfiles.length) {
   browserSteps.push({
     label: `states (${plan.statesProfiles.length} profiles)`,
     command: process.execPath,
     args: ['scripts/verify-states-many.mjs', '--profiles', plan.statesProfiles.join(','), '--parallel', String(Math.min(3, plan.statesProfiles.length))],
   });
 }
-if (plan.visualProfiles.length) {
+if (!has('--skip-browser') && plan.visualProfiles.length) {
   for (const profile of plan.visualProfiles) {
     browserSteps.push({ label: `visual ${profile}`, command: process.execPath, args: ['scripts/verify-visual.mjs', '--profile', profile] });
   }
 }
-if (plan.e2eSpecs.length) {
+if (!has('--skip-browser') && plan.e2eSpecs.length) {
   browserSteps.push({ label: 'E2E mapped specs', command: 'npx', args: ['playwright', 'test', ...plan.e2eSpecs, '--config', 'playwright.config.ts', '--retries=1'] });
 }
 

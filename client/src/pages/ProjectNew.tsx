@@ -5,6 +5,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useTranslation, Trans } from 'react-i18next';
 import { ArrowLeft, Save, X } from 'lucide-react';
 import { api } from '../lib/api-client';
+import { asList } from '../lib/apiPayload';
 import { queryKeys } from '../lib/queryKeys';
 import './PersonDetails.css'; // Reuse existing styles
 
@@ -49,7 +50,7 @@ export function ProjectNew() {
     queryFn: async () => {
       const response = await api.projectTypes.list({ limit: 500 });
       const payload = response.data;
-      return Array.isArray(payload) ? payload : payload?.data || [];
+      return asList(payload);
     }
   });
 
@@ -59,7 +60,7 @@ export function ProjectNew() {
     queryFn: async () => {
       const response = await api.locations.list();
       const payload = response.data;
-      return Array.isArray(payload) ? payload : payload?.data || [];
+      return asList(payload);
     }
   });
 
@@ -69,7 +70,7 @@ export function ProjectNew() {
     queryFn: async () => {
       const response = await api.components.list();
       const payload = response.data;
-      return Array.isArray(payload) ? payload : payload?.data || [];
+      return asList(payload);
     }
   });
 

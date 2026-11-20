@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { AlertCircle, Info } from 'lucide-react';
 import { api } from '../../lib/api-client';
+import { asList } from '@/lib/apiPayload';
 import { queryKeys } from '../../lib/queryKeys';
 import type { DemandIntake, IntakeConvertResult } from '../../types';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '../ui/dialog';
@@ -65,7 +66,7 @@ export function IntakeTriageDialog({ open, intake, onClose, onConverted }: Intak
     queryFn: async () => {
       const response = await api.people.list({ is_active: 'true', limit: 500 });
       const payload = response.data as any;
-      return Array.isArray(payload) ? payload : payload?.data || [];
+      return asList(payload);
     },
     enabled: open,
   });
@@ -83,11 +84,10 @@ export function IntakeTriageDialog({ open, intake, onClose, onConverted }: Intak
     queryFn: async () => (await api.iterations.list()).data,
     enabled: open,
   });
-  const iterations: { id: string; name: string }[] = useMemo(() => {
-    const payload = iterationsResp as any;
-    const rows = Array.isArray(payload) ? payload : payload?.data ?? [];
-    return Array.isArray(rows) ? rows : [];
-  }, [iterationsResp]);
+  const iterations: { id: string; name: string }[] = useMemo(
+    () => asList(iterationsResp),
+    [iterationsResp]
+  );
 
   // 打开时按 intake 初始化 + 记住的子类型
   useEffect(() => {

@@ -4,6 +4,7 @@ import { isImeComposing } from '../../lib/ime';
 import { useTranslation } from 'react-i18next';
 import { Check, AlertTriangle, ChevronRight, ChevronDown } from 'lucide-react';
 import { api } from '../../lib/api-client';
+import { asList } from '@/lib/apiPayload';
 import { LifecycleStateList } from './LifecycleStateList';
 import { queryKeys } from '../../lib/queryKeys';
 
@@ -76,11 +77,11 @@ export function LifecycleBanner({ project }: { project: any }) {
     queryFn: async () => {
       const response = await api.roles.list();
       const payload = response.data as any;
-      return Array.isArray(payload) ? payload : payload?.data || [];
+      return asList(payload);
     }
   });
   // Defensive: the shared ['roles'] cache has historically held raw envelopes
-  const roleList = Array.isArray(roles) ? (roles as any[]) : ((roles as any)?.data ?? []);
+  const roleList = asList(roles);
   const devRole = roleList.find((r: { id: string; name: string }) => r.name === '开发');
   useEffect(() => {
     if (devRole && !poolForm.role_id) {

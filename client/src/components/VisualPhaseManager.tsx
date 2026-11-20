@@ -11,6 +11,7 @@ import './InteractiveTimeline.css';
 import { addDays, format } from 'date-fns';
 import { Calendar, Plus } from 'lucide-react';
 import { getLocale, getDateFnsLocale } from '../i18n';
+import { asList } from '@/lib/apiPayload';
 
 // Import extracted components
 import {
@@ -93,7 +94,7 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
     queryFn: async () => {
       const response = await api.phases.list();
       const payload = response.data as any;
-      return Array.isArray(payload) ? payload : payload?.data || [];
+      return asList(payload);
     }
   });
 

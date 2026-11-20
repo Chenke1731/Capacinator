@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { api } from '../lib/api-client';
+import { asList } from '../lib/apiPayload';
 import { queryKeys, type ReportFilters } from '../lib/queryKeys';
 import { useScenario } from '../contexts/ScenarioContext';
 import { getDefaultReportDateRange } from '../utils/date';
@@ -466,7 +467,7 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
       // sendSuccess wraps once ({success, data}), the controller once
       // more ({data, generated_at}) — unwrap to the rows array.
       const inner = payload?.data ?? payload;
-      return Array.isArray(inner) ? inner : inner?.data ?? [];
+      return asList(inner);
     },
     enabled: activeReport === 'components'
   });

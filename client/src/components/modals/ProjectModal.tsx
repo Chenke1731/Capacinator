@@ -3,6 +3,7 @@ import React, { useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { api } from '../../lib/api-client';
+import { asList } from '@/lib/apiPayload';
 import { queryKeys } from '../../lib/queryKeys';
 import { useModalForm } from '../../hooks/useModalForm';
 import { Button } from '../ui/button';
@@ -178,7 +179,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
     queryFn: async () => {
       const response = await api.components.list();
       const payload = response.data;
-      return Array.isArray(payload) ? payload : payload?.data || [];
+      return asList(payload);
     }
   });
   
@@ -222,7 +223,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
       const response = await api.phases.list();
       const payload = response.data as any;
       // Shared ['phases'] cache must always hold an array
-      return Array.isArray(payload) ? payload : payload?.data || [];
+      return asList(payload);
     }
   });
 
@@ -442,7 +443,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="none">{t('common:none')}</SelectItem>
-                  {(Array.isArray(phases) ? phases : (phases as any)?.data)?.map((phase: any) => (
+                  {(asList(phases))?.map((phase: any) => (
                     <SelectItem key={phase.id} value={phase.id}>
                       {phase.name}
                     </SelectItem>

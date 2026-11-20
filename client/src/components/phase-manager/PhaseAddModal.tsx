@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Calendar, Type, Save } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '../ui/dialog';
 import { AddPhaseFormData, PhaseTemplate } from './types';
+import { asList } from '@/lib/apiPayload';
 
 interface PhaseAddModalProps {
   isOpen: boolean;
@@ -32,9 +33,7 @@ export function PhaseAddModal({
   }, [isOpen]);
 
   // Normalize phase templates - handle both { data: [...] } and [...] formats
-  const templates = Array.isArray(phaseTemplates)
-    ? phaseTemplates
-    : (phaseTemplates as any)?.data || [];
+  const templates = asList(phaseTemplates);
 
   return (
     <Dialog open={isOpen} onOpenChange={(next) => { if (!next) onClose(); }}>

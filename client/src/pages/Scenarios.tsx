@@ -20,6 +20,7 @@ import {
   X
 } from 'lucide-react';
 import { api } from '../lib/api-client';
+import { asList } from '../lib/apiPayload';
 import { queryKeys } from '../lib/queryKeys';
 import { Scenario } from '../types';
 import { getLocale } from '../i18n';
@@ -271,7 +272,7 @@ const MergeModal: React.FC<MergeModalProps> = ({
     queryFn: async () => {
       const response = await api.scenarios.getMergeConflicts(scenario.id);
       const payload = response.data as unknown;
-      return Array.isArray(payload) ? payload : ((payload as { data?: unknown[] })?.data ?? []);
+      return asList(payload);
     },
     enabled: isOpen,
   });
@@ -1091,7 +1092,7 @@ export const Scenarios: React.FC = () => {
       const response = await api.scenarios.list();
       const payload = response.data as any;
       // 共享键防御取形 + 元素收窄 Scenario(下游 map/filter 回调不再隐式 any)
-      const rows: unknown[] = Array.isArray(payload) ? payload : payload?.data || [];
+      const rows: unknown[] = asList(payload);
       return rows as Scenario[];
     },
   });

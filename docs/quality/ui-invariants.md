@@ -85,12 +85,12 @@ node scripts/verify-css-isolation.mjs --all --trace --trace-route assignments
 
 ## 基线与债务
 
-- 基线：`scripts/lib/invariant-baseline.json`（当前 29 个唯一签名，owner `ui-invariants`，到期 2026-12-31）。
+- 基线：`scripts/lib/invariant-baseline.json`（当前 0 个签名，owner `ui-invariants`，到期 2026-12-31）。
 - 只允许 `--write-baseline` 在**初次普查**时登记存量；新增告警必须修复，不得再写基线。
-- 当前基线内容：仅 D2 未触碰端点的 29 个客户端防御解析签名（36 个 finding 合并重复代码文本）。
-  - U3 native dialog 已清零，基线条目已删除；
-  - 本批触碰的控制器（Import 2、ProjectPhaseDependencies、TestData）和页面
-    （People/Assignments/PersonDetails）防御解析已修复并从基线移除。
+- 当前基线内容：空。
+  - U3 native dialog 已清零；
+  - D2 所有客户端防御解析已收敛到 `client/src/lib/apiPayload.ts` 的 `asList` 单一兼容边界；
+  - 本批触碰的控制器（Import 2、ProjectPhaseDependencies、TestData）响应已补信封字段。
 - 到期前必须逐类清债或重新裁决；`expires` 到期后 baseline 条目应删除并转红。
 
 ## 当前普查结果（2026-11-20）
@@ -99,7 +99,7 @@ node scripts/verify-css-isolation.mjs --all --trace --trace-route assignments
   `--stress` 长内容模式 0 blocking、0 warning，28 条动作列需横滚 info。
 - **U3**：运行时 0 blocking、0 warning；37 条 native dialog 已全部迁移（alert→toast，confirm→ConfirmDialog）；
   Intake/ProjectTypes/Roles 动作列已压缩为图标 + 单个文字主操作。
-- **D2**：本批触碰端点已清；剩余 29 个未触碰客户端防御解析签名在基线内。
+- **D2**：**0 finding**；所有 legacy 防御解析已收敛到 `asList`，控制器裸响应已清。
 - **U2**：SPA 30 路由顺序普查 **0 polluted、0 coverage error**。
   - `.project-info`、`.project-name`、`.info-value`、`.inline-editable`、`.btn*`、`.charts-grid` 等
     已按 `:where(page-root)` 收敛（特异性与原来的裸选择器一致，避免压过 App.css dark 覆盖）；

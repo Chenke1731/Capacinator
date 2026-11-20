@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Plus, Diamond, AlertTriangle, Pause } from 'lucide-react';
 import { api, apiClient } from '../../lib/api-client';
+import { asList } from '@/lib/apiPayload';
 import { queryKeys } from '../../lib/queryKeys';
 import { invalidateSchedulingReads } from '../../lib/invalidateSchedulingReads';
 
@@ -102,12 +103,12 @@ function NamingPanel({
     queryFn: async () => {
       const response = await api.roles.list();
       const payload = response.data as any;
-      return Array.isArray(payload) ? payload : payload?.data || [];
+      return asList(payload);
     }
   });
 
   // Defensive: shared ['roles'] cache has historically held raw envelopes
-  const roleList = Array.isArray(roles) ? (roles as any[]) : ((roles as any)?.data ?? []);
+  const roleList = asList(roles);
 
   // Dedicated key — never share the raw ['people'] key (cache shape poisoning)
   const { data: utilizationRows } = useQuery({
@@ -264,12 +265,12 @@ function PoolForm({
     queryFn: async () => {
       const response = await api.roles.list();
       const payload = response.data as any;
-      return Array.isArray(payload) ? payload : payload?.data || [];
+      return asList(payload);
     }
   });
 
   // Defensive: shared ['roles'] cache has historically held raw envelopes
-  const roleList = Array.isArray(roles) ? (roles as any[]) : ((roles as any)?.data ?? []);
+  const roleList = asList(roles);
 
   const mutation = useMutation({
     mutationFn: async () => {

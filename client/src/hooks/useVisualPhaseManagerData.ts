@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '../lib/api-client';
+import { asList } from '@/lib/apiPayload';
 import { queryKeys } from '../lib/queryKeys';
 import { invalidateSchedulingReads } from '../lib/invalidateSchedulingReads';
 
@@ -56,7 +57,7 @@ export function useVisualPhaseManagerData({ projectId, onPhasesChange }: UseVisu
     queryFn: async () => {
       const response = await api.phases.list();
       const payload = response.data as any;
-      return Array.isArray(payload) ? payload : payload?.data || [];
+      return asList(payload);
     }
   });
 
@@ -155,9 +156,7 @@ export function useVisualPhaseManagerData({ projectId, onPhasesChange }: UseVisu
 
   const phases: ProjectPhaseTimeline[] = phasesData?.data || [];
   const dependencies: PhaseDependency[] = (dependenciesData?.data || []) as PhaseDependency[];
-  const templates: PhaseTemplate[] = Array.isArray(phaseTemplates)
-    ? phaseTemplates
-    : (phaseTemplates as any)?.data || [];
+  const templates: PhaseTemplate[] = asList(phaseTemplates);
 
   return {
     // Data

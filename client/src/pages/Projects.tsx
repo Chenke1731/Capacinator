@@ -7,6 +7,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Plus, Edit2, Trash2, Tag, ChevronDown, ChevronRight, Search, X, GitBranch, CornerDownRight, Info } from 'lucide-react';
 import { api } from '../lib/api-client';
+import { asList } from '../lib/apiPayload';
 import { queryKeys } from '../lib/queryKeys';
 import { invalidateSchedulingReads } from '../lib/invalidateSchedulingReads';
 import { PriorityCell, TagsCell, ComponentCell } from '../components/boards/EditableCells';
@@ -427,7 +428,7 @@ export function Projects() {
       // sendSuccess wraps once ({success, data}), the controller once more
       // ({data: rows, total}) — unwrap to the rows array either way.
       const payload = (response.data as any)?.data;
-      const rows: any[] = Array.isArray(payload) ? payload : payload?.data ?? [];
+      const rows: any[] = asList(payload);
       return rows.map((project) => ({
         ...project,
         project_type: project.project_type_name
@@ -452,7 +453,7 @@ export function Projects() {
     queryFn: async () => {
       const response = await api.components.list();
       const payload = response.data;
-      return Array.isArray(payload) ? payload : payload?.data || [];
+      return asList(payload);
     }
   });
   const componentNameById = useMemo(() => {

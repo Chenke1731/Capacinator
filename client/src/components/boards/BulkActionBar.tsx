@@ -6,6 +6,7 @@ import { Check, Minus, Plus, X } from 'lucide-react';
 import { PopoverPortal } from '../PopoverPortal';
 import { useCellPopover } from '../../hooks/useCellPopover';
 import { api } from '../../lib/api-client';
+import { asList } from '@/lib/apiPayload';
 
 /**
  * 需求台批量操作条(2026-10-11): 选中>0 时底部浮动。
@@ -85,7 +86,7 @@ export function BulkActionBar({ count, pending, onClear, onBatchUpdate, onBatchD
     queryKey: ['iterations', 'list'],
     queryFn: async () => (await api.iterations.list()).data
   });
-  const iterations: any[] = Array.isArray(itersResp) ? itersResp : (itersResp?.data ?? []);
+  const iterations: any[] = asList(itersResp);
 
   // ── U18 选择可见性/预检事实(全部由选中行原文现算,不加请求) ──
   const hiddenCount = Math.max(0, count - visibleCount);

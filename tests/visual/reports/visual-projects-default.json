@@ -55,7 +55,7 @@
       "baseline": "tests/visual/__screenshots__/projects-dark-1600.png",
       "backdrops": [],
       "svgAxisText": [],
-      "durationMs": 32184
+      "durationMs": 32161
     },
     {
       "tag": "projects-dark-1366",
@@ -103,7 +103,7 @@
       "baseline": "tests/visual/__screenshots__/projects-dark-1366.png",
       "backdrops": [],
       "svgAxisText": [],
-      "durationMs": 17432
+      "durationMs": 16739
     },
     {
       "tag": "projects-light-1600",
@@ -151,7 +151,7 @@
       "baseline": "tests/visual/__screenshots__/projects-light-1600.png",
       "backdrops": [],
       "svgAxisText": [],
-      "durationMs": 31238
+      "durationMs": 31549
     },
     {
       "tag": "projects-light-1366",
@@ -199,7 +199,7 @@
       "baseline": "tests/visual/__screenshots__/projects-light-1366.png",
       "backdrops": [],
       "svgAxisText": [],
-      "durationMs": 17681
+      "durationMs": 16830
     }
   ]
 }

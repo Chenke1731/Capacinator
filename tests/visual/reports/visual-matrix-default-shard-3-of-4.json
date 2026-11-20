@@ -1,0 +1,4850 @@
+{
+  "totalCombinations": 160,
+  "combinations": 40,
+  "shard": {
+    "index": 3,
+    "total": 4
+  },
+  "checks": 200,
+  "updatePixels": false,
+  "registerExistingAxe": false,
+  "evidence": [
+    {
+      "tag": "projects-light-1600",
+      "profile": "projects",
+      "path": "/projects",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe projects-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 projects-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 projects-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 projects-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 projects-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-projects-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/projects-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 33592
+    },
+    {
+      "tag": "people-light-1600",
+      "profile": "people",
+      "path": "/people",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe people-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 people-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 people-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 people-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 people-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-people-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/people-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 7811
+    },
+    {
+      "tag": "assignments-light-1600",
+      "profile": "assignments",
+      "path": "/assignments",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe assignments-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 assignments-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 assignments-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 assignments-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 assignments-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-assignments-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/assignments-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 10888
+    },
+    {
+      "tag": "dashboard-light-1600",
+      "profile": "dashboard",
+      "path": "/dashboard",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe dashboard-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 dashboard-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 dashboard-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 dashboard-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 dashboard-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-dashboard-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/dashboard-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [
+        {
+          "text": "Over-allocated",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "Fully-allocated",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "Partially-allocated",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "0",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "2",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "4",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "6",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "8",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        }
+      ],
+      "durationMs": 5339
+    },
+    {
+      "tag": "roadmap-light-1600",
+      "profile": "roadmap",
+      "path": "/projects?tab=roadmap",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe roadmap-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 roadmap-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 roadmap-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 roadmap-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 roadmap-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-roadmap-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/roadmap-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 13283
+    },
+    {
+      "tag": "project-detail-light-1600",
+      "profile": "project-detail",
+      "path": "/projects/project-1789912193111-zikdnz8c5",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe project-detail-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 project-detail-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 project-detail-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 project-detail-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 project-detail-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-project-detail-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/project-detail-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [
+        {
+          "text": "9月21日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "9月24日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "9月27日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "9月30日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月3日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月6日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月9日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月12日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月15日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月18日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月21日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月24日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月27日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月30日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月2日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月5日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月8日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月11日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月14日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月17日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月20日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月23日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月26日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月30日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "FTE(人数)",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        }
+      ],
+      "durationMs": 5946
+    },
+    {
+      "tag": "project-detail-phases-light-1600",
+      "profile": "project-detail-phases",
+      "path": "/projects/project-1789912193111-zikdnz8c5",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe project-detail-phases-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 project-detail-phases-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 project-detail-phases-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 project-detail-phases-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 project-detail-phases-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-project-detail-phases-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/project-detail-phases-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [
+        {
+          "text": "9月21日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "9月24日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "9月27日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "9月30日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月3日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月6日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月9日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月12日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月15日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月18日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月21日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月24日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月27日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月30日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月2日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月5日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月8日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月11日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月14日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月17日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月20日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月23日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月26日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月30日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "FTE(人数)",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        }
+      ],
+      "durationMs": 6132
+    },
+    {
+      "tag": "project-detail-phases-phase-hover-light-1600",
+      "profile": "project-detail-phases",
+      "path": "/projects/project-1789912193111-zikdnz8c5",
+      "theme": "light",
+      "state": "phase-hover",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe project-detail-phases-phase-hover-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 project-detail-phases-phase-hover-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 project-detail-phases-phase-hover-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 project-detail-phases-phase-hover-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 project-detail-phases-phase-hover-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-project-detail-phases-phase-hover-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/project-detail-phases-phase-hover-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [
+        {
+          "text": "9月21日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "9月24日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "9月27日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "9月30日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月3日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月6日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月9日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月12日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月15日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月18日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月21日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月24日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月27日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月30日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月2日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月5日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月8日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月11日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月14日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月17日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月20日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月23日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月26日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月30日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "FTE(人数)",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        }
+      ],
+      "durationMs": 6370
+    },
+    {
+      "tag": "project-detail-phases-phase-edit-light-1600",
+      "profile": "project-detail-phases",
+      "path": "/projects/project-1789912193111-zikdnz8c5",
+      "theme": "light",
+      "state": "phase-edit",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe project-detail-phases-phase-edit-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 project-detail-phases-phase-edit-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 project-detail-phases-phase-edit-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 project-detail-phases-phase-edit-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 project-detail-phases-phase-edit-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-project-detail-phases-phase-edit-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/project-detail-phases-phase-edit-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [
+        {
+          "text": "9月21日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "9月24日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "9月27日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "9月30日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月3日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月6日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月9日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月12日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月15日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月18日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月21日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月24日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月27日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月30日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月2日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月5日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月8日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月11日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月14日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月17日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月20日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月23日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月26日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月30日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "FTE(人数)",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        }
+      ],
+      "durationMs": 6319
+    },
+    {
+      "tag": "scenarios-light-1600",
+      "profile": "scenarios",
+      "path": "/scenarios",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe scenarios-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 scenarios-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 scenarios-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 scenarios-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 scenarios-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-scenarios-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/scenarios-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 5049
+    },
+    {
+      "tag": "scenarios-rich-light-1600",
+      "profile": "scenarios-rich",
+      "path": "/scenarios",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe scenarios-rich-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 scenarios-rich-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 scenarios-rich-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 scenarios-rich-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 scenarios-rich-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-scenarios-rich-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/scenarios-rich-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 5283
+    },
+    {
+      "tag": "scenarios-rich-create-light-1600",
+      "profile": "scenarios-rich",
+      "path": "/scenarios",
+      "theme": "light",
+      "state": "create",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe scenarios-rich-create-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 scenarios-rich-create-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 scenarios-rich-create-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 scenarios-rich-create-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 scenarios-rich-create-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-scenarios-rich-create-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/scenarios-rich-create-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 5600
+    },
+    {
+      "tag": "scenarios-rich-filter-light-1600",
+      "profile": "scenarios-rich",
+      "path": "/scenarios",
+      "theme": "light",
+      "state": "filter",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe scenarios-rich-filter-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 scenarios-rich-filter-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 scenarios-rich-filter-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 scenarios-rich-filter-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 scenarios-rich-filter-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-scenarios-rich-filter-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/scenarios-rich-filter-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 5241
+    },
+    {
+      "tag": "scenarios-rich-merge-confirm-light-1600",
+      "profile": "scenarios-rich",
+      "path": "/scenarios",
+      "theme": "light",
+      "state": "merge-confirm",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe scenarios-rich-merge-confirm-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 scenarios-rich-merge-confirm-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 scenarios-rich-merge-confirm-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 scenarios-rich-merge-confirm-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 scenarios-rich-merge-confirm-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-scenarios-rich-merge-confirm-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/scenarios-rich-merge-confirm-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 5773
+    },
+    {
+      "tag": "scenarios-rich-compare-results-light-1600",
+      "profile": "scenarios-rich",
+      "path": "/scenarios",
+      "theme": "light",
+      "state": "compare-results",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe scenarios-rich-compare-results-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 scenarios-rich-compare-results-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 scenarios-rich-compare-results-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 scenarios-rich-compare-results-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 scenarios-rich-compare-results-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-scenarios-rich-compare-results-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/scenarios-rich-compare-results-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 6023
+    },
+    {
+      "tag": "settings-light-1600",
+      "profile": "settings",
+      "path": "/settings",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe settings-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 settings-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 settings-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 settings-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 settings-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-settings-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/settings-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 5033
+    },
+    {
+      "tag": "settings-appearance-light-1600",
+      "profile": "settings-appearance",
+      "path": "/settings?tab=appearance",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe settings-appearance-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 settings-appearance-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 settings-appearance-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 settings-appearance-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 settings-appearance-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-settings-appearance-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/settings-appearance-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 5016
+    },
+    {
+      "tag": "project-type-detail-light-1600",
+      "profile": "project-type-detail",
+      "path": "/project-types/0a1bb90f-62dc-4779-b78a-eb686789b79e",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe project-type-detail-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 project-type-detail-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 project-type-detail-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 project-type-detail-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 project-type-detail-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-project-type-detail-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/project-type-detail-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 6079
+    },
+    {
+      "tag": "project-detail-tagged-light-1600",
+      "profile": "project-detail-tagged",
+      "path": "/projects/project-1789912193028-uo604tadh",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe project-detail-tagged-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 project-detail-tagged-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 project-detail-tagged-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 project-detail-tagged-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 project-detail-tagged-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-project-detail-tagged-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/project-detail-tagged-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [
+        {
+          "text": "FTE(人数)",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月1日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月4日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月7日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月10日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月13日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月16日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月19日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月22日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月25日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月28日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月31日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月3日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月6日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月9日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月12日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月15日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月18日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月21日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月24日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月27日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月30日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "12月3日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "12月6日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "12月9日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "12月12日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "12月15日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "12月18日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "12月21日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "12月24日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "12月27日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "12月31日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        }
+      ],
+      "durationMs": 5973
+    },
+    {
+      "tag": "phase-template-light-1600",
+      "profile": "phase-template",
+      "path": "/project-types/0a1bb90f-62dc-4779-b78a-eb686789b79e",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe phase-template-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 phase-template-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 phase-template-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 phase-template-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 phase-template-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-phase-template-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/phase-template-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 5276
+    },
+    {
+      "tag": "phase-template-template-add-light-1600",
+      "profile": "phase-template",
+      "path": "/project-types/0a1bb90f-62dc-4779-b78a-eb686789b79e",
+      "theme": "light",
+      "state": "template-add",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe phase-template-template-add-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 phase-template-template-add-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 phase-template-template-add-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 phase-template-template-add-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 phase-template-template-add-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-phase-template-template-add-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/phase-template-template-add-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 5511
+    },
+    {
+      "tag": "person-workload-light-1600",
+      "profile": "person-workload",
+      "path": "/people/eb8ecaf7-44a3-4384-a74b-2c18e9e894b1/workload",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe person-workload-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 person-workload-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 person-workload-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 person-workload-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 person-workload-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-person-workload-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/person-workload-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 5971
+    },
+    {
+      "tag": "import-light-1600",
+      "profile": "import",
+      "path": "/import",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe import-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 import-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 import-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 import-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 import-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-import-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/import-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 5203
+    },
+    {
+      "tag": "import-import-advanced-light-1600",
+      "profile": "import",
+      "path": "/import",
+      "theme": "light",
+      "state": "import-advanced",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe import-import-advanced-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 import-import-advanced-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 import-import-advanced-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 import-import-advanced-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 import-import-advanced-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-import-import-advanced-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/import-import-advanced-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 5383
+    },
+    {
+      "tag": "import-import-file-light-1600",
+      "profile": "import",
+      "path": "/import",
+      "theme": "light",
+      "state": "import-file",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe import-import-file-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 import-import-file-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 import-import-file-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 import-import-file-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 import-import-file-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-import-import-file-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/import-import-file-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 5379
+    },
+    {
+      "tag": "import-import-success-light-1600",
+      "profile": "import",
+      "path": "/import",
+      "theme": "light",
+      "state": "import-success",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe import-import-success-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 import-import-success-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 import-import-success-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 import-import-success-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 import-import-success-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-import-import-success-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/import-import-success-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "mockedWrites": [
+        {
+          "method": "POST",
+          "path": "/api/import/excel",
+          "state": "import-success",
+          "persisted": false
+        }
+      ],
+      "durationMs": 15647
+    },
+    {
+      "tag": "import-import-error-light-1600",
+      "profile": "import",
+      "path": "/import",
+      "theme": "light",
+      "state": "import-error",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe import-import-error-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 import-import-error-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 import-import-error-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 import-import-error-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 import-import-error-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-import-import-error-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/import-import-error-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "mockedWrites": [
+        {
+          "method": "POST",
+          "path": "/api/import/excel",
+          "state": "import-error",
+          "persisted": false
+        }
+      ],
+      "durationMs": 15536
+    },
+    {
+      "tag": "import-import-running-light-1600",
+      "profile": "import",
+      "path": "/import",
+      "theme": "light",
+      "state": "import-running",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe import-import-running-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 import-import-running-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 import-import-running-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 import-import-running-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 import-import-running-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-import-import-running-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/import-import-running-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "mockedWrites": [
+        {
+          "method": "POST",
+          "path": "/api/import/excel",
+          "state": "import-running",
+          "persisted": false
+        }
+      ],
+      "durationMs": 15570
+    },
+    {
+      "tag": "import-export-light-1600",
+      "profile": "import-export",
+      "path": "/import?tab=export",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe import-export-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 import-export-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 import-export-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 import-export-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 import-export-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-import-export-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/import-export-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 5088
+    },
+    {
+      "tag": "project-types-light-1600",
+      "profile": "project-types",
+      "path": "/projects?tab=types",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe project-types-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 project-types-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 project-types-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 project-types-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 project-types-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-project-types-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/project-types-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 5322
+    },
+    {
+      "tag": "project-types-hierarchy-light-1600",
+      "profile": "project-types-hierarchy",
+      "path": "/projects?tab=types&view=hierarchy",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe project-types-hierarchy-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 project-types-hierarchy-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 project-types-hierarchy-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 project-types-hierarchy-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 project-types-hierarchy-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-project-types-hierarchy-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/project-types-hierarchy-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 6086
+    },
+    {
+      "tag": "iterations-light-1600",
+      "profile": "iterations",
+      "path": "/iterations",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe iterations-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 iterations-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 iterations-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 iterations-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 iterations-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-iterations-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/iterations-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 8357
+    },
+    {
+      "tag": "reports-light-1600",
+      "profile": "reports",
+      "path": "/reports",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe reports-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 reports-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 reports-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 reports-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 reports-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-reports-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/reports-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [
+        {
+          "text": "项目事务",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "分析-平台-多租户隔离",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "数据平台升级",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "0",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "350",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "700",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "1050",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "1400",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "开发",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "MDE",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "SE",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "0",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "750",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "1500",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "2250",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "3000",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "2026年10月",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "2026年11月",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "2026年12月",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "2027年1月",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "0",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "1500",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "3000",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "4500",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "6000",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        }
+      ],
+      "durationMs": 5422
+    },
+    {
+      "tag": "reports-capacity-light-1600",
+      "profile": "reports-capacity",
+      "path": "/reports?tab=capacity",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe reports-capacity-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 reports-capacity-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 reports-capacity-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 reports-capacity-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 reports-capacity-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-reports-capacity-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/reports-capacity-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [
+        {
+          "text": "李后端",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "张前端",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "周开发",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "韩架构",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "沈设计",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "0",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "2",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "4",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "6",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "8",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "MDE",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "SE",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "交付管理",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "开发",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "测试",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "0",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "20",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "40",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "60",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "80",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "本月",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "下月",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "3 个月后",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "0",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "30",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "60",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "90",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "120",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        }
+      ],
+      "durationMs": 5995
+    },
+    {
+      "tag": "reports-utilization-light-1600",
+      "profile": "reports-utilization",
+      "path": "/reports?tab=utilization",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe reports-utilization-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 reports-utilization-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 reports-utilization-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 reports-utilization-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 reports-utilization-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-reports-utilization-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/reports-utilization-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [
+        {
+          "text": "王开发",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "沈设计",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "李后端",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "赵设计",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "吴开发",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "0",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "70",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "140",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "210",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "280",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "开发",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "SE",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "无角色",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "交付管理",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "0",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "40",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "80",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "120",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "160",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "0-50%",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "51-79%",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "80-100%",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "> 100%",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "0",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "2",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "4",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "6",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "8",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        }
+      ],
+      "durationMs": 5912
+    },
+    {
+      "tag": "reports-gaps-light-1600",
+      "profile": "reports-gaps",
+      "path": "/reports?tab=gaps",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe reports-gaps-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 reports-gaps-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 reports-gaps-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 reports-gaps-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 reports-gaps-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-reports-gaps-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/reports-gaps-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [
+        {
+          "text": "问题单支持",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "数据平台升级",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "分析-调度-节假日排除",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "分析-平台-权限矩阵重构",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "分析-报表-自定义指标",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "分析-报表-导出中心",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "分析-平台-存储分层",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "分析-平台-微前端拆壳:壳工程搭建",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "分析-报表-建模工作台:公式引擎",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "分析-平台-开放API网关:计量计费",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "0",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "1",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "2",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "3",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "4",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "MDE",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "SE",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "开发",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "交付管理",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "-250",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "0",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "250",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "500",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "750",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "当前",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "下月",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "3 个月后",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "0",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "85",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "170",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "255",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "340",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        }
+      ],
+      "durationMs": 5491
+    },
+    {
+      "tag": "locations-light-1600",
+      "profile": "locations",
+      "path": "/locations",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe locations-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 locations-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 locations-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 locations-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 locations-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-locations-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/locations-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 5579
+    },
+    {
+      "tag": "audit-log-light-1600",
+      "profile": "audit-log",
+      "path": "/audit-log",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe audit-log-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 audit-log-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 audit-log-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 audit-log-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 audit-log-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-audit-log-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/audit-log-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 6468
+    },
+    {
+      "tag": "person-detail-light-1600",
+      "profile": "person-detail",
+      "path": "/people/eb8ecaf7-44a3-4384-a74b-2c18e9e894b1",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe person-detail-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 person-detail-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 person-detail-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 person-detail-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 person-detail-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-person-detail-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/person-detail-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [
+        {
+          "text": "26年10月",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "26年11月",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "26年12月",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "0",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "25",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "50",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "75",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "100",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "百分比 (%)",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        }
+      ],
+      "durationMs": 5763
+    },
+    {
+      "tag": "role-detail-light-1600",
+      "profile": "role-detail",
+      "path": "/roles/501d8abc-0c77-45e9-98c8-7832302e63cb",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe role-detail-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 role-detail-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 role-detail-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 role-detail-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 role-detail-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-role-detail-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/role-detail-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 5179
+    }
+  ]
+}

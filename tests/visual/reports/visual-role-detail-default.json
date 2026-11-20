@@ -44,7 +44,7 @@
         },
         {
           "name": "像素 role-detail-dark-1600: 与基线一致(≤0.5%)",
-          "ok": false
+          "ok": true
         },
         {
           "name": "只读与运行 role-detail-dark-1600",
@@ -55,7 +55,7 @@
       "baseline": "tests/visual/__screenshots__/role-detail-dark-1600.png",
       "backdrops": [],
       "svgAxisText": [],
-      "durationMs": 5555
+      "durationMs": 6114
     },
     {
       "tag": "role-detail-dark-1366",
@@ -92,7 +92,7 @@
         },
         {
           "name": "像素 role-detail-dark-1366: 与基线一致(≤0.5%)",
-          "ok": false
+          "ok": true
         },
         {
           "name": "只读与运行 role-detail-dark-1366",
@@ -103,7 +103,7 @@
       "baseline": "tests/visual/__screenshots__/role-detail-dark-1366.png",
       "backdrops": [],
       "svgAxisText": [],
-      "durationMs": 5187
+      "durationMs": 4999
     },
     {
       "tag": "role-detail-light-1600",
@@ -140,7 +140,7 @@
         },
         {
           "name": "像素 role-detail-light-1600: 与基线一致(≤0.5%)",
-          "ok": false
+          "ok": true
         },
         {
           "name": "只读与运行 role-detail-light-1600",
@@ -151,7 +151,7 @@
       "baseline": "tests/visual/__screenshots__/role-detail-light-1600.png",
       "backdrops": [],
       "svgAxisText": [],
-      "durationMs": 5360
+      "durationMs": 5133
     },
     {
       "tag": "role-detail-light-1366",
@@ -188,7 +188,7 @@
         },
         {
           "name": "像素 role-detail-light-1366: 与基线一致(≤0.5%)",
-          "ok": false
+          "ok": true
         },
         {
           "name": "只读与运行 role-detail-light-1366",
@@ -199,7 +199,7 @@
       "baseline": "tests/visual/__screenshots__/role-detail-light-1366.png",
       "backdrops": [],
       "svgAxisText": [],
-      "durationMs": 5121
+      "durationMs": 4996
     }
   ]
 }

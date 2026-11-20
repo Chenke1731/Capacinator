@@ -1,5 +1,10 @@
 {
+  "totalCombinations": 4,
   "combinations": 4,
+  "shard": {
+    "index": 1,
+    "total": 1
+  },
   "checks": 20,
   "updatePixels": false,
   "registerExistingAxe": false,
@@ -325,7 +330,8 @@
           "ratio": 14.328284912339392,
           "threshold": 4.5
         }
-      ]
+      ],
+      "durationMs": 7079
     },
     {
       "tag": "project-detail-phases-phase-edit-dark-1366",
@@ -648,7 +654,8 @@
           "ratio": 14.328284912339392,
           "threshold": 4.5
         }
-      ]
+      ],
+      "durationMs": 5926
     },
     {
       "tag": "project-detail-phases-phase-edit-light-1600",
@@ -971,7 +978,8 @@
           "ratio": 10.307355969735845,
           "threshold": 4.5
         }
-      ]
+      ],
+      "durationMs": 6293
     },
     {
       "tag": "project-detail-phases-phase-edit-light-1366",
@@ -1294,7 +1302,8 @@
           "ratio": 10.307355969735845,
           "threshold": 4.5
         }
-      ]
+      ],
+      "durationMs": 5776
     }
   ]
 }

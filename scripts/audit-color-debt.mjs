@@ -3,11 +3,11 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
-import { scanRoot, scanSources, initialLedger, checkLedger, resolveOrphan, summarize, LEDGER_PATH, isProductionFile } from './lib/color-debt.mjs';
+import { scanRoot, scanSources, initialLedger, checkLedger, resolveOrphan, refreshClassification, sourceHash, summarize, LEDGER_PATH, isProductionFile } from './lib/color-debt.mjs';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const args=process.argv.slice(2);
-const known=new Set(['--scan','--init','--check','--selftest','--help','--reason','--base-ref','--resolve-orphan','--resolution','--to','--token','--file']);
+const known=new Set(['--scan','--init','--check','--selftest','--help','--reason','--base-ref','--resolve-orphan','--refresh-classification','--resolution','--to','--token','--file']);
 const values=new Set(['--reason','--base-ref','--resolve-orphan','--resolution','--to','--token','--file']);
 const options={};
 for(let i=0;i<args.length;i++) {
@@ -19,11 +19,11 @@ for(let i=0;i<args.length;i++) {
   } else options[key]=true;
 }
 if(options['--help']) {
-  console.log('audit-color-debt: --scan [--file path] | --init --reason text | --check [--base-ref ref] | --resolve-orphan fingerprint --resolution rename|delete|tokenize|retired-unused --reason text [--to fingerprint] [--token name] | --selftest');
+  console.log('audit-color-debt: --scan [--file path] | --init --reason text | --check [--base-ref ref] | --resolve-orphan fingerprint --resolution rename|delete|tokenize|retired-unused --reason text [--to fingerprint] [--token name] | --refresh-classification --reason text | --selftest');
   process.exit(0);
 }
 if(options['--selftest']) { const tests=await import('./tests/color-debt.test.mjs');await tests.runSelfTests();process.exit(0); }
-if(['--scan','--init','--check','--resolve-orphan'].filter(k=>options[k]).length!==1) throw new Error('Choose exactly one operation; scan/check never write the ledger');
+if(['--scan','--init','--check','--resolve-orphan','--refresh-classification'].filter(k=>options[k]).length!==1) throw new Error('Choose exactly one operation; scan/check never write the ledger');
 const git=(...a)=>execFileSync('git',a,{cwd:root,encoding:'utf8',stdio:['ignore','pipe','pipe']}).trim();
 const target=path.join(root,LEDGER_PATH),scan=scanRoot(root);
 if(scan.errors.length) throw new Error(scan.errors.join('\n'));
@@ -46,6 +46,18 @@ if(options['--scan']) {
     const updated=resolveOrphan(ledger,options['--resolve-orphan'],{resolution:options['--resolution'],reason:options['--reason'],to:options['--to'],token:options['--token'],baselineHead:baseHead},scan);
     fs.writeFileSync(target,`${JSON.stringify(updated,null,2)}\n`);
     console.log(`Resolved ${options['--resolve-orphan']}: ${options['--resolution']}`);
+  } else if(options['--refresh-classification']) {
+    // Targets exactly what checkLedger flags: non-color entries whose whole-
+    // file hash rotted because a later batch edited the same file. Admission
+    // (identity re-verification, refusals fail-closed) lives in the lib.
+    const stale=ledger.entries.filter(e=>e.kind==='non-color'&&e.classificationSourceHash&&
+      e.classificationSourceHash!==sourceHash(fs.readFileSync(path.join(root,e.file),'utf8'))).map(e=>e.fingerprint);
+    if(!stale.length) console.log('No stale non-color classifications');
+    else {
+      const {refreshed}=refreshClassification(ledger,stale,{reason:options['--reason'],head:baseHead},scan,root);
+      fs.writeFileSync(target,`${JSON.stringify(ledger,null,2)}\n`);
+      console.log(`Refreshed ${refreshed.length} non-color classification hash(es): ${refreshed.map(f=>f.slice(0,8)).join(', ')}`);
+    }
   } else {
     let baseline;
     const tracked=git('ls-tree','-r','--name-only',baseHead).split('\n');

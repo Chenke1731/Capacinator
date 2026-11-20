@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { scanSources, initialLedger, checkLedger, resolveOrphan, sourceHash, summarize } from '../lib/color-debt.mjs';
+import { scanSources, initialLedger, checkLedger, resolveOrphan, refreshClassification, sourceHash, summarize } from '../lib/color-debt.mjs';
 import { uiReachability } from '../lib/ui-reachability.mjs';
 
 export async function runSelfTests() {
@@ -107,6 +107,37 @@ export async function runSelfTests() {
     assert(checkLedger(scan,inactive,old,root).some(e=>e.includes('dynamic import')));
     fs.writeFileSync(path.join(root,'client/src/main.tsx'),'import "@new-alias/legacy";');
     assert(checkLedger(scan,inactive,old,root).some(e=>e.includes('Unknown package/alias')));
-    console.log('color-debt SELFTEST PASS: parsing, definitions, original locations, exclusions, new/duplicate/orphan gates, rename/retirement, stale evidence, corrupt totals and parse failure');
+    // ── refreshClassification(2026-11-20):官方重验入口——非颜色是人裁分类,
+    // 扫描器不能重推;准入=同指纹在当前扫描中身份字段逐位一致(用途真变了
+    // 会变孤儿+新指纹双红,不许在此吸收)。任何拒绝整批失败,不部分落账。
+    const rcSource='function tone(x){ if(x) return {color:"gray"}; return {color:"gray"}; }';
+    fs.writeFileSync(path.join(root,'client/src/Tone.tsx'),rcSource);
+    const rcScan=scanSources([['client/src/Tone.tsx',rcSource]]);
+    const rcBase=initialLedger(rcScan,'baseline','selftest');
+    const rcLedger=structuredClone(rcBase);
+    Object.assign(rcLedger.entries[0],{kind:'non-color',decision:'not-debt',reason:'className tone segment, not a CSS color',classificationSourceHash:'deadbeef'});
+    rcLedger.summary=summarize(rcLedger.entries);
+    assert(checkLedger(rcScan,rcLedger,rcBase,root).some(x=>x.startsWith('Stale non-color')));
+    const {refreshed}=refreshClassification(rcLedger,[rcLedger.entries[0].fingerprint],{reason:'file edited elsewhere; usage re-verified identical',head:'baseline'},rcScan,root);
+    assert.equal(refreshed.length,1);
+    assert.equal(rcLedger.entries[0].classificationSourceHash,sourceHash(rcSource));
+    assert.deepEqual(checkLedger(rcScan,rcLedger,rcBase,root),[]);
+    assert.equal(rcLedger.classificationRefreshes.length,1);
+    // 变异①:用法改成真样式消费→旧指纹消失,必须拒绝(孤儿走 --resolve-orphan)
+    const turnedStyle='function tone(x){ if(x) return <span style={{color:"gray"}} />; return <span style={{color:"gray"}} />; }';
+    fs.writeFileSync(path.join(root,'client/src/Tone.tsx'),turnedStyle);
+    const turnedScan=scanSources([['client/src/Tone.tsx',turnedStyle]]);
+    assert.throws(()=>refreshClassification(rcLedger,[rcLedger.entries[0].fingerprint],{reason:'mutation',head:'baseline'},turnedScan,root),/absent from current scan/);
+    // 变异②:accepted-literal(真颜色保留债)借道刷新→必须拒绝
+    const colorDebtDisguise=structuredClone(rcLedger);
+    Object.assign(colorDebtDisguise.entries[0],{kind:'consumer',decision:'accepted-literal'});
+    assert.throws(()=>refreshClassification(colorDebtDisguise,[colorDebtDisguise.entries[0].fingerprint],{reason:'mutation',head:'baseline'},rcScan,root),/only non-color not-debt/);
+    // 变异③:count 漂移(同指纹增长)→身份不一致,必须拒绝走重分类
+    const drifted=structuredClone(rcLedger);
+    drifted.entries[0].count=99;
+    assert.throws(()=>refreshClassification(drifted,[drifted.entries[0].fingerprint],{reason:'mutation',head:'baseline'},rcScan,root),/identity drift/);
+    // 变异④:缺 reason→直接拒
+    assert.throws(()=>refreshClassification(structuredClone(rcLedger),[rcLedger.entries[0].fingerprint],{head:'baseline'},rcScan,root),/requires a reason/);
+    console.log('color-debt SELFTEST PASS: parsing, definitions, original locations, exclusions, new/duplicate/orphan gates, rename/retirement, stale evidence, corrupt totals, parse failure and classification refresh');
   } finally {fs.rmSync(root,{recursive:true,force:true});}
 }

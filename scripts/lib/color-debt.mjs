@@ -233,3 +233,45 @@ export function resolveOrphan(ledger,fingerprint,{resolution,reason,to,token,bas
   ledger.summary=summarize(ledger.entries);
   return ledger;
 }
+
+/**
+ * Refresh stale non-color classification hashes (2026-11-20). The 2026-10-17
+ * session cleared the same debt class with a one-off script and prescribed
+ * this official entry in the plan ledger; second recurrence arrived, so the
+ * command exists now.
+ *
+ * Admission per entry — non-color is a HUMAN classification, the scanner
+ * cannot re-derive it, so "usage re-verification" is mechanical identity:
+ * the same fingerprint must still scan with identical file/literal/count/
+ * context/owner/property (checkLedger flags any drift separately). If the
+ * usage had really changed, the entry would be an orphan plus an
+ * unregistered new fingerprint — both stay red and must NOT be absorbed
+ * here. Any refusal fails the whole call: no partial application.
+ */
+export function refreshClassification(ledger,fingerprints,{reason,head},scan,root) {
+  if(!reason) throw new Error('Classification refresh requires a reason');
+  const current=new Map(scan.entries.map(e=>[e.fingerprint,e]));
+  const refusals=[];
+  const refreshed=[];
+  for(const fingerprint of fingerprints) {
+    const item=ledger.entries.find(e=>e.fingerprint===fingerprint);
+    if(!item) { refusals.push([fingerprint,'not in ledger']); continue; }
+    if(item.kind!=='non-color'||item.decision!=='not-debt') { refusals.push([fingerprint,`kind=${item.kind} decision=${item.decision}; only non-color not-debt entries qualify`]); continue; }
+    if(!item.classificationSourceHash) { refusals.push([fingerprint,'no stored classificationSourceHash']); continue; }
+    const live=current.get(fingerprint);
+    if(!live) { refusals.push([fingerprint,'fingerprint absent from current scan — orphan; use --resolve-orphan']); continue; }
+    if(item.count!==live.count||item.file!==live.file||item.literal!==live.literal||
+      JSON.stringify(item.context)!==JSON.stringify(live.context)||item.owner!==live.owner||item.property!==live.property) {
+      refusals.push([fingerprint,'identity drift (file/literal/count/context/owner/property) — reclassify, do not refresh']); continue;
+    }
+    const to=sourceHash(fs.readFileSync(path.join(root,item.file),'utf8'));
+    if(item.classificationSourceHash===to) { refusals.push([fingerprint,'hash already current']); continue; }
+    refreshed.push([fingerprint,item.classificationSourceHash,to,item.file]);
+    item.classificationSourceHash=to;
+  }
+  if(refusals.length) throw new Error(`Refused classification refresh (nothing written):\n${refusals.map(([fp,why])=>`  ${fp}: ${why}`).join('\n')}`);
+  ledger.classificationRefreshes??=[];
+  const date=new Date().toISOString().slice(0,10);
+  for(const [fingerprint,from,to,file] of refreshed) ledger.classificationRefreshes.push({fingerprint,file,from,to,reason,head,date});
+  return {refreshed:refreshed.map(([fingerprint])=>fingerprint)};
+}

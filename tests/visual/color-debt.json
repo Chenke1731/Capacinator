@@ -8415,7 +8415,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: getOverrideTypeColor返回CSS变量键/徽章类后缀，调用方拼接var(--color-*)或badge-*，不作为CSS字面颜色",
       "evidence": [],
-      "classificationSourceHash": "0dc22f43ebffb1f59ce5e8a05ead64caf8f041f082e67b103a0a61f51ba0296e",
+      "classificationSourceHash": "456fa65dc24f559ad7db7fc22460bb383aba72a91a8b5dcd222d4f69865d63ba",
       "classificationNote": "2026-11-11 重批(D-04 Stage 2):色词仍为 badge-${} 类名片段(260 行)与 --color-${} token 名片段(225 行),非颜色字面量;弹窗迁 Radix 致文件哈希陈旧,逐条复核后刷新"
     },
     {
@@ -8440,7 +8440,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: getOverrideTypeColor返回CSS变量键/徽章类后缀，调用方拼接var(--color-*)或badge-*，不作为CSS字面颜色",
       "evidence": [],
-      "classificationSourceHash": "0dc22f43ebffb1f59ce5e8a05ead64caf8f041f082e67b103a0a61f51ba0296e",
+      "classificationSourceHash": "456fa65dc24f559ad7db7fc22460bb383aba72a91a8b5dcd222d4f69865d63ba",
       "classificationNote": "2026-11-11 重批(D-04 Stage 2):色词仍为 badge-${} 类名片段(260 行)与 --color-${} token 名片段(225 行),非颜色字面量;弹窗迁 Radix 致文件哈希陈旧,逐条复核后刷新"
     },
     {
@@ -8465,7 +8465,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: getOverrideTypeColor返回CSS变量键/徽章类后缀，调用方拼接var(--color-*)或badge-*，不作为CSS字面颜色",
       "evidence": [],
-      "classificationSourceHash": "0dc22f43ebffb1f59ce5e8a05ead64caf8f041f082e67b103a0a61f51ba0296e",
+      "classificationSourceHash": "456fa65dc24f559ad7db7fc22460bb383aba72a91a8b5dcd222d4f69865d63ba",
       "classificationNote": "2026-11-11 重批(D-04 Stage 2):色词仍为 badge-${} 类名片段(260 行)与 --color-${} token 名片段(225 行),非颜色字面量;弹窗迁 Radix 致文件哈希陈旧,逐条复核后刷新"
     },
     {
@@ -8490,7 +8490,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: getOverrideTypeColor返回CSS变量键/徽章类后缀，调用方拼接var(--color-*)或badge-*，不作为CSS字面颜色",
       "evidence": [],
-      "classificationSourceHash": "0dc22f43ebffb1f59ce5e8a05ead64caf8f041f082e67b103a0a61f51ba0296e",
+      "classificationSourceHash": "456fa65dc24f559ad7db7fc22460bb383aba72a91a8b5dcd222d4f69865d63ba",
       "classificationNote": "2026-11-11 重批(D-04 Stage 2):色词仍为 badge-${} 类名片段(260 行)与 --color-${} token 名片段(225 行),非颜色字面量;弹窗迁 Radix 致文件哈希陈旧,逐条复核后刷新"
     },
     {
@@ -8515,7 +8515,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: getOverrideTypeColor返回CSS变量键/徽章类后缀，调用方拼接var(--color-*)或badge-*，不作为CSS字面颜色",
       "evidence": [],
-      "classificationSourceHash": "0dc22f43ebffb1f59ce5e8a05ead64caf8f041f082e67b103a0a61f51ba0296e",
+      "classificationSourceHash": "456fa65dc24f559ad7db7fc22460bb383aba72a91a8b5dcd222d4f69865d63ba",
       "classificationNote": "2026-11-11 重批(D-04 Stage 2):色词仍为 badge-${} 类名片段(260 行)与 --color-${} token 名片段(225 行),非颜色字面量;弹窗迁 Radix 致文件哈希陈旧,逐条复核后刷新"
     },
     {
@@ -8566,7 +8566,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: 筛选选项的语义颜色键，渲染为样式类后缀，不作为内联CSS颜色",
       "evidence": [],
-      "classificationSourceHash": "5f8c9658149daf8bb340d7e8c09ad92b70c77682135fb5a09c6602776447d3ac"
+      "classificationSourceHash": "7238444a0b7b118a9498db2face73e0dbc3385c4a5218d5d5a749009fab9242d"
     },
     {
       "fingerprint": "3f104d7937164f9913e7d41da506fc49259c5097fbac4d0120d09a380d5211e9",
@@ -8588,7 +8588,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: 覆盖类型返回徽章类后缀或jsx类名条件分支，不作为CSS字面颜色",
       "evidence": [],
-      "classificationSourceHash": "80417cd8e396b9770fb0f46790395de4c6547b9f1a17d46cbb941b69cea4606d",
+      "classificationSourceHash": "e5c783d3e31e13acc69de9361c4b45b198b71edbbdeb111f22ee122037e9f3c7",
       "classificationNote": "2026-11-11 重批(批 B):色词仍为 badge-${}/类名片段(837/869/874 行)与状态色词 switch(1299-1303,喂类名构造);删 Charts.css import 致哈希陈旧,复核后刷新"
     },
     {
@@ -8611,7 +8611,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: 覆盖类型返回徽章类后缀或jsx类名条件分支，不作为CSS字面颜色",
       "evidence": [],
-      "classificationSourceHash": "80417cd8e396b9770fb0f46790395de4c6547b9f1a17d46cbb941b69cea4606d",
+      "classificationSourceHash": "e5c783d3e31e13acc69de9361c4b45b198b71edbbdeb111f22ee122037e9f3c7",
       "classificationNote": "2026-11-11 重批(批 B):色词仍为 badge-${}/类名片段(837/869/874 行)与状态色词 switch(1299-1303,喂类名构造);删 Charts.css import 致哈希陈旧,复核后刷新"
     },
     {
@@ -8634,7 +8634,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: 覆盖类型返回徽章类后缀或jsx类名条件分支，不作为CSS字面颜色",
       "evidence": [],
-      "classificationSourceHash": "80417cd8e396b9770fb0f46790395de4c6547b9f1a17d46cbb941b69cea4606d",
+      "classificationSourceHash": "e5c783d3e31e13acc69de9361c4b45b198b71edbbdeb111f22ee122037e9f3c7",
       "classificationNote": "2026-11-11 重批(批 B):色词仍为 badge-${}/类名片段(837/869/874 行)与状态色词 switch(1299-1303,喂类名构造);删 Charts.css import 致哈希陈旧,复核后刷新"
     },
     {
@@ -8657,7 +8657,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: 覆盖类型返回徽章类后缀或jsx类名条件分支，不作为CSS字面颜色",
       "evidence": [],
-      "classificationSourceHash": "80417cd8e396b9770fb0f46790395de4c6547b9f1a17d46cbb941b69cea4606d",
+      "classificationSourceHash": "e5c783d3e31e13acc69de9361c4b45b198b71edbbdeb111f22ee122037e9f3c7",
       "classificationNote": "2026-11-11 重批(批 B):色词仍为 badge-${}/类名片段(837/869/874 行)与状态色词 switch(1299-1303,喂类名构造);删 Charts.css import 致哈希陈旧,复核后刷新"
     },
     {
@@ -8680,7 +8680,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: 覆盖类型返回徽章类后缀或jsx类名条件分支，不作为CSS字面颜色",
       "evidence": [],
-      "classificationSourceHash": "80417cd8e396b9770fb0f46790395de4c6547b9f1a17d46cbb941b69cea4606d",
+      "classificationSourceHash": "e5c783d3e31e13acc69de9361c4b45b198b71edbbdeb111f22ee122037e9f3c7",
       "classificationNote": "2026-11-11 重批(批 B):色词仍为 badge-${}/类名片段(837/869/874 行)与状态色词 switch(1299-1303,喂类名构造);删 Charts.css import 致哈希陈旧,复核后刷新"
     },
     {
@@ -8713,7 +8713,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: 覆盖类型返回徽章类后缀或jsx类名条件分支，不作为CSS字面颜色",
       "evidence": [],
-      "classificationSourceHash": "80417cd8e396b9770fb0f46790395de4c6547b9f1a17d46cbb941b69cea4606d",
+      "classificationSourceHash": "e5c783d3e31e13acc69de9361c4b45b198b71edbbdeb111f22ee122037e9f3c7",
       "classificationNote": "2026-11-11 重批(批 B):色词仍为 badge-${}/类名片段(837/869/874 行)与状态色词 switch(1299-1303,喂类名构造);删 Charts.css import 致哈希陈旧,复核后刷新"
     },
     {
@@ -8801,7 +8801,7 @@
       "semanticRole": "hex-example-text",
       "reason": "TC-C5 HTML placeholder仅显示颜色代码示例文字，不设置CSS颜色；真实色值来自用户数据",
       "evidence": [],
-      "classificationSourceHash": "1d6ee9bc4327bc2b2f3688b141fed2028bfd834c0d628720ffd18909fa03bcda"
+      "classificationSourceHash": "cfbebc14eaefb8dd4361f72f6a069e60ffe587257d99b5a1631cea01059f0f9e"
     },
     {
       "fingerprint": "040c08ccedf93b17d8ea82990146d781217b9d19fe862ac11f8dc1b192e33d79",
@@ -21158,5 +21158,124 @@
       "reason": "test/mock/fixture"
     }
   ],
-  "governanceComplete": true
+  "governanceComplete": true,
+  "classificationRefreshes": [
+    {
+      "fingerprint": "31ac7c83695a3450540a11c94eecf9d5ab78ebf3dd491c1ff18544d43578b573",
+      "file": "client/src/pages/Availability.tsx",
+      "from": "0dc22f43ebffb1f59ce5e8a05ead64caf8f041f082e67b103a0a61f51ba0296e",
+      "to": "456fa65dc24f559ad7db7fc22460bb383aba72a91a8b5dcd222d4f69865d63ba",
+      "reason": "second recurrence (2026-10-17 precedent, plan ledger prescribed this command); usage re-verified identical: token-name segments (--color-*), className badge segments, placeholder text",
+      "head": "7bac2b95318253f467956c39dc2240a5901a960a",
+      "date": "2026-11-20"
+    },
+    {
+      "fingerprint": "793cbb9e6d2a82e9e375e8b85fd4852a1be1036f038e8835e4b2bf6df602d8a5",
+      "file": "client/src/pages/Availability.tsx",
+      "from": "0dc22f43ebffb1f59ce5e8a05ead64caf8f041f082e67b103a0a61f51ba0296e",
+      "to": "456fa65dc24f559ad7db7fc22460bb383aba72a91a8b5dcd222d4f69865d63ba",
+      "reason": "second recurrence (2026-10-17 precedent, plan ledger prescribed this command); usage re-verified identical: token-name segments (--color-*), className badge segments, placeholder text",
+      "head": "7bac2b95318253f467956c39dc2240a5901a960a",
+      "date": "2026-11-20"
+    },
+    {
+      "fingerprint": "b6de72c64833074058ede0de87006983f960e172b08d431c7f5b6a3459887e99",
+      "file": "client/src/pages/Availability.tsx",
+      "from": "0dc22f43ebffb1f59ce5e8a05ead64caf8f041f082e67b103a0a61f51ba0296e",
+      "to": "456fa65dc24f559ad7db7fc22460bb383aba72a91a8b5dcd222d4f69865d63ba",
+      "reason": "second recurrence (2026-10-17 precedent, plan ledger prescribed this command); usage re-verified identical: token-name segments (--color-*), className badge segments, placeholder text",
+      "head": "7bac2b95318253f467956c39dc2240a5901a960a",
+      "date": "2026-11-20"
+    },
+    {
+      "fingerprint": "bdd467161f5b9cbecb7d14c34b39ab4d7070f73c824a50bbb910dbd4c291e0d2",
+      "file": "client/src/pages/Availability.tsx",
+      "from": "0dc22f43ebffb1f59ce5e8a05ead64caf8f041f082e67b103a0a61f51ba0296e",
+      "to": "456fa65dc24f559ad7db7fc22460bb383aba72a91a8b5dcd222d4f69865d63ba",
+      "reason": "second recurrence (2026-10-17 precedent, plan ledger prescribed this command); usage re-verified identical: token-name segments (--color-*), className badge segments, placeholder text",
+      "head": "7bac2b95318253f467956c39dc2240a5901a960a",
+      "date": "2026-11-20"
+    },
+    {
+      "fingerprint": "c1796f4967f7d84c4696b7e641ea34594f29163793159f46d3975a59669b2558",
+      "file": "client/src/pages/Availability.tsx",
+      "from": "0dc22f43ebffb1f59ce5e8a05ead64caf8f041f082e67b103a0a61f51ba0296e",
+      "to": "456fa65dc24f559ad7db7fc22460bb383aba72a91a8b5dcd222d4f69865d63ba",
+      "reason": "second recurrence (2026-10-17 precedent, plan ledger prescribed this command); usage re-verified identical: token-name segments (--color-*), className badge segments, placeholder text",
+      "head": "7bac2b95318253f467956c39dc2240a5901a960a",
+      "date": "2026-11-20"
+    },
+    {
+      "fingerprint": "808eda35a1398b9ab4cc5c5306e43a097b442938a75b7c66374226a5277e2db9",
+      "file": "client/src/pages/People.tsx",
+      "from": "5f8c9658149daf8bb340d7e8c09ad92b70c77682135fb5a09c6602776447d3ac",
+      "to": "7238444a0b7b118a9498db2face73e0dbc3385c4a5218d5d5a749009fab9242d",
+      "reason": "second recurrence (2026-10-17 precedent, plan ledger prescribed this command); usage re-verified identical: token-name segments (--color-*), className badge segments, placeholder text",
+      "head": "7bac2b95318253f467956c39dc2240a5901a960a",
+      "date": "2026-11-20"
+    },
+    {
+      "fingerprint": "3f104d7937164f9913e7d41da506fc49259c5097fbac4d0120d09a380d5211e9",
+      "file": "client/src/pages/PersonDetails.tsx",
+      "from": "80417cd8e396b9770fb0f46790395de4c6547b9f1a17d46cbb941b69cea4606d",
+      "to": "e5c783d3e31e13acc69de9361c4b45b198b71edbbdeb111f22ee122037e9f3c7",
+      "reason": "second recurrence (2026-10-17 precedent, plan ledger prescribed this command); usage re-verified identical: token-name segments (--color-*), className badge segments, placeholder text",
+      "head": "7bac2b95318253f467956c39dc2240a5901a960a",
+      "date": "2026-11-20"
+    },
+    {
+      "fingerprint": "4d98dd9142833ae44880368406e70edec6607de31fd9e62474ebc952ac6adbb9",
+      "file": "client/src/pages/PersonDetails.tsx",
+      "from": "80417cd8e396b9770fb0f46790395de4c6547b9f1a17d46cbb941b69cea4606d",
+      "to": "e5c783d3e31e13acc69de9361c4b45b198b71edbbdeb111f22ee122037e9f3c7",
+      "reason": "second recurrence (2026-10-17 precedent, plan ledger prescribed this command); usage re-verified identical: token-name segments (--color-*), className badge segments, placeholder text",
+      "head": "7bac2b95318253f467956c39dc2240a5901a960a",
+      "date": "2026-11-20"
+    },
+    {
+      "fingerprint": "536845eab1420b7a675bfdcacfb65aaa93e5508d9982be2f67f8888703d11c87",
+      "file": "client/src/pages/PersonDetails.tsx",
+      "from": "80417cd8e396b9770fb0f46790395de4c6547b9f1a17d46cbb941b69cea4606d",
+      "to": "e5c783d3e31e13acc69de9361c4b45b198b71edbbdeb111f22ee122037e9f3c7",
+      "reason": "second recurrence (2026-10-17 precedent, plan ledger prescribed this command); usage re-verified identical: token-name segments (--color-*), className badge segments, placeholder text",
+      "head": "7bac2b95318253f467956c39dc2240a5901a960a",
+      "date": "2026-11-20"
+    },
+    {
+      "fingerprint": "722b98c7d567c68f04db14250011ce56f8ca52e4a9974ba8c819bb089d48d71f",
+      "file": "client/src/pages/PersonDetails.tsx",
+      "from": "80417cd8e396b9770fb0f46790395de4c6547b9f1a17d46cbb941b69cea4606d",
+      "to": "e5c783d3e31e13acc69de9361c4b45b198b71edbbdeb111f22ee122037e9f3c7",
+      "reason": "second recurrence (2026-10-17 precedent, plan ledger prescribed this command); usage re-verified identical: token-name segments (--color-*), className badge segments, placeholder text",
+      "head": "7bac2b95318253f467956c39dc2240a5901a960a",
+      "date": "2026-11-20"
+    },
+    {
+      "fingerprint": "c3223fa2d8fa50bf6ee1d5c03e1bdcde8c116ebb532889c423afe1b63462c992",
+      "file": "client/src/pages/PersonDetails.tsx",
+      "from": "80417cd8e396b9770fb0f46790395de4c6547b9f1a17d46cbb941b69cea4606d",
+      "to": "e5c783d3e31e13acc69de9361c4b45b198b71edbbdeb111f22ee122037e9f3c7",
+      "reason": "second recurrence (2026-10-17 precedent, plan ledger prescribed this command); usage re-verified identical: token-name segments (--color-*), className badge segments, placeholder text",
+      "head": "7bac2b95318253f467956c39dc2240a5901a960a",
+      "date": "2026-11-20"
+    },
+    {
+      "fingerprint": "ede9a01e1a15cd932b64a16062b3f8c4dc26ac05b59be36fc9d4a1a7bacfd58c",
+      "file": "client/src/pages/PersonDetails.tsx",
+      "from": "80417cd8e396b9770fb0f46790395de4c6547b9f1a17d46cbb941b69cea4606d",
+      "to": "e5c783d3e31e13acc69de9361c4b45b198b71edbbdeb111f22ee122037e9f3c7",
+      "reason": "second recurrence (2026-10-17 precedent, plan ledger prescribed this command); usage re-verified identical: token-name segments (--color-*), className badge segments, placeholder text",
+      "head": "7bac2b95318253f467956c39dc2240a5901a960a",
+      "date": "2026-11-20"
+    },
+    {
+      "fingerprint": "9523c36b0cab8c261ad645534b851e6021df964e3d3d97e6b1b289a284a55377",
+      "file": "client/src/pages/ProjectTypeDetails.tsx",
+      "from": "1d6ee9bc4327bc2b2f3688b141fed2028bfd834c0d628720ffd18909fa03bcda",
+      "to": "cfbebc14eaefb8dd4361f72f6a069e60ffe587257d99b5a1631cea01059f0f9e",
+      "reason": "second recurrence (2026-10-17 precedent, plan ledger prescribed this command); usage re-verified identical: token-name segments (--color-*), className badge segments, placeholder text",
+      "head": "7bac2b95318253f467956c39dc2240a5901a960a",
+      "date": "2026-11-20"
+    }
+  ]
 }

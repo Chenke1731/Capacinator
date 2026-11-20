@@ -76,6 +76,10 @@ node scripts/verify-invariants.mjs --id D2,U3 --static-only --json tmp/invariant
 # 改动路由的 1366/1600 双语运行时
 node scripts/verify-invariants.mjs --id U1,U3 --changed
 
+# 详情路由（含 :audit-id 实体路由，运行时经 resolveProfile 换真 ID）
+node scripts/verify-invariants.mjs --id U1,U3 --profile phase-template
+node scripts/verify-invariants.mjs --id U1,U3 --route /roles/501d8abc-0c77-45e9-98c8-7832302e63cb
+
 # U4 五页状态矩阵（loading/empty/500/403；--strict 作为闸）
 node scripts/verify-state-completeness.mjs --pages people,assignments,projects,reports,dashboard --strict
 node scripts/verify-state-completeness.mjs --pages reports --states error,forbidden --json tmp/u4-reports.json
@@ -113,13 +117,26 @@ node scripts/verify-css-isolation.mjs --all --trace --trace-route assignments
 
 - **U1**：1366/1600 全量 0 blocking、0 warning；仅 4 条 info（People en-US 横向滚动/动作列需横滚）。
   `--stress` 长内容模式 0 blocking、0 warning，28 条动作列需横滚 info。
+- **U1 详情路由扩面（2026-11-20）**：curated 24→29，补 role-detail / project-type-detail /
+  phase-template / project-detail-tagged / person-workload。`:audit-id` 实体路由由 runner
+  经 `resolveProfile` 解析（实体 profile 无独立 fixture，不会切换进程场景）；同页兄弟路由
+  （project-detail-phases≈project-detail）解析后去重不重复量测。扩面首跑清掉三处真债：
+  `.resource-templates-table th` 行高 57→55px（超 56 契约 1px，纵向 padding 16→15）；
+  `.phases-table th` en-US DEFAULT/MIN/MAX DAYS 换行（补 `white-space:nowrap`，
+  1366 en-US 残留 12px 横滚 info）；person-workload 所需 3 个 GET 补进 runtime-data 场景。
 - **U3**：运行时 0 blocking、0 warning；37 条 native dialog 已全部迁移（alert→toast，confirm→ConfirmDialog）；
   Intake/ProjectTypes/Roles 动作列已压缩为图标 + 单个文字主操作。
 - **D2**：**0 finding**；所有 legacy 防御解析已收敛到 `asList`，控制器裸响应已清。
-- **U2**：SPA 30 路由顺序普查 **0 polluted、0 coverage error**。
+- **U2**：SPA 普查（29 路由，含详情/实体路由）**0 polluted、0 coverage error**。
   - `.project-info`、`.project-name`、`.info-value`、`.inline-editable`、`.btn*`、`.charts-grid` 等
     已按 `:where(page-root)` 收敛（特异性与原来的裸选择器一致，避免压过 App.css dark 覆盖）；
   - `ProjectDetail`/`AuditLog`/`Roles` 根类已补齐，供 scope 使用；
+  - 2026-11-20 详情路由入普查后清掉新暴露的共享类泄漏（全部真修，未登记基线）：
+    `PhaseTemplateDesigner.css` 的 `.actions-cell`/`.phase-name`、`ProjectTypeDetails.css` 的
+    `.section-header`(+h2)/`.header-content`/死代码 `.form-grid`、`ProjectRoadmap.css` 的
+    死规则 `.phase-name`（经 ProjectsUnified 在 /projects 即加载，是 phase-template 污染源）。
+    `ProjectTypeDetails` 根补 `project-type-details-page` 锚类（与 RoleDetails 共用
+    `.role-details-page`，不能拿共用根当锚）；
   - U2 不再有污染债；CSS/共享原语改动在 T1 以 `--strict` 阻塞。
 - **U4**：五页 × 四状态 **20/20 通过**（2026-11-20）。
   - 修复 Reports：`capacity/utilization/demand/gaps` 查询补 `error` 解构；错误时以

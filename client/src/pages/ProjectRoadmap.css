@@ -1044,12 +1044,10 @@
   letter-spacing: 0;
 }
 
-.phase-name {
-  flex: 1;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+/* U2（2026-11-20）：`.phase-name` 只有 PhaseTemplateDesigner 渲染，本文件经
+   ProjectsUnified 在 /projects 即加载，裸定义把 nowrap 泄进设计器页面
+   （phase-template 普查实锤）。规则无本页渲染点，删除；`.phase-item` 家族
+   同样零渲染点，属死代码候选，留待专项清理。 */
 
 .phase-duration {
   font-size: 0.75rem;

@@ -61,35 +61,13 @@ const GLOBAL_UTIL_CLASSES = [
   'btn-sm', 'btn-lg',
 ];
 // 增量拦截: 存量违例登记在册只拦新增,清单格式 "文件 :: 类名"(同文件同类多规则合并一条)。
-// 2026-09-22 扫描快照: .text-muted 已从 Locations.css/Import.css 清出(那次只清了它),
-// 其余为历史遗留裸定义,待各页改写为作用域覆盖后逐条删除。
+// 2026-11-20 清噪：21 条已收敛条目删除（AuditLog/Import/Locations/People/
+// PhaseTemplateDesigner/ProjectsTable/Assignments/Scenarios 的 .btn*/text-* 裸
+// 定义已在历次作用域化中清零，pre-commit 每轮刷"可降基线"提示）；仅存 2 条
+// 仍活跃的存量。原 2026-09-22/2026-11-10 快照注释随之失效。
 const UTIL_ALLOWLIST = [
   'client/src/pages/Assignments.css :: .text-secondary',
-  'client/src/pages/AuditLog.css :: .btn',
-  'client/src/pages/Import.css :: .btn',
   'client/src/pages/Import.css :: .text-primary',
-  'client/src/pages/Locations.css :: .btn',
-  'client/src/pages/People.css :: .text-success',
-  'client/src/pages/People.css :: .text-warning',
-  'client/src/pages/People.css :: .text-danger',
-  'client/src/pages/People.css :: .text-info',
-  // 2026-11-10 修饰类扩充时的存量快照（冻新增、不追溯）：
-  'client/src/components/PhaseTemplateDesigner.css :: .btn',
-  'client/src/components/PhaseTemplateDesigner.css :: .btn-danger',
-  'client/src/components/PhaseTemplateDesigner.css :: .btn-primary',
-  'client/src/components/PhaseTemplateDesigner.css :: .btn-secondary',
-  'client/src/components/PhaseTemplateDesigner.css :: .btn-sm',
-  'client/src/components/ProjectsTable.css :: .btn-sm',
-  'client/src/pages/Assignments.css :: .btn-sm',
-  'client/src/pages/Import.css :: .text-primary',
-  'client/src/pages/Locations.css :: .btn-danger',
-  'client/src/pages/Locations.css :: .btn-ghost',
-  'client/src/pages/Locations.css :: .btn-primary',
-  'client/src/pages/Locations.css :: .btn-sm',
-  'client/src/pages/People.css :: .btn-danger',
-  'client/src/pages/Scenarios.css :: .btn-primary',
-  'client/src/pages/Scenarios.css :: .btn-secondary',
-  'client/src/pages/Scenarios.css :: .btn-sm',
 ];
 
 function listCss(relDir, recursive) {
@@ -315,11 +293,9 @@ export function countAnimLayoutProps(texts) {
 // 规则 12: window.confirm 调用点冻结（CP 确认框命名×impeccable clarify）
 // 确认按钮必须命名动作（禁 OK/Cancel）——原生 confirm 不可命名。存量按调用点
 // 登记；迁移到 Radix ConfirmDialog 后收缩基线（防旧位置获得永久新增额度）。
-export const WINDOW_CONFIRM_BASELINE = new Map([
-  ['client/src/pages/PersonDetails.tsx', 1],
-  ['client/src/pages/PersonWorkload.tsx', 5],
-  ['client/src/components/VisualPhaseManager.tsx', 1],
-]);
+// 2026-11-20 清零：PersonDetails/PersonWorkload/VisualPhaseManager 三处存量
+// 已全部迁移（与 U3 native-dialog baseline 清零同批），此后任何新增即红。
+export const WINDOW_CONFIRM_BASELINE = new Map([]);
 export function countWindowConfirm(source) {
   return (String(source).match(/window\.confirm/g) || []).length;
 }

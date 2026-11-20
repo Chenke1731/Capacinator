@@ -15,7 +15,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { chromium } from 'playwright';
-import { auditEnvironment, authenticate, setupReadOnlyPage } from './lib/ui-profiles.mjs';
+import { auditEnvironment, authenticate, setupReadOnlyPage, getProfile, resolveProfile } from './lib/ui-profiles.mjs';
 import { resolveRoutes } from './lib/invariants/routes.mjs';
 import { measurePage } from './lib/invariants/runtime-metrics.mjs';
 import { evaluateU1, evaluateLongContent } from './lib/invariants/u1-text-fit.mjs';
@@ -142,7 +142,24 @@ async function runRuntime(idsToRun) {
   const findings = [];
   const started = Date.now();
   try {
+    const resolvedSeen = new Set();
     for (const route of routes) {
+      // Entity routes (`:audit-id`) swap in the resolved real ID once per run.
+      // Only entity profiles flow through resolveProfile here — they never
+      // declare their own fixture, so the process-wide frozen scene stays
+      // intact for every route opened afterward.
+      const resolved = route.profile ? await resolveProfile(getProfile(route.profile), auth) : null;
+      const routePath = resolved?.path ?? route.path;
+      // A page entry may map both a static detail route and its entity sibling
+      // (project-detail + project-detail-phases) onto the same page; measuring
+      // it twice is pure waste.
+      if (resolvedSeen.has(routePath)) {
+        console.log(`SKIP ${route.id}: resolves to already-measured ${routePath}`);
+        continue;
+      }
+      resolvedSeen.add(routePath);
+      const readySelector = route.ready ?? resolved?.ready;
+      const routeInfo = { ...route, path: routePath };
       for (const language of languages) {
         for (const viewport of viewports) {
           const context = await browser.newContext({ viewport });
@@ -150,23 +167,23 @@ async function runRuntime(idsToRun) {
           try {
             const session = await setupReadOnlyPage(context, auth, theme, { language });
             const page = session.page;
-            await page.goto(`${auditEnvironment.base}${route.path}`, { waitUntil: 'networkidle', timeout: 30000 });
-            if (route.ready) {
-              await page.locator(route.ready).first().waitFor({ state: 'visible', timeout: 15000 });
+            await page.goto(`${auditEnvironment.base}${routePath}`, { waitUntil: 'networkidle', timeout: 30000 });
+            if (readySelector) {
+              await page.locator(readySelector).first().waitFor({ state: 'visible', timeout: 15000 });
             }
             await page.evaluate(() => document.fonts.ready);
             await page.addStyleTag({ content: '*,*::before,*::after{transition:none!important;animation:none!important;}' });
             await page.waitForTimeout(settle);
             if (session.errors.length) {
               findings.push({
-                id: 'U1', severity: 'warn', route: route.id, path: route.path, language,
+                id: 'U1', severity: 'warn', route: route.id, path: routePath, language,
                 viewport: `${viewport.width}x${viewport.height}`, rule: 'page-error',
-                selector: route.path, text: '', expected: 'no page errors', actual: session.errors.join(' | ').slice(0, 240),
+                selector: routePath, text: '', expected: 'no page errors', actual: session.errors.join(' | ').slice(0, 240),
                 message: `页面运行错误：${session.errors[0]}`,
               });
             }
             const metrics = await page.evaluate(measurePage);
-            const contextInfo = { route, language, viewport };
+            const contextInfo = { route: routeInfo, language, viewport };
             if (idsToRun.includes('U1')) findings.push(...evaluateU1(metrics, contextInfo));
             if (idsToRun.includes('U1') && stress) {
               await page.evaluate(() => {
@@ -190,9 +207,9 @@ async function runRuntime(idsToRun) {
             console.log(`${fails ? 'FAIL' : 'PASS'} ${routeLabel}: ${routeFindings.length} finding(s), ${fails} blocking`);
           } catch (error) {
             findings.push({
-              id: 'U1', severity: 'fail', route: route.id, path: route.path, language,
+              id: 'U1', severity: 'fail', route: route.id, path: routePath, language,
               viewport: `${viewport.width}x${viewport.height}`, rule: 'route-load',
-              selector: route.path, text: '', expected: 'route ready', actual: String(error.message).slice(0, 240),
+              selector: routePath, text: '', expected: 'route ready', actual: String(error.message).slice(0, 240),
               message: `路由无法量测：${error.message}`,
             });
             console.log(`FAIL ${routeLabel}: route-load — ${error.message}`);
@@ -279,6 +296,16 @@ async function selftest() {
   check('D2 flags message-only response', controller.findings.some((finding) => finding.code.includes('message: "x"')));
   const defensive = scanClientDefensiveText('fixture.ts', 'const rows = Array.isArray(payload) ? payload : payload?.data || [];');
   check('D2 flags defensive parse', defensive.length === 1);
+
+  const allRoutes = resolveRoutes({ all: true });
+  const detailIds = ['role-detail', 'project-type-detail', 'phase-template', 'project-detail-tagged', 'person-workload'];
+  check('curated routes cover detail pages', detailIds.every((id) => allRoutes.some((route) => route.id === id)), `${allRoutes.length} routes`);
+  const entityRoute = resolveRoutes({ profile: 'phase-template' })[0];
+  check('entity profile resolves via profile ref', Boolean(entityRoute?.profile === 'phase-template' && !entityRoute.path && entityRoute.ready === '.phases-table'));
+  const typeRoutes = resolveRoutes({ files: ['client/src/pages/ProjectTypeDetails.tsx'] });
+  check('detail page change maps entity routes', ['project-type-detail', 'phase-template'].every((id) => typeRoutes.some((route) => route.id === id && route.profile)));
+  const workloadRoutes = resolveRoutes({ files: ['client/src/pages/PersonWorkload.tsx'] });
+  check('fixture-bearing profile keeps literal path', Boolean(workloadRoutes.some((route) => route.id === 'person-workload' && route.path?.includes('/workload') && !route.profile)));
 
   const browser = await chromium.launch({ executablePath: auditEnvironment.chrome });
   try {

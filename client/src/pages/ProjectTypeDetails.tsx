@@ -292,7 +292,7 @@ export default function ProjectTypeDetails() {
   }
 
   return (
-    <div className="role-details-page">
+    <div className="role-details-page project-type-details-page">
       {/* Navigation Header */}
       <div className="navigation-header">
         <button

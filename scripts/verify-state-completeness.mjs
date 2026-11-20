@@ -172,6 +172,16 @@ async function runState(browser, auth, pageConfig, pageId, state) {
         { emptyReady: pageConfig.emptyReady ?? '' },
         { timeout: 8000 }
       ).catch(() => {});
+      // Empty must be measured settled, not mid-unmount of the loading UI:
+      // under parallel browser load the ready selector can appear while a
+      // spinner is still on screen, failing the !loading assertion (dashboard
+      // flake, 3× repro-then-pass). Bound the settle; a permanently-spinning
+      // page still fails via the timeout + snapshot.
+      await page.waitForFunction(
+        () => !document.querySelector('.animate-spin, .req-skeleton, .skeleton, [data-loading="true"], .loading, .spinner'),
+        undefined,
+        { timeout: 8000 }
+      ).catch(() => {});
     }
     const snapshot = await page.evaluate(({ emptyReady }) => {
       const visible = (el) => {

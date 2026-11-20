@@ -268,7 +268,9 @@ input:focus, select:focus, textarea:focus {
 
 .resource-templates-table th {
   background: var(--table-header-bg);
-  padding: 1rem;
+  /* U1 表头 ≤56px 契约（2026-11-20 详情路由接入后量得 57px）：16px 上下
+     padding + 24px 行高 + 1px 边框 = 57，纵向收到 15px 归位 */
+  padding: 0.9375rem 1rem;
   text-align: left;
   font-weight: 600;
   color: var(--text-primary);

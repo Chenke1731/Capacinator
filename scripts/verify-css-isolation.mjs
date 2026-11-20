@@ -21,7 +21,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { chromium } from 'playwright';
-import { auditEnvironment, authenticate, setupReadOnlyPage } from './lib/ui-profiles.mjs';
+import { auditEnvironment, authenticate, setupReadOnlyPage, getProfile, resolveProfile } from './lib/ui-profiles.mjs';
 import { resolveRoutes } from './lib/invariants/routes.mjs';
 
 const ROOT = process.cwd();
@@ -139,6 +139,21 @@ async function runCensus() {
   const routes = resolveRoutes({ all: true });
   if (value('--route')) routes.splice(0, routes.length, { id: 'route', path: value('--route') });
   const auth = await authenticate();
+  // Entity routes (`:audit-id`) resolve to real IDs here, mirroring the
+  // invariant runner; sibling profiles landing on the same page measure once.
+  const resolvedSeen = new Set();
+  for (let index = routes.length - 1; index >= 0; index -= 1) {
+    const route = routes[index];
+    const resolved = route.profile ? await resolveProfile(getProfile(route.profile), auth) : null;
+    const routePath = resolved?.path ?? route.path;
+    if (resolvedSeen.has(routePath)) {
+      console.log(`SKIP ${route.id}: resolves to already-measured ${routePath}`);
+      routes.splice(index, 1);
+      continue;
+    }
+    resolvedSeen.add(routePath);
+    routes[index] = { ...route, path: routePath, ready: route.ready ?? resolved?.ready };
+  }
   const browser = await chromium.launch({ executablePath: auditEnvironment.chrome });
   const report = { generatedAt: new Date().toISOString(), routes: routes.length, baselines: {}, polluted: [], errors: [], trace: {} };
   try {

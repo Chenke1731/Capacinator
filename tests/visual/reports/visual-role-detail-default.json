@@ -1,0 +1,205 @@
+{
+  "totalCombinations": 4,
+  "combinations": 4,
+  "shard": {
+    "index": 1,
+    "total": 1
+  },
+  "checks": 20,
+  "updatePixels": false,
+  "registerExistingAxe": false,
+  "evidence": [
+    {
+      "tag": "role-detail-dark-1600",
+      "profile": "role-detail",
+      "path": "/roles/501d8abc-0c77-45e9-98c8-7832302e63cb",
+      "theme": "dark",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe role-detail-dark-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 role-detail-dark-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 role-detail-dark-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 role-detail-dark-1600: 与基线一致(≤0.5%)",
+          "ok": false
+        },
+        {
+          "name": "只读与运行 role-detail-dark-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-role-detail-dark-1600.png",
+      "baseline": "tests/visual/__screenshots__/role-detail-dark-1600.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 5555
+    },
+    {
+      "tag": "role-detail-dark-1366",
+      "profile": "role-detail",
+      "path": "/roles/501d8abc-0c77-45e9-98c8-7832302e63cb",
+      "theme": "dark",
+      "state": "default",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe role-detail-dark-1366: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 role-detail-dark-1366: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 role-detail-dark-1366: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 role-detail-dark-1366: 与基线一致(≤0.5%)",
+          "ok": false
+        },
+        {
+          "name": "只读与运行 role-detail-dark-1366",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-role-detail-dark-1366.png",
+      "baseline": "tests/visual/__screenshots__/role-detail-dark-1366.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 5187
+    },
+    {
+      "tag": "role-detail-light-1600",
+      "profile": "role-detail",
+      "path": "/roles/501d8abc-0c77-45e9-98c8-7832302e63cb",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe role-detail-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 role-detail-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 role-detail-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 role-detail-light-1600: 与基线一致(≤0.5%)",
+          "ok": false
+        },
+        {
+          "name": "只读与运行 role-detail-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-role-detail-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/role-detail-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 5360
+    },
+    {
+      "tag": "role-detail-light-1366",
+      "profile": "role-detail",
+      "path": "/roles/501d8abc-0c77-45e9-98c8-7832302e63cb",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe role-detail-light-1366: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 role-detail-light-1366: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 role-detail-light-1366: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 role-detail-light-1366: 与基线一致(≤0.5%)",
+          "ok": false
+        },
+        {
+          "name": "只读与运行 role-detail-light-1366",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-role-detail-light-1366.png",
+      "baseline": "tests/visual/__screenshots__/role-detail-light-1366.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 5121
+    }
+  ]
+}

@@ -3929,7 +3929,7 @@
           "family": "project-name-link|",
           "text": "问题单支持",
           "foreground": "rgb(37, 99, 235)",
-          "background": "rgba(37, 99, 235, 0)",
+          "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
             255,
             255,
@@ -10842,7 +10842,7 @@
           "family": "project-name-link|",
           "text": "问题单支持",
           "foreground": "rgb(96, 165, 250)",
-          "background": "oklab(0.713726 -0.0379879 -0.138233 / 0.00126188)",
+          "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
             29,
             40,

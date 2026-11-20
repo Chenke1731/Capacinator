@@ -1,7 +1,12 @@
 {
+  "totalCombinations": 4,
   "combinations": 4,
+  "shard": {
+    "index": 1,
+    "total": 1
+  },
   "checks": 20,
-  "updatePixels": true,
+  "updatePixels": false,
   "registerExistingAxe": false,
   "evidence": [
     {
@@ -38,7 +43,7 @@
           "ok": true
         },
         {
-          "name": "基线 phase-template-dark-1600: 已采集",
+          "name": "像素 phase-template-dark-1600: 与基线一致(≤0.5%)",
           "ok": true
         },
         {
@@ -47,7 +52,10 @@
         }
       ],
       "artifact": "tests/visual/reports/visual-phase-template-dark-1600.png",
-      "baseline": "tests/visual/__screenshots__/phase-template-dark-1600.png"
+      "baseline": "tests/visual/__screenshots__/phase-template-dark-1600.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 6310
     },
     {
       "tag": "phase-template-dark-1366",
@@ -83,7 +91,7 @@
           "ok": true
         },
         {
-          "name": "基线 phase-template-dark-1366: 已采集",
+          "name": "像素 phase-template-dark-1366: 与基线一致(≤0.5%)",
           "ok": true
         },
         {
@@ -92,7 +100,10 @@
         }
       ],
       "artifact": "tests/visual/reports/visual-phase-template-dark-1366.png",
-      "baseline": "tests/visual/__screenshots__/phase-template-dark-1366.png"
+      "baseline": "tests/visual/__screenshots__/phase-template-dark-1366.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 5257
     },
     {
       "tag": "phase-template-light-1600",
@@ -128,7 +139,7 @@
           "ok": true
         },
         {
-          "name": "基线 phase-template-light-1600: 已采集",
+          "name": "像素 phase-template-light-1600: 与基线一致(≤0.5%)",
           "ok": true
         },
         {
@@ -137,7 +148,10 @@
         }
       ],
       "artifact": "tests/visual/reports/visual-phase-template-light-1600.png",
-      "baseline": "tests/visual/__screenshots__/phase-template-light-1600.png"
+      "baseline": "tests/visual/__screenshots__/phase-template-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 5322
     },
     {
       "tag": "phase-template-light-1366",
@@ -173,7 +187,7 @@
           "ok": true
         },
         {
-          "name": "基线 phase-template-light-1366: 已采集",
+          "name": "像素 phase-template-light-1366: 与基线一致(≤0.5%)",
           "ok": true
         },
         {
@@ -182,7 +196,10 @@
         }
       ],
       "artifact": "tests/visual/reports/visual-phase-template-light-1366.png",
-      "baseline": "tests/visual/__screenshots__/phase-template-light-1366.png"
+      "baseline": "tests/visual/__screenshots__/phase-template-light-1366.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 5177
     }
   ]
 }

@@ -60,6 +60,9 @@
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.025em;
+  /* U1 表头单行契约（2026-11-20）：en-US 的 DEFAULT/MIN/MAX DAYS 在窄列换行；
+     表头不允许两行，列宽不够交给容器横向滚动（info 级） */
+  white-space: nowrap;
 }
 
 .phases-table tbody tr {
@@ -102,7 +105,10 @@
   min-width: 200px;
 }
 
-.phase-name {
+/* U2（2026-11-20）：.phase-name/.actions-cell 是共享类（roadmap 表格同用
+   phase-name；reports 的 actions-cell 同名），裸定义随路由泄入。锚定设计器
+   根（.phase-template-designer 为本组件独有根），:where 保持原特异性。 */
+:where(.phase-template-designer) .phase-name {
   font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 2px;
@@ -124,7 +130,7 @@
   text-align: center;
 }
 
-.actions-cell {
+:where(.phase-template-designer) .actions-cell {
   width: 120px;
   text-align: center;
 }

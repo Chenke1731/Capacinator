@@ -30,7 +30,10 @@
   max-width: 100%;
 }
 
-.header-content {
+/* U2（2026-11-20）：.header-content 是跨页共享类（Scenarios 等页头同用），
+   裸 gap:16px 泄入后把它们的页头撑高 16px（census+trace 实锤）。锚定本页
+   独有根类，:where 保持原特异性。 */
+:where(.project-type-details-page) .header-content {
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -157,11 +160,15 @@
   margin-bottom: 32px;
 }
 
-.section-header {
+/* U2（2026-11-20）：.section-header 是跨页共享类（PersonDetails/RoleDetails
+   同名同渲染），本页 24px 覆盖经路由顺序泄入它们。锚到本页独有根类
+   （与 RoleDetails 共用 .role-details-page，不能拿它当锚）；:where 保持
+   与原裸选择器相同的特异性，不改变本页级联。 */
+:where(.project-type-details-page) .section-header {
   margin-bottom: 24px;
 }
 
-.section-header h2 {
+:where(.project-type-details-page) .section-header h2 {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -272,12 +279,10 @@
   font-weight: 600;
 }
 
-.form-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 16px;
-}
+/* .form-grid removed (U2, 2026-11-20): zero render points on this page — the
+   class belongs to Settings/Availability global owners, and the bare
+   margin-bottom:16px leaked into Settings via route order (census-proven
+   0→16). Dead rule deleted, not scoped. */
 
 /* form-group/.span-2/label removed (D-03 Batch 3, review G-1): zero
    consumers in ProjectTypeDetails.tsx and its child components — dead rules

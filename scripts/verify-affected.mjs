@@ -15,10 +15,11 @@
  *   node scripts/verify-affected.mjs --selftest
  */
 import { spawn } from 'node:child_process';
+import fs from 'node:fs';
 import path from 'node:path';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
-import { classifyFiles } from './lib/verify-map.mjs';
+import { classifyFiles, u4PagesFor } from './lib/verify-map.mjs';
 import { profiles } from './lib/ui-profiles.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -32,7 +33,7 @@ const value = (name) => {
 };
 const valid = new Set([
   '--changed', '--files', '--base', '--parallel', '--all-states', '--visual', '--e2e',
-  '--skip-browser', '--dry-run', '--selftest', '--help',
+  '--skip-browser', '--skip-u4', '--full-invariants', '--dry-run', '--selftest', '--help',
 ]);
 for (let i = 0; i < argv.length; i += 1) {
   if (!valid.has(argv[i])) throw new Error(`Unknown argument ${argv[i]}`);
@@ -68,17 +69,21 @@ export function buildPlan(files, options = {}) {
     file === 'client/src/App.tsx'
   );
   const clientChanged = files.some((file) => file.startsWith('client/src/'));
+  const i18nChanged = files.some((file) => file.startsWith('client/src/i18n/'));
   const statesProfiles = options.allStates
     ? Object.keys(profiles)
     : plan.profiles;
+  const u4Pages = options.skipU4 ? [] : u4PagesFor(plan.profiles, plan.wide || sharedUi);
   return {
     files,
     plan,
     cssChanged,
     sharedUi,
     clientChanged,
+    i18nChanged,
     u1u3: clientChanged || plan.clientTests.length > 0,
     u2: cssChanged || sharedUi,
+    u4Pages,
     statesProfiles: [...new Set(statesProfiles)],
     visualProfiles: options.visual ? [...new Set(plan.profiles)] : [],
     e2eSpecs: options.e2e ? plan.e2e : [],
@@ -87,11 +92,18 @@ export function buildPlan(files, options = {}) {
 
 function selftest() {
   const page = buildPlan(['client/src/pages/People.tsx']);
+  const reports = buildPlan(['client/src/pages/ReportsTabContent.tsx']);
+  const shared = buildPlan(['client/src/components/ui/button.tsx']);
+  const i18n = buildPlan(['client/src/i18n/locales/en-US/reports.json']);
   const css = buildPlan(['client/src/pages/People.css']);
   const server = buildPlan(['src/server/api/controllers/PeopleController.ts']);
   const checks = [
     ['page maps states', page.statesProfiles.includes('people')],
     ['page needs U1/U3', page.u1u3],
+    ['page maps U4', page.u4Pages.includes('people')],
+    ['reports maps U4', reports.u4Pages.includes('reports')],
+    ['shared UI maps all U4', shared.u4Pages.length === 5],
+    ['i18n change detected', i18n.i18nChanged],
     ['page does not need U2', !page.u2],
     ['css needs U2', css.u2],
     ['css maps states', css.statesProfiles.includes('people')],
@@ -103,7 +115,7 @@ function selftest() {
 
 if (has('--selftest')) process.exit(selftest() ? 0 : 1);
 if (has('--help')) {
-  console.log('verify-affected: --changed | --files a,b [--base ref] [--parallel N] [--all-states] [--visual] [--e2e] [--skip-browser] [--dry-run] [--selftest]');
+  console.log('verify-affected: --changed | --files a,b [--base ref] [--parallel N] [--all-states] [--visual] [--e2e] [--skip-browser] [--skip-u4] [--full-invariants] [--dry-run] [--selftest]');
   process.exit(0);
 }
 
@@ -117,7 +129,7 @@ if (!files.length) {
 }
 const parallel = Math.max(1, Math.min(6, Number(value('--parallel') ?? 3)));
 const dryRun = has('--dry-run');
-const plan = buildPlan(files, { visual: has('--visual'), e2e: has('--e2e'), allStates: has('--all-states') });
+const plan = buildPlan(files, { visual: has('--visual'), e2e: has('--e2e'), allStates: has('--all-states'), skipU4: has('--skip-u4') });
 
 function run(label, command, args) {
   return new Promise((resolve) => {
@@ -174,6 +186,7 @@ if (files.some((file) => file === 'scripts/verify-invariants.mjs' || file.starts
   addSelftest('selftest verify-css-isolation', 'scripts/verify-css-isolation.mjs');
 }
 if (files.includes('scripts/verify-css-isolation.mjs')) addSelftest('selftest verify-css-isolation', 'scripts/verify-css-isolation.mjs');
+if (files.includes('scripts/verify-state-completeness.mjs')) addSelftest('selftest verify-state-completeness', 'scripts/verify-state-completeness.mjs');
 if (files.some((file) => file === 'scripts/lib/verify-map.mjs' || file === 'scripts/verify-tier.mjs')) {
   addSelftest('selftest verify-tier/map', 'scripts/verify-tier.mjs', ['--self-test']);
 }
@@ -196,7 +209,7 @@ if (plan.plan.full) {
   testSteps.push({ label: 'Jest full', command: 'npx', args: ['jest', '--config', 'jest.config.cjs', '--runInBand'] });
 } else {
   const relation = (project, list, label) => {
-    const present = list.filter((file) => file.startsWith('client/') || file.startsWith('src/') || file.startsWith('shared/') || file.startsWith('tests/'));
+    const present = list.filter((file) => /\.(ts|tsx|js|jsx|mjs|cjs)$/.test(file) && (file.startsWith('client/') || file.startsWith('src/') || file.startsWith('shared/') || file.startsWith('tests/')));
     if (!present.length) return;
     testSteps.push({ label, command: 'npx', args: ['jest', '--config', 'jest.config.cjs', '--selectProjects', project, '--findRelatedTests', ...present, '--runInBand'] });
   };
@@ -204,10 +217,20 @@ if (plan.plan.full) {
   relation('server-unit', plan.plan.serverTests, 'Jest related server-unit');
   relation('server-integration', plan.plan.integrationTests, 'Jest related server-integration');
 }
+if (plan.i18nChanged) {
+  const i18nTest = 'client/src/i18n/__tests__/i18n.test.ts';
+  if (fs.existsSync(path.join(ROOT, i18nTest))) {
+    testSteps.push({ label: 'Jest i18n locale parity', command: 'npx', args: ['jest', '--config', 'jest.config.cjs', '--selectProjects', 'client', '--runTestsByPath', i18nTest, '--runInBand'] });
+  }
+}
 
 const browserSteps = [];
 if (!has('--skip-browser') && plan.u1u3) {
-  browserSteps.push({ label: 'U1/U3 changed routes', command: process.execPath, args: ['scripts/verify-invariants.mjs', '--id', 'U1,U3', '--files', files.join(',')] });
+  const invariantArgs = ['scripts/verify-invariants.mjs', '--id', 'U1,U3', '--files', files.join(',')];
+  // Iteration default: 1366/en-US (longest labels, strictest width). T1 still
+  // runs the full 1366/1600 × zh/en matrix; opt in here with --full-invariants.
+  if (!has('--full-invariants')) invariantArgs.push('--viewports', '1366x768', '--lang', 'en-US');
+  browserSteps.push({ label: 'U1/U3 changed routes', command: process.execPath, args: invariantArgs });
 }
 if (!has('--skip-browser') && plan.u2) {
   browserSteps.push({ label: 'U2 CSS isolation strict', command: process.execPath, args: ['scripts/verify-css-isolation.mjs', '--all', '--strict'] });
@@ -219,6 +242,13 @@ if (!has('--skip-browser') && plan.statesProfiles.length) {
     args: ['scripts/verify-states-many.mjs', '--profiles', plan.statesProfiles.join(','), '--parallel', String(Math.min(3, plan.statesProfiles.length))],
   });
 }
+if (!has('--skip-browser') && plan.u4Pages.length) {
+  browserSteps.push({
+    label: `U4 state matrix (${plan.u4Pages.join(',')})`,
+    command: process.execPath,
+    args: ['scripts/verify-state-completeness.mjs', '--pages', plan.u4Pages.join(','), '--states', 'loading,empty,error,forbidden', '--strict'],
+  });
+}
 if (!has('--skip-browser') && plan.visualProfiles.length) {
   for (const profile of plan.visualProfiles) {
     browserSteps.push({ label: `visual ${profile}`, command: process.execPath, args: ['scripts/verify-visual.mjs', '--profile', profile] });
@@ -228,7 +258,7 @@ if (!has('--skip-browser') && plan.e2eSpecs.length) {
   browserSteps.push({ label: 'E2E mapped specs', command: 'npx', args: ['playwright', 'test', ...plan.e2eSpecs, '--config', 'playwright.config.ts', '--retries=1'] });
 }
 
-console.log(`changed files (${files.length}); client=${plan.plan.clientTests.length} server=${plan.plan.serverTests.length} profiles=${plan.statesProfiles.length}${plan.plan.wide ? ' wide' : ''}`);
+console.log(`changed files (${files.length}); client=${plan.plan.clientTests.length} server=${plan.plan.serverTests.length} profiles=${plan.statesProfiles.length} u4=${plan.u4Pages.length}${plan.plan.wide ? ' wide' : ''}`);
 if (!(await runGroup('Static / type / lint', staticSteps))) process.exit(1);
 if (!(await runGroup('Targeted tests', testSteps))) process.exit(1);
 if (!(await runGroup('Affected browser checks', browserSteps))) process.exit(1);

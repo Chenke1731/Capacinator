@@ -18,7 +18,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { classifyFiles, selfTest } from './lib/verify-map.mjs';
+import { classifyFiles, selfTest, u4PagesFor } from './lib/verify-map.mjs';
 import { profiles } from './lib/ui-profiles.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -182,6 +182,10 @@ function main() {
   // T1 UI invariants: changed routes only; full matrix stays at T2/nightly.
   if (tier === 't1' && plan.clientTests.length) {
     if (!run('UI invariants (U1 text fit + U3 actions, changed routes)', 'node', ['scripts/verify-invariants.mjs', '--id', 'U1,U3', '--changed'])) return 1;
+  }
+  const u4Pages = tier === 't1' ? u4PagesFor(plan.profiles, plan.wide) : [];
+  if (u4Pages.length) {
+    if (!run(`U4 state matrix (${u4Pages.join(',')})`, 'node', ['scripts/verify-state-completeness.mjs', '--pages', u4Pages.join(','), '--states', 'loading,empty,error,forbidden', '--strict'])) return 1;
   }
   const cssSurfaceChanged = changed.some((file) =>
     file.endsWith('.css') ||

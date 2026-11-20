@@ -87,6 +87,23 @@ export const profileOwners = {
 const WORKLOAD_PROFILES = ['person-workload'];
 const INTAKE_PROFILES = ['intake', 'intake-1366'];
 
+export const U4_PAGE_IDS = ['people', 'assignments', 'projects', 'reports', 'dashboard'];
+const U4_PROFILE_ALIASES = {
+  'people-1366': 'people',
+  'assignments-1366': 'assignments',
+  'dashboard-1366': 'dashboard',
+  'reports-1366': 'reports',
+  'reports-capacity': 'reports',
+  'reports-gaps': 'reports',
+  'reports-utilization': 'reports',
+};
+
+/** Map UI profiles (including viewport/report-tab variants) onto the U4 page matrix. */
+export function u4PagesFor(profiles, wide = false) {
+  if (wide) return [...U4_PAGE_IDS];
+  return [...new Set(profiles.map((profile) => U4_PROFILE_ALIASES[profile] ?? profile).filter((profile) => U4_PAGE_IDS.includes(profile)))];
+}
+
 const base = () => ({
   clientTests: [],
   serverTests: [],
@@ -264,6 +281,11 @@ export function selfTest() {
   if (!workloadComponent.profiles.includes('person-workload')) throw new Error('self-test failed: workload component');
   const globalCss = classifyChangedFile('client/src/index.css');
   if (!globalCss.wide) throw new Error('self-test failed: global CSS must escalate');
+  if (u4PagesFor(['reports-1366', 'reports-capacity']).join(',') !== 'reports') {
+    throw new Error('self-test failed: report profile variants must collapse to one U4 page');
+  }
+  if (u4PagesFor(['person-workload']).length !== 0) throw new Error('self-test failed: non-U4 pages must not map');
+  if (u4PagesFor([], true).length !== U4_PAGE_IDS.length) throw new Error('self-test failed: wide changes must map all U4 pages');
   const userConfig = classifyChangedFile('.zcode/config.json');
   if (userConfig.clientTests.length || userConfig.profiles.length || userConfig.wide) {
     throw new Error('self-test failed: .zcode is user/tooling metadata and must not map to UI gates');

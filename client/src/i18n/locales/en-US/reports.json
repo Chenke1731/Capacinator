@@ -1,5 +1,6 @@
 {
   "title": "Reports & Analytics",
+  "loadFailed": "Failed to load report",
   "tabs": {
     "demand": "Demand",
     "capacity": "Capacity",

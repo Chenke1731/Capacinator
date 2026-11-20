@@ -55,7 +55,7 @@ Stop condition:
 ## 迭代快检（替代逐项手拼命令）
 
 ```bash
-# 改动文件 → lint/typecheck/Jest/U1/U3/states；CSS 改动追加 U2 strict
+# 改动文件 → lint/typecheck/Jest/U1/U3/states/U4；CSS 改动追加 U2 strict；i18n 改动跑 locale parity
 node scripts/verify-affected.mjs --changed
 
 # 只看计划，不执行
@@ -67,9 +67,12 @@ node scripts/verify-affected.mjs --files client/src/pages/People.tsx --visual
 node scripts/verify-affected.mjs --changed --all-states
 ```
 
-`verify-affected` 是迭代期入口（页面改动约 60–90 秒，CSS 改动约 2 分钟），不是批末门禁；`verify:pr`、
+`verify-affected` 是迭代期入口（页面改动约 1–2 分钟，CSS 改动约 2 分钟），不是批末门禁；`verify:pr`、
 全量 visual、全量 states 仍在批末/里程碑跑一次。多 profile states 用
-`node scripts/verify-states-many.mjs --profiles a,b,c --parallel 3`。
+`node scripts/verify-states-many.mjs --profiles a,b,c --parallel 3`；五核心页的
+loading/empty/500/403 用 `verify-state-completeness --pages ... --strict`。
+迭代期 U1/U3 默认只跑 1366/en-US（最长标签 + 最严宽度），T1 跑完整 1366/1600 × zh/en；
+需要提前跑全矩阵时加 `--full-invariants`。
 
 ## 升级与停止
 

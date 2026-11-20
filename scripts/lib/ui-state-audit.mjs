@@ -291,6 +291,10 @@ export async function runProfileStates(profileName,{selftest=false,quick=false,r
       let focusReached=false;
       for(let i=0;i<100;i++){await page.keyboard.press('Tab');focusReached=await page.evaluate(r=>!!document.activeElement?.closest(r),profile.root);if(focusReached)break;}
       if(!focusReached)throw new Error('Keyboard focus never reached profile root');
+      // Tab can trigger smooth scroll-into-view; measuring mid-animation yields
+      // fractional getBoundingClientRect heights (24 → 23.9999) and false
+      // target-size failures. Let the scroll settle before enumerating.
+      await page.waitForTimeout(450);
       await capture('keyboard-focus');
       if(profile.safeTriggers) {
         const controls=page.locator(profile.root).locator(profile.safeTriggers);

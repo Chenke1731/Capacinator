@@ -10,7 +10,8 @@ Applies to: client UI 布局、动作语义、API 信封、路由 CSS 生命周�
 ## 原则
 
 1. **一个 runner，不建十个脚本**：U1/U3/D2 共用 `scripts/verify-invariants.mjs`；U2 是独立的
-   只读普查 `scripts/verify-css-isolation.mjs`。
+   只读普查 `scripts/verify-css-isolation.mjs`；U4 需要按页拦截网络，独立为
+   `scripts/verify-state-completeness.mjs`。
 2. **绝对阈值优先于像素基线**：像素 diff 只证明“和上次一样”，不能证明“这次排得下”。
 3. **新告警不得直接写进 baseline**：baseline 只冻结已登记存量，必须带 owner/expiry。
 4. **每条守卫必须有变异自证**：`--selftest` 注入违规必须红。
@@ -24,6 +25,7 @@ Applies to: client UI 布局、动作语义、API 信封、路由 CSS 生命周�
 | **U2** | css-global-lifetime × route-order | 路由 A 的 CSS 残留到 B 后，B 的共享类 computed style 不得变化 | `verify-css-isolation --all [--trace]` | 普查期为 advisory；确认后按 route 登记债务 |
 | **U3** | control-semantics × destructive-action | 图标按钮有可访问名且目标 ≥24×24；动作列不超过 1 个文字主操作；禁止 native confirm/alert/prompt | `verify-invariants --id U3` | fail：无名称/小目标/native dialog（baseline 外）；warn：多文字动作 |
 | **D2** | response-shape × client-fallback | 列表 `{data,pagination}`、单实体 `{data}`、写 `{success}`、错 `{error,message}`；客户端不得新增 `Array.isArray(payload) ? payload : payload?.data` | `verify-invariants --id D2 --static-only` | fail：baseline 外的新违规 |
+| **U4** | data-state × network-outcome | People/Assignments/Projects/Reports/Dashboard 在 loading/empty/500/403 下必须显示对应状态；失败不得伪装成空列表或 0 值 | `verify-state-completeness --pages ... --strict` | fail：页面空白、无 loading、无错误/重试、错误态显示假零 |
 
 ### U1 阈值
 
@@ -47,6 +49,15 @@ Applies to: client UI 布局、动作语义、API 信封、路由 CSS 生命周�
   `{ message }` 裸响应为违规；标识符/调用表达式为 unknown，不直接判红。
 - 客户端条件表达式 `Array.isArray(x) ? x : x?.data` 为防御解析，baseline 外新增即红。
 
+### U4 判定
+
+- 每页按目标端点拦截：`loading` 延迟响应 3s，`empty` 返回页型空信封，`500/403` 返回错误信封。
+- 页面根（`main/.page-container` 等）必须可见；`loading` 必须有可见 spinner/skeleton/loading 文案；
+  `empty` 必须有页型空态，或零值页（Reports/Dashboard）渲染非空摘要且不显示错误；
+  `500/403` 必须有 `role="alert"`/错误文案，能重试的页面必须给出重试入口。
+- 断言的失败语义是“状态缺失或失败伪装成 0”，不是像素外观；外观仍由 visual/states 承担。
+- 五页配置（端点/空信封）内嵌在 `scripts/verify-state-completeness.mjs`，新增页必须补配置与 selftest。
+
 ## 命令
 
 ```bash
@@ -64,6 +75,11 @@ node scripts/verify-invariants.mjs --id D2,U3 --static-only --json tmp/invariant
 
 # 改动路由的 1366/1600 双语运行时
 node scripts/verify-invariants.mjs --id U1,U3 --changed
+
+# U4 五页状态矩阵（loading/empty/500/403；--strict 作为闸）
+node scripts/verify-state-completeness.mjs --pages people,assignments,projects,reports,dashboard --strict
+node scripts/verify-state-completeness.mjs --pages reports --states error,forbidden --json tmp/u4-reports.json
+node scripts/verify-state-completeness.mjs --selftest
 
 # 全量运行时（夜间/里程碑）
 node scripts/verify-invariants.mjs --id U1,U3 --all \
@@ -105,16 +121,24 @@ node scripts/verify-css-isolation.mjs --all --trace --trace-route assignments
     已按 `:where(page-root)` 收敛（特异性与原来的裸选择器一致，避免压过 App.css dark 覆盖）；
   - `ProjectDetail`/`AuditLog`/`Roles` 根类已补齐，供 scope 使用；
   - U2 不再有污染债；CSS/共享原语改动在 T1 以 `--strict` 阻塞。
+- **U4**：五页 × 四状态 **20/20 通过**（2026-11-20）。
+  - 修复 Reports：`capacity/utilization/demand/gaps` 查询补 `error` 解构；错误时以
+    `role="alert"` 错误块替换报告内容并提供 Retry，避免失败静默显示 0/空报表。
+  - Projects loading 使用 `.req-skeleton`（已纳入加载态识别）；People/Assignments/Dashboard
+    沿用既有 spinner/空态/错误态。
 
 ## 接线
 
 - `verify:pr`：静态 `U3 + D2`（无浏览器，baseline 外新增即红）。
 - `verify:t1`：`U1 + U3 --changed`（改动路由，1366/1600 双语）；CSS/共享原语改动追加
-  `verify-css-isolation --all --strict`。
-- 夜间/里程碑：`U1 + U3 --all` + `U1 --stress`；U2 普查每周或大改后跑一次。
+  `verify-css-isolation --all --strict`；改动映射到五核心页时追加 U4 状态矩阵。
+- `verify-affected`：页面改动映射到对应 U4 页（含 `-1366`/report-tab 变体折叠）；
+  共享 UI 改动跑五页全矩阵；`--skip-u4` 仅用于明确不触碰状态面的改动。
+- 夜间/里程碑：`U1 + U3 --all` + `U1 --stress`；U4 五页矩阵；U2 普查每周或大改后跑一次。
 - `verify:t2` / 全量 visual/E2E 仍是里程碑门禁，不被本扫描替代。
 
 ## 后续
 
-U4 状态完整性、D1 指标口径、D3 场景隔离、D4 审计覆盖、D5 日期边界尚未进入首批；
-它们需要独立 fixture/指标注册表/场景矩阵，不做成同一个 runner 的“万能扫描”。
+U4 已覆盖五核心数据页的四类网络状态；其余页面按需扩配置。D1 指标口径、D3 场景隔离、
+D4 审计覆盖、D5 日期边界尚未进入首批；它们需要独立 fixture/指标注册表/场景矩阵，
+不做成同一个 runner 的“万能扫描”。

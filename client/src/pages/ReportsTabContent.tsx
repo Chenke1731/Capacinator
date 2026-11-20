@@ -25,6 +25,7 @@ import {
   type Column,
   type ActionButton
 } from '../components/reports';
+import { Alert, AlertDescription, AlertTitle } from '../components/ui/alert';
 import '../styles/reports.css';
 import type { Location, ProjectType, Role, ProjectAssignment, Project, AllocationStatus } from '../types';
 /* ReportFilters 用 queryKeys 导出版(2026-10-13 批清: 本地重复定义与查询键版
@@ -219,7 +220,7 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
   }>({ show: false, message: '', onConfirm: () => {}, onCancel: () => {} });
 
   // Fetch report data
-  const { data: capacityReport, isLoading: capacityLoading, refetch: refetchCapacity } = useQuery({
+  const { data: capacityReport, isLoading: capacityLoading, error: capacityError, refetch: refetchCapacity } = useQuery({
     queryKey: queryKeys.reports.capacity(filters, currentScenario?.id),
     queryFn: async () => {
       const [capacityResponse, peopleResponse] = await Promise.all([
@@ -299,7 +300,7 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
     enabled: activeReport === 'capacity' && !!currentScenario
   });
 
-  const { data: utilizationReport, isLoading: utilizationLoading, refetch: refetchUtilization } = useQuery({
+  const { data: utilizationReport, isLoading: utilizationLoading, error: utilizationError, refetch: refetchUtilization } = useQuery({
     queryKey: queryKeys.reports.utilization(filters, currentScenario?.id),
     queryFn: async () => {
       const response = await api.reporting.getUtilization(filters);
@@ -368,7 +369,7 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
     enabled: activeReport === 'utilization' && !!currentScenario
   });
 
-  const { data: demandReport, isLoading: demandLoading, refetch: refetchDemand } = useQuery({
+  const { data: demandReport, isLoading: demandLoading, error: demandError, refetch: refetchDemand } = useQuery({
     queryKey: queryKeys.reports.demand(filters, currentScenario?.id),
     queryFn: async () => {
       const response = await api.reporting.getDemand(filters);
@@ -402,7 +403,7 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
     enabled: activeReport === 'demand' && !!currentScenario
   });
 
-  const { data: gapsReport, isLoading: gapsLoading, refetch: refetchGaps } = useQuery({
+  const { data: gapsReport, isLoading: gapsLoading, error: gapsError, refetch: refetchGaps } = useQuery({
     queryKey: queryKeys.reports.gaps(filters, currentScenario?.id),
     queryFn: async () => {
       const response = await api.reporting.getGaps(filters);
@@ -941,6 +942,18 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
   };
 
   const isLoading = capacityLoading || utilizationLoading || demandLoading || gapsLoading;
+  const activeReportError =
+    activeReport === 'capacity' ? capacityError :
+    activeReport === 'utilization' ? utilizationError :
+    activeReport === 'demand' ? demandError :
+    activeReport === 'gaps' ? gapsError :
+    null;
+  const retryActiveReport = () => {
+    if (activeReport === 'capacity') refetchCapacity();
+    else if (activeReport === 'utilization') refetchUtilization();
+    else if (activeReport === 'demand') refetchDemand();
+    else if (activeReport === 'gaps') refetchGaps();
+  };
 
   return (
     <div className="reports-tab-content">
@@ -1024,30 +1037,45 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
       </div>
 
       <div className="report-container">
-        {activeReport === 'capacity' && renderCapacityReport()}
-        {activeReport === 'utilization' && (
-          <UtilizationReport
-            data={utilizationReport ?? null}
-            filters={filters}
-            onPersonAction={handlePersonAction}
-            CustomTooltip={CustomTooltip}
-          />
+        {activeReportError ? (
+          <Alert variant="destructive" role="alert" className="mx-auto max-w-2xl">
+            <AlertTriangle className="h-4 w-4" />
+            <AlertTitle>{t('reports:loadFailed')}</AlertTitle>
+            <AlertDescription className="space-y-2">
+              <p>{activeReportError instanceof Error ? activeReportError.message : t('common:operationFailed')}</p>
+              <button type="button" className="btn btn-sm btn-outline" onClick={retryActiveReport}>
+                {t('common:retry')}
+              </button>
+            </AlertDescription>
+          </Alert>
+        ) : (
+          <>
+            {activeReport === 'capacity' && renderCapacityReport()}
+            {activeReport === 'utilization' && (
+              <UtilizationReport
+                data={utilizationReport ?? null}
+                filters={filters}
+                onPersonAction={handlePersonAction}
+                CustomTooltip={CustomTooltip}
+              />
+            )}
+            {activeReport === 'demand' && (
+              <DemandReport 
+                data={demandReport} 
+                filters={filters}
+                CustomTooltip={CustomTooltip}
+              />
+            )}
+            {activeReport === 'gaps' && (
+              <GapsReport
+                data={gapsReport as unknown as Parameters<typeof GapsReport>[0]['data']}
+                filters={filters}
+                CustomTooltip={CustomTooltip}
+              />
+            )}
+            {activeReport === 'components' && renderComponentsReport()}
+          </>
         )}
-        {activeReport === 'demand' && (
-          <DemandReport 
-            data={demandReport} 
-            filters={filters}
-            CustomTooltip={CustomTooltip}
-          />
-        )}
-        {activeReport === 'gaps' && (
-          <GapsReport
-            data={gapsReport as unknown as Parameters<typeof GapsReport>[0]['data']}
-            filters={filters}
-            CustomTooltip={CustomTooltip}
-          />
-        )}
-        {activeReport === 'components' && renderComponentsReport()}
       </div>
     </div>
   );

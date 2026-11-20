@@ -6,8 +6,8 @@
 ## 当前维护入口（由 npm / hooks 驱动）
 
 - **开发/服务**：`start-dev.ts`、`stop-dev.ts`、`dev-logs.ts`、`prod-server.ts`、`e2e-server.ts`
-- **验证**：`verify-tier.mjs`、`verify-affected.mjs`、`verify-states-many.mjs`、`verify-invariants.mjs`、`verify-css-isolation.mjs`、`verify-pr.mjs`、`verify-doctor.mjs`、`check-verify-map.mjs`、`check-architecture.mjs`、`verify-visual*.mjs`、`verify-states.mjs`、`verify-cache-keys.mjs`、`check-collection.mjs`
-  - 迭代期统一用 `node scripts/verify-affected.mjs --changed`（按改动映射 lint/typecheck/Jest/U1/U3/states，CSS 改动追加 U2 strict）；批末才跑 `verify:pr` 和全量 visual。
+- **验证**：`verify-tier.mjs`、`verify-affected.mjs`、`verify-states-many.mjs`、`verify-state-completeness.mjs`、`verify-invariants.mjs`、`verify-css-isolation.mjs`、`verify-pr.mjs`、`verify-doctor.mjs`、`check-verify-map.mjs`、`check-architecture.mjs`、`verify-visual*.mjs`、`verify-states.mjs`、`verify-cache-keys.mjs`、`check-collection.mjs`
+  - 迭代期统一用 `node scripts/verify-affected.mjs --changed`（按改动映射 lint/typecheck/Jest/U1/U3/states/U4；CSS 改动追加 U2 strict）；批末才跑 `verify:pr` 和全量 visual。
 - **安全**：`security-audit.mjs`、`rotate-encryption-key.mjs`、`setup-env.mjs`
 - **审计/布局**：`audit-layout.mjs`、`audit-typography.mjs`、`audit-nightly.mjs`、`audit-color-debt.mjs`、`lint-ui-css.mjs`
 - **性能**：`perf-baseline.mjs`、`perf-ops.mjs`

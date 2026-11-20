@@ -24,7 +24,10 @@
           "font": 14,
           "top": 108,
           "clipTop": 100,
-          "offsetTop": 8
+          "offsetTop": 8,
+          "left": 250,
+          "clipLeft": 250,
+          "offsetLeft": 0
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -45,7 +48,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 267,
+          "clipLeft": 250,
+          "offsetLeft": 17
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
@@ -66,7 +72,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 441,
+          "clipLeft": 250,
+          "offsetLeft": 191
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(3) > select:nth-of-type(1)",
@@ -87,7 +96,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 615,
+          "clipLeft": 250,
+          "offsetLeft": 365
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(4) > select:nth-of-type(1)",
@@ -108,7 +120,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 781,
+          "clipLeft": 250,
+          "offsetLeft": 531
         },
         {
           "selector": "div:nth-of-type(2) > button:nth-of-type(1)",
@@ -129,7 +144,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 947,
+          "clipLeft": 250,
+          "offsetLeft": 697
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)",
@@ -150,11 +168,15 @@
           "font": 12,
           "top": 437.796875,
           "clipTop": 100,
-          "offsetTop": 337.796875
+          "offsetTop": 337.796875,
+          "left": 729.234375,
+          "clipLeft": 250,
+          "offsetLeft": 479.234375
         }
       ],
       "issues": [],
       "scope": ".reports-tab-content",
+      "staticGaps": [],
       "axe": [],
       "newIssues": []
     },
@@ -181,7 +203,10 @@
           "font": 14,
           "top": 108,
           "clipTop": 100,
-          "offsetTop": 8
+          "offsetTop": 8,
+          "left": 250,
+          "clipLeft": 250,
+          "offsetLeft": 0
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -202,7 +227,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 267,
+          "clipLeft": 250,
+          "offsetLeft": 17
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
@@ -223,7 +251,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 441,
+          "clipLeft": 250,
+          "offsetLeft": 191
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(3) > select:nth-of-type(1)",
@@ -244,7 +275,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 615,
+          "clipLeft": 250,
+          "offsetLeft": 365
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(4) > select:nth-of-type(1)",
@@ -265,7 +299,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 781,
+          "clipLeft": 250,
+          "offsetLeft": 531
         },
         {
           "selector": "div:nth-of-type(2) > button:nth-of-type(1)",
@@ -286,7 +323,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 947,
+          "clipLeft": 250,
+          "offsetLeft": 697
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)",
@@ -307,7 +347,10 @@
           "font": 12,
           "top": 437.796875,
           "clipTop": 100,
-          "offsetTop": 337.796875
+          "offsetTop": 337.796875,
+          "left": 729.234375,
+          "clipLeft": 250,
+          "offsetLeft": 479.234375
         }
       ],
       "issues": [],
@@ -338,7 +381,10 @@
           "font": 14,
           "top": 108,
           "clipTop": 100,
-          "offsetTop": 8
+          "offsetTop": 8,
+          "left": 250,
+          "clipLeft": 250,
+          "offsetLeft": 0
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -359,7 +405,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 267,
+          "clipLeft": 250,
+          "offsetLeft": 17
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
@@ -380,7 +429,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 441,
+          "clipLeft": 250,
+          "offsetLeft": 191
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(3) > select:nth-of-type(1)",
@@ -401,7 +453,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 615,
+          "clipLeft": 250,
+          "offsetLeft": 365
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(4) > select:nth-of-type(1)",
@@ -422,7 +477,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 781,
+          "clipLeft": 250,
+          "offsetLeft": 531
         },
         {
           "selector": "div:nth-of-type(2) > button:nth-of-type(1)",
@@ -443,7 +501,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 947,
+          "clipLeft": 250,
+          "offsetLeft": 697
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)",
@@ -464,7 +525,10 @@
           "font": 12,
           "top": 437.796875,
           "clipTop": 100,
-          "offsetTop": 337.796875
+          "offsetTop": 337.796875,
+          "left": 729.234375,
+          "clipLeft": 250,
+          "offsetLeft": 479.234375
         }
       ],
       "issues": [],
@@ -495,7 +559,10 @@
           "font": 14,
           "top": 108,
           "clipTop": 100,
-          "offsetTop": 8
+          "offsetTop": 8,
+          "left": 250,
+          "clipLeft": 250,
+          "offsetLeft": 0
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -516,7 +583,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 267,
+          "clipLeft": 250,
+          "offsetLeft": 17
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
@@ -537,7 +607,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 441,
+          "clipLeft": 250,
+          "offsetLeft": 191
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(3) > select:nth-of-type(1)",
@@ -558,7 +631,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 615,
+          "clipLeft": 250,
+          "offsetLeft": 365
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(4) > select:nth-of-type(1)",
@@ -579,7 +655,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 781,
+          "clipLeft": 250,
+          "offsetLeft": 531
         },
         {
           "selector": "div:nth-of-type(2) > button:nth-of-type(1)",
@@ -600,7 +679,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 947,
+          "clipLeft": 250,
+          "offsetLeft": 697
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)",
@@ -621,7 +703,10 @@
           "font": 12,
           "top": 437.796875,
           "clipTop": 100,
-          "offsetTop": 337.796875
+          "offsetTop": 337.796875,
+          "left": 729.234375,
+          "clipLeft": 250,
+          "offsetLeft": 479.234375
         }
       ],
       "issues": [],
@@ -652,7 +737,10 @@
           "font": 14,
           "top": 108,
           "clipTop": 100,
-          "offsetTop": 8
+          "offsetTop": 8,
+          "left": 250,
+          "clipLeft": 250,
+          "offsetLeft": 0
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -673,7 +761,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 267,
+          "clipLeft": 250,
+          "offsetLeft": 17
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
@@ -694,7 +785,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 441,
+          "clipLeft": 250,
+          "offsetLeft": 191
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(3) > select:nth-of-type(1)",
@@ -715,7 +809,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 615,
+          "clipLeft": 250,
+          "offsetLeft": 365
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(4) > select:nth-of-type(1)",
@@ -736,7 +833,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 781,
+          "clipLeft": 250,
+          "offsetLeft": 531
         },
         {
           "selector": "div:nth-of-type(2) > button:nth-of-type(1)",
@@ -757,7 +857,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 947,
+          "clipLeft": 250,
+          "offsetLeft": 697
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)",
@@ -778,7 +881,10 @@
           "font": 12,
           "top": 435.796875,
           "clipTop": 100,
-          "offsetTop": 335.796875
+          "offsetTop": 335.796875,
+          "left": 729.234375,
+          "clipLeft": 250,
+          "offsetLeft": 479.234375
         }
       ],
       "issues": [],
@@ -809,7 +915,10 @@
           "font": 14,
           "top": 108,
           "clipTop": 100,
-          "offsetTop": 8
+          "offsetTop": 8,
+          "left": 250,
+          "clipLeft": 250,
+          "offsetLeft": 0
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -830,7 +939,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 267,
+          "clipLeft": 250,
+          "offsetLeft": 17
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
@@ -851,7 +963,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 441,
+          "clipLeft": 250,
+          "offsetLeft": 191
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(3) > select:nth-of-type(1)",
@@ -872,7 +987,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 615,
+          "clipLeft": 250,
+          "offsetLeft": 365
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(4) > select:nth-of-type(1)",
@@ -893,7 +1011,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 781,
+          "clipLeft": 250,
+          "offsetLeft": 531
         },
         {
           "selector": "div:nth-of-type(2) > button:nth-of-type(1)",
@@ -914,7 +1035,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 947,
+          "clipLeft": 250,
+          "offsetLeft": 697
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)",
@@ -933,9 +1057,12 @@
           "width": 66.015625,
           "height": 24,
           "font": 12,
-          "top": 436.94879150390625,
+          "top": 437.796875,
           "clipTop": 100,
-          "offsetTop": 336.94879150390625
+          "offsetTop": 337.796875,
+          "left": 729.234375,
+          "clipLeft": 250,
+          "offsetLeft": 479.234375
         }
       ],
       "issues": [],
@@ -966,7 +1093,10 @@
           "font": 14,
           "top": 108,
           "clipTop": 100,
-          "offsetTop": 8
+          "offsetTop": 8,
+          "left": 250,
+          "clipLeft": 250,
+          "offsetLeft": 0
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -987,7 +1117,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 267,
+          "clipLeft": 250,
+          "offsetLeft": 17
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
@@ -1008,7 +1141,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 441,
+          "clipLeft": 250,
+          "offsetLeft": 191
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(3) > select:nth-of-type(1)",
@@ -1029,7 +1165,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 615,
+          "clipLeft": 250,
+          "offsetLeft": 365
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(4) > select:nth-of-type(1)",
@@ -1050,7 +1189,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 781,
+          "clipLeft": 250,
+          "offsetLeft": 531
         },
         {
           "selector": "div:nth-of-type(2) > button:nth-of-type(1)",
@@ -1071,7 +1213,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 947,
+          "clipLeft": 250,
+          "offsetLeft": 697
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)",
@@ -1092,11 +1237,15 @@
           "font": 12,
           "top": 437.796875,
           "clipTop": 100,
-          "offsetTop": 337.796875
+          "offsetTop": 337.796875,
+          "left": 729.234375,
+          "clipLeft": 250,
+          "offsetLeft": 479.234375
         }
       ],
       "issues": [],
       "scope": ".reports-tab-content",
+      "staticGaps": [],
       "axe": [],
       "newIssues": []
     },
@@ -1123,7 +1272,10 @@
           "font": 14,
           "top": 108,
           "clipTop": 100,
-          "offsetTop": 8
+          "offsetTop": 8,
+          "left": 250,
+          "clipLeft": 250,
+          "offsetLeft": 0
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -1144,7 +1296,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 267,
+          "clipLeft": 250,
+          "offsetLeft": 17
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
@@ -1165,7 +1320,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 441,
+          "clipLeft": 250,
+          "offsetLeft": 191
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(3) > select:nth-of-type(1)",
@@ -1186,7 +1344,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 615,
+          "clipLeft": 250,
+          "offsetLeft": 365
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(4) > select:nth-of-type(1)",
@@ -1207,7 +1368,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 781,
+          "clipLeft": 250,
+          "offsetLeft": 531
         },
         {
           "selector": "div:nth-of-type(2) > button:nth-of-type(1)",
@@ -1228,7 +1392,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 947,
+          "clipLeft": 250,
+          "offsetLeft": 697
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)",
@@ -1249,7 +1416,10 @@
           "font": 12,
           "top": 437.796875,
           "clipTop": 100,
-          "offsetTop": 337.796875
+          "offsetTop": 337.796875,
+          "left": 729.234375,
+          "clipLeft": 250,
+          "offsetLeft": 479.234375
         }
       ],
       "issues": [],
@@ -1280,7 +1450,10 @@
           "font": 14,
           "top": 108,
           "clipTop": 100,
-          "offsetTop": 8
+          "offsetTop": 8,
+          "left": 250,
+          "clipLeft": 250,
+          "offsetLeft": 0
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -1301,7 +1474,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 267,
+          "clipLeft": 250,
+          "offsetLeft": 17
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
@@ -1322,7 +1498,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 441,
+          "clipLeft": 250,
+          "offsetLeft": 191
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(3) > select:nth-of-type(1)",
@@ -1343,7 +1522,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 615,
+          "clipLeft": 250,
+          "offsetLeft": 365
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(4) > select:nth-of-type(1)",
@@ -1364,7 +1546,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 781,
+          "clipLeft": 250,
+          "offsetLeft": 531
         },
         {
           "selector": "div:nth-of-type(2) > button:nth-of-type(1)",
@@ -1385,7 +1570,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 947,
+          "clipLeft": 250,
+          "offsetLeft": 697
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)",
@@ -1406,7 +1594,10 @@
           "font": 12,
           "top": 437.796875,
           "clipTop": 100,
-          "offsetTop": 337.796875
+          "offsetTop": 337.796875,
+          "left": 729.234375,
+          "clipLeft": 250,
+          "offsetLeft": 479.234375
         }
       ],
       "issues": [],
@@ -1437,7 +1628,10 @@
           "font": 14,
           "top": 108,
           "clipTop": 100,
-          "offsetTop": 8
+          "offsetTop": 8,
+          "left": 250,
+          "clipLeft": 250,
+          "offsetLeft": 0
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -1458,7 +1652,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 267,
+          "clipLeft": 250,
+          "offsetLeft": 17
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
@@ -1479,7 +1676,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 441,
+          "clipLeft": 250,
+          "offsetLeft": 191
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(3) > select:nth-of-type(1)",
@@ -1500,7 +1700,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 615,
+          "clipLeft": 250,
+          "offsetLeft": 365
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(4) > select:nth-of-type(1)",
@@ -1521,7 +1724,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 781,
+          "clipLeft": 250,
+          "offsetLeft": 531
         },
         {
           "selector": "div:nth-of-type(2) > button:nth-of-type(1)",
@@ -1542,7 +1748,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 947,
+          "clipLeft": 250,
+          "offsetLeft": 697
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)",
@@ -1563,7 +1772,10 @@
           "font": 12,
           "top": 437.796875,
           "clipTop": 100,
-          "offsetTop": 337.796875
+          "offsetTop": 337.796875,
+          "left": 729.234375,
+          "clipLeft": 250,
+          "offsetLeft": 479.234375
         }
       ],
       "issues": [],
@@ -1594,7 +1806,10 @@
           "font": 14,
           "top": 108,
           "clipTop": 100,
-          "offsetTop": 8
+          "offsetTop": 8,
+          "left": 250,
+          "clipLeft": 250,
+          "offsetLeft": 0
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -1615,7 +1830,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 267,
+          "clipLeft": 250,
+          "offsetLeft": 17
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
@@ -1636,7 +1854,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 441,
+          "clipLeft": 250,
+          "offsetLeft": 191
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(3) > select:nth-of-type(1)",
@@ -1657,7 +1878,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 615,
+          "clipLeft": 250,
+          "offsetLeft": 365
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(4) > select:nth-of-type(1)",
@@ -1678,7 +1902,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 781,
+          "clipLeft": 250,
+          "offsetLeft": 531
         },
         {
           "selector": "div:nth-of-type(2) > button:nth-of-type(1)",
@@ -1699,7 +1926,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 947,
+          "clipLeft": 250,
+          "offsetLeft": 697
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)",
@@ -1720,7 +1950,10 @@
           "font": 12,
           "top": 435.796875,
           "clipTop": 100,
-          "offsetTop": 335.796875
+          "offsetTop": 335.796875,
+          "left": 729.234375,
+          "clipLeft": 250,
+          "offsetLeft": 479.234375
         }
       ],
       "issues": [],
@@ -1751,7 +1984,10 @@
           "font": 14,
           "top": 108,
           "clipTop": 100,
-          "offsetTop": 8
+          "offsetTop": 8,
+          "left": 250,
+          "clipLeft": 250,
+          "offsetLeft": 0
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -1772,7 +2008,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 267,
+          "clipLeft": 250,
+          "offsetLeft": 17
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
@@ -1793,7 +2032,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 441,
+          "clipLeft": 250,
+          "offsetLeft": 191
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(3) > select:nth-of-type(1)",
@@ -1814,7 +2056,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 615,
+          "clipLeft": 250,
+          "offsetLeft": 365
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(4) > select:nth-of-type(1)",
@@ -1835,7 +2080,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 781,
+          "clipLeft": 250,
+          "offsetLeft": 531
         },
         {
           "selector": "div:nth-of-type(2) > button:nth-of-type(1)",
@@ -1856,7 +2104,10 @@
           "font": 14,
           "top": 227,
           "clipTop": 100,
-          "offsetTop": 127
+          "offsetTop": 127,
+          "left": 947,
+          "clipLeft": 250,
+          "offsetLeft": 697
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)",
@@ -1875,9 +2126,12 @@
           "width": 66.015625,
           "height": 24,
           "font": 12,
-          "top": 437.2086486816406,
+          "top": 437.796875,
           "clipTop": 100,
-          "offsetTop": 337.2086486816406
+          "offsetTop": 337.796875,
+          "left": 729.234375,
+          "clipLeft": 250,
+          "offsetLeft": 479.234375
         }
       ],
       "issues": [],

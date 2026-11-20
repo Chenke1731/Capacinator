@@ -1,5 +1,6 @@
 {
   "title": "报表与分析",
+  "loadFailed": "报表加载失败",
   "tabs": {
     "demand": "需求",
     "capacity": "产能",

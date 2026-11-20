@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-import { AlertCircle, ChevronDown, ChevronRight, Plus, RefreshCw } from 'lucide-react';
+import { AlertCircle, ChevronDown, ChevronRight, Plus, RefreshCw, X, Trash2 } from 'lucide-react';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
 import { useDebouncedValue } from '../hooks/useDebouncedValue';
@@ -400,19 +400,23 @@ export function IntakeInbox() {
                           </button>
                           <button
                             type="button"
-                            className="btn btn-outline btn-sm"
+                            className="btn btn-outline btn-sm intake-icon-btn"
                             onClick={() => setRejecting(row)}
                             data-testid={`intake-reject-${row.id}`}
+                            aria-label={t('intake:inbox.actions.reject')}
+                            title={t('intake:inbox.actions.reject')}
                           >
-                            {t('intake:inbox.actions.reject')}
+                            <X size={14} />
                           </button>
                           <button
                             type="button"
-                            className="btn btn-outline btn-sm intake-delete-btn"
+                            className="btn btn-outline btn-sm intake-delete-btn intake-icon-btn"
                             onClick={() => setDeleting(row)}
                             data-testid={`intake-delete-${row.id}`}
+                            aria-label={t('intake:inbox.actions.delete')}
+                            title={t('intake:inbox.actions.delete')}
                           >
-                            {t('intake:inbox.actions.delete')}
+                            <Trash2 size={14} />
                           </button>
                         </div>
                       ) : row.converted_project_id ? (

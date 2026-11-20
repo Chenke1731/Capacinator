@@ -94,9 +94,10 @@ test('people: create → verify in table → delete', async ({ authenticatedPage
   expect(rowText).toContain(`${personName.toLowerCase()}@test.com`);
 
   // Delete via the UI (button added 2026-09-25 — was API-only, a recorded
-  // product debt). confirm() fires synchronously on click — accept first.
-  authenticatedPage.once('dialog', (dialog) => dialog.accept());
+  // product debt). Destruction now goes through the shared ConfirmDialog.
   await personRow.locator('.delete-person-btn').click();
+  const confirmDialog = authenticatedPage.getByTestId('confirm-dialog');
+  await confirmDialog.getByRole('button', { name: 'Delete' }).click();
   await expect(
     authenticatedPage.locator('tbody tr').filter({ hasText: personName })
   ).toHaveCount(0, { timeout: 10000 });
@@ -280,7 +281,7 @@ test('reports: demand report shows non-zero metrics and chart', async ({ authent
   await authenticatedPage.waitForSelector('[role="tabpanel"]', { timeout: 15000 });
 
   // Verify — data-level: Total Demand is a non-zero number
-  const totalDemand = authenticatedPage.locator('.summary-card:has(h3:text-is("Total Demand")) .metric');
+  const totalDemand = authenticatedPage.locator('.summary-card:has(h4:text-is("Total Demand")) .metric');
   await expect(totalDemand).toBeVisible({ timeout: 10000 });
   const demandText = await totalDemand.textContent();
   expect(parseInt(demandText?.replace(/[^\d]/g, '') || '0')).toBeGreaterThan(0);

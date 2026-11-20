@@ -16031,13 +16031,13 @@
           "family": "btn btn-sm btn-danger quick-action-btn|",
           "text": "调整分配",
           "foreground": "rgb(185, 28, 28)",
-          "background": "rgba(247, 189, 189, 0.37)",
+          "background": "rgba(250, 203, 203, 0.482)",
           "effectiveBackground": [
-            252.05098039215687,
-            231.03921568627453,
-            231.03921568627453
+            253.0705882352941,
+            229.9176470588235,
+            229.9176470588235
           ],
-          "contrast": 5.462596388145181,
+          "contrast": 5.431894896009417,
           "textual": true,
           "disabled": false,
           "width": 94.015625,
@@ -32758,13 +32758,13 @@
           "family": "btn btn-sm btn-danger quick-action-btn|",
           "text": "调整分配",
           "foreground": "rgb(255, 255, 255)",
-          "background": "rgba(189, 31, 31, 0.765)",
+          "background": "rgba(197, 37, 37, 0.525)",
           "effectiveBackground": [
-            149.2941176470588,
-            29.352941176470587,
-            32.88235294117647
+            112.11372549019607,
+            30.305882352941175,
+            37.423529411764704
           ],
-          "contrast": 8.452378588185923,
+          "contrast": 11.014875956932281,
           "textual": true,
           "disabled": false,
           "width": 94.015625,

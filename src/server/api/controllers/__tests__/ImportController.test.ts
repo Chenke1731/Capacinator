@@ -636,7 +636,8 @@ describe('ImportController', () => {
       await flushPromises();
 
       expect(mockRes.status).toHaveBeenCalledWith(400);
-      expect(mockRes.json).toHaveBeenCalledWith({
+      expect(mockRes.json).toHaveBeenCalledWith(expect.objectContaining({
+        error: 'INVALID_FILE_TYPE',
         valid: false,
         canImport: false,
         errors: expect.arrayContaining([
@@ -646,7 +647,7 @@ describe('ImportController', () => {
             message: expect.stringContaining('Excel file')
           })
         ])
-      });
+      }));
     });
 
     it('uses V2 validator when useV2 is true', async () => {
@@ -675,7 +676,8 @@ describe('ImportController', () => {
       await flushPromises();
 
       expect(mockRes.status).toHaveBeenCalledWith(400);
-      expect(mockRes.json).toHaveBeenCalledWith({
+      expect(mockRes.json).toHaveBeenCalledWith(expect.objectContaining({
+        error: 'INVALID_STRUCTURE',
         valid: false,
         canImport: false,
         errors: expect.arrayContaining([
@@ -683,7 +685,7 @@ describe('ImportController', () => {
             message: expect.stringContaining('Corrupted file')
           })
         ])
-      });
+      }));
     });
 
     it('accepts .xls and .xlsx extensions', async () => {

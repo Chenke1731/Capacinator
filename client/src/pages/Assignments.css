@@ -39,13 +39,13 @@
   box-shadow: var(--shadow-sm);
 }
 
-.project-info {
+:where(.assignments-page) .project-info {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
 }
 
-.project-name {
+:where(.assignments-page) .project-name {
   font-weight: 500;
 }
 
@@ -363,13 +363,13 @@
   color: var(--text-primary);
 }
 
-.project-info {
+:where(.assignments-page) .project-info {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.project-info span {
+:where(.assignments-page) .project-info span {
   display: block;
 }
 
@@ -408,12 +408,12 @@
   transition: background-color 0.2s ease;
 }
 
-.btn-sm {
+:where(.assignments-page) .btn-sm {
   padding: 0.375rem 0.75rem;
   font-size: 0.875rem;
 }
 
-.btn-sm svg {
+:where(.assignments-page) .btn-sm svg {
   width: 14px;
   height: 14px;
 }

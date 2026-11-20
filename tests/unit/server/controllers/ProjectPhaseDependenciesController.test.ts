@@ -374,6 +374,7 @@ describe('ProjectPhaseDependenciesController', () => {
       await controller.applyCascade(mockReq as Request, mockRes as Response);
 
       expect(mockRes.json).toHaveBeenCalledWith({
+        success: true,
         message: 'Cascade changes applied successfully',
         updated_phases: 0,
         updated_assignments: 0

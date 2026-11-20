@@ -1,7 +1,7 @@
 /* Reports Page Styles - Unified Design System */
 
 /* Report Layout */
-.report-content {
+:where(.reports-tab-content) .report-content {
   background: var(--bg-secondary);
   border-radius: 12px;
   padding: 2rem;
@@ -9,7 +9,7 @@
 }
 
 /* Summary Cards Grid */
-.report-summary {
+:where(.reports-tab-content) .report-summary {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
@@ -81,7 +81,7 @@
 }
 
 /* Charts Grid */
-.charts-grid {
+:where(.reports-tab-content) .charts-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   gap: 1.5rem;
@@ -107,7 +107,7 @@
 }
 
 /* Empty States */
-.report-empty-state {
+:where(.reports-tab-content) .report-empty-state {
   background: var(--bg-secondary);
   border: 1px solid var(--border-color);
   border-radius: 8px;
@@ -116,19 +116,19 @@
   text-align: center;
 }
 
-.report-empty-state svg {
+:where(.reports-tab-content) .report-empty-state svg {
   margin-right: 0.5rem;
   color: var(--warning);
 }
 
-.report-empty-state strong {
+:where(.reports-tab-content) .report-empty-state strong {
   display: block;
   margin: 0.5rem 0;
   color: var(--text-primary);
   font-size: 1.125rem;
 }
 
-.report-empty-state p {
+:where(.reports-tab-content) .report-empty-state p {
   margin: 0.5rem 0 1rem 0;
   color: var(--text-secondary);
 }
@@ -144,7 +144,7 @@
 }
 
 /* Tables */
-.report-table-container {
+:where(.reports-tab-content) .report-table-container {
   background: var(--bg-primary);
   border: 1px solid var(--border-color);
   border-radius: 8px;
@@ -153,19 +153,19 @@
   box-shadow: var(--shadow-sm);
 }
 
-.report-table-container h3 {
+:where(.reports-tab-content) .report-table-container h3 {
   margin: 0 0 1rem 0;
   font-size: 1.125rem;
   color: var(--text-primary);
   font-weight: 600;
 }
 
-.report-table {
+:where(.reports-tab-content) .report-table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.report-table th {
+:where(.reports-tab-content) .report-table th {
   text-align: left;
   padding: 0.75rem;
   font-weight: 600;
@@ -177,30 +177,30 @@
   letter-spacing: 0.5px;
 }
 
-.report-table td {
+:where(.reports-tab-content) .report-table td {
   padding: 0.75rem;
   border-bottom: 1px solid var(--border-color);
   color: var(--text-primary);
 }
 
-.report-table tbody tr:hover {
+:where(.reports-tab-content) .report-table tbody tr:hover {
   background: var(--bg-hover);
 }
 
-.report-table tbody tr:last-child td {
+:where(.reports-tab-content) .report-table tbody tr:last-child td {
   border-bottom: none;
 }
 
 /* Table Row Variants */
-.report-table-row-success {
+:where(.reports-tab-content) .report-table-row-success {
   background: var(--status-success-soft);
 }
 
-.report-table-row-warning {
+:where(.reports-tab-content) .report-table-row-warning {
   background: var(--status-warning-soft);
 }
 
-.report-table-row-danger {
+:where(.reports-tab-content) .report-table-row-danger {
   background: var(--status-danger-soft);
 }
 
@@ -209,7 +209,7 @@
    Batch 1): token-identical to the new App.css owner (--status-*-soft are
    literal aliases of --badge-*-bg in both themes). badge-default is a
    reports-only variant (ReportStatusBadge default), scoped here. */
-.report-status-badge {
+:where(.reports-tab-content) .report-status-badge {
   display: inline-block;
   padding: 0.25rem 0.75rem;
   border-radius: 9999px;
@@ -225,13 +225,13 @@
 }
 
 /* Progress Bars */
-.report-progress-container {
+:where(.reports-tab-content) .report-progress-container {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.report-progress-bar {
+:where(.reports-tab-content) .report-progress-bar {
   flex: 1;
   height: 8px;
   background: var(--bg-secondary);
@@ -239,7 +239,7 @@
   overflow: hidden;
 }
 
-.report-progress-fill {
+:where(.reports-tab-content) .report-progress-fill {
   height: 100%;
   transition: width 0.3s ease;
 }
@@ -260,9 +260,9 @@
   background: var(--status-danger-text);
 }
 
-.report-progress-container .text-danger { color: var(--status-danger-text); }
-.report-progress-container .text-warning { color: var(--status-warning-text); }
-.report-progress-container .text-success { color: var(--status-success-text); }
+:where(.reports-tab-content) .report-progress-container .text-danger { color: var(--status-danger-text); }
+:where(.reports-tab-content) .report-progress-container .text-warning { color: var(--status-warning-text); }
+:where(.reports-tab-content) .report-progress-container .text-success { color: var(--status-success-text); }
 
 .progress-label {
   font-size: 0.875rem;
@@ -289,7 +289,7 @@
 }
 
 /* Button Styles */
-.btn {
+:where(.reports-tab-content) .btn {
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
@@ -303,50 +303,50 @@
   transition: all 0.2s ease;
 }
 
-.btn-sm {
+:where(.reports-tab-content) .btn-sm {
   padding: 0.375rem 0.75rem;
   font-size: 0.75rem;
 }
 
-.btn-primary {
+:where(.reports-tab-content) .btn-primary {
   background: var(--primary);
   color: var(--solid-foreground);
   border-color: var(--primary);
 }
 
-.btn-primary:hover {
+:where(.reports-tab-content) .btn-primary:hover {
   background: var(--primary-hover);
   border-color: var(--primary-hover);
 }
 
-.btn-secondary {
+:where(.reports-tab-content) .btn-secondary {
   background: var(--bg-secondary);
   color: var(--text-primary);
   border-color: var(--border-color);
 }
 
-.btn-secondary:hover {
+:where(.reports-tab-content) .btn-secondary:hover {
   background: var(--bg-hover);
 }
 
-.btn-danger {
+:where(.reports-tab-content) .btn-danger {
   background: var(--status-danger-solid);
   color: var(--solid-foreground);
   border-color: var(--danger);
 }
 
-.btn-danger:hover {
+:where(.reports-tab-content) .btn-danger:hover {
   background: var(--status-danger-solid);
   border-color: var(--status-danger-solid);
 }
 
-.btn-outline {
+:where(.reports-tab-content) .btn-outline {
   background: transparent;
   color: var(--primary-text);
   border-color: var(--primary);
 }
 
-.btn-outline:hover {
+:where(.reports-tab-content) .btn-outline:hover {
   background: var(--primary-solid);
   color: var(--solid-foreground);
 }
@@ -438,7 +438,7 @@
 }
 
 /* Report Filters - Horizontal Layout */
-.report-filters {
+:where(.reports-tab-content) .report-filters {
   display: flex;
   align-items: flex-end;
   gap: 1rem;
@@ -452,13 +452,13 @@
 
 /* 2026-11-10 同类排查（D-01 B+）：筛选行控件等高——日期/下拉实测 36px，
    Reset 按钮 44px；统一到控件高度令牌（行内等比全局 40 更精准）。 */
-.report-filters .filter-group input,
-.report-filters .filter-group select {
+:where(.reports-tab-content) .report-filters .filter-group input,
+:where(.reports-tab-content) .report-filters .filter-group select {
   height: var(--input-min-height, 40px);
   min-height: var(--input-min-height, 40px);
 }
 
-.report-filters .btn {
+:where(.reports-tab-content) .report-filters .btn {
   height: var(--button-min-height, 40px);
   min-height: var(--button-min-height, 40px);
 }
@@ -498,11 +498,11 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .report-summary {
+  :where(.reports-tab-content) .report-summary {
     grid-template-columns: 1fr 1fr;
   }
 
-  .charts-grid {
+  :where(.reports-tab-content) .charts-grid {
     grid-template-columns: 1fr;
   }
 
@@ -515,7 +515,7 @@
     align-items: flex-start;
   }
 
-  .report-filters {
+  :where(.reports-tab-content) .report-filters {
     flex-direction: column;
     align-items: stretch;
   }

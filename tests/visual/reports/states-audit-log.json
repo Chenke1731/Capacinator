@@ -11,16 +11,23 @@
           "text": "全部数据表全部数据表人员项目角色分配资源",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 288.5,
-          "height": 39,
+          "height": 40,
           "font": 14,
           "top": 714.578125,
           "clipTop": 40,
-          "offsetTop": 674.578125
+          "offsetTop": 674.578125,
+          "left": 324,
+          "clipLeft": 250,
+          "offsetLeft": 74
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
@@ -28,16 +35,23 @@
           "text": "全部操作全部操作创建更新删除",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 288.5,
-          "height": 39,
+          "height": 40,
           "font": 14,
           "top": 714.578125,
           "clipTop": 40,
-          "offsetTop": 674.578125
+          "offsetTop": 674.578125,
+          "left": 628.5,
+          "clipLeft": 250,
+          "offsetLeft": 378.5
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -54,11 +68,14 @@
           "textual": true,
           "disabled": false,
           "width": 288.5,
-          "height": 39,
+          "height": 40,
           "font": 14,
           "top": 714.578125,
           "clipTop": 40,
-          "offsetTop": 674.578125
+          "offsetTop": 674.578125,
+          "left": 933,
+          "clipLeft": 250,
+          "offsetLeft": 683
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -75,11 +92,14 @@
           "textual": true,
           "disabled": false,
           "width": 288.5,
-          "height": 39,
+          "height": 40,
           "font": 14,
           "top": 714.578125,
           "clipTop": 40,
-          "offsetTop": 674.578125
+          "offsetTop": 674.578125,
+          "left": 1237.5,
+          "clipLeft": 250,
+          "offsetLeft": 987.5
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -95,25 +115,20 @@
           "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
-          "width": 44,
+          "width": 42.015625,
           "height": 28,
           "font": 12,
-          "top": 852.078125,
-          "clipTop": 787.578125,
-          "offsetTop": 64.5
+          "top": 853.078125,
+          "clipTop": 788.578125,
+          "offsetTop": 64.5,
+          "left": 1350.59375,
+          "clipLeft": 308,
+          "offsetLeft": 1042.59375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        }
-      ],
+      "issues": [],
       "scope": ".page-container",
+      "staticGaps": [],
       "axe": [],
       "newIssues": []
     },
@@ -127,16 +142,23 @@
           "text": "全部数据表全部数据表人员项目角色分配资源",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 288.5,
-          "height": 39,
+          "height": 40,
           "font": 14,
           "top": 714.578125,
           "clipTop": 40,
-          "offsetTop": 674.578125
+          "offsetTop": 674.578125,
+          "left": 324,
+          "clipLeft": 250,
+          "offsetLeft": 74
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
@@ -144,16 +166,23 @@
           "text": "全部操作全部操作创建更新删除",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 288.5,
-          "height": 39,
+          "height": 40,
           "font": 14,
           "top": 714.578125,
           "clipTop": 40,
-          "offsetTop": 674.578125
+          "offsetTop": 674.578125,
+          "left": 628.5,
+          "clipLeft": 250,
+          "offsetLeft": 378.5
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -170,11 +199,14 @@
           "textual": true,
           "disabled": false,
           "width": 288.5,
-          "height": 39,
+          "height": 40,
           "font": 14,
           "top": 714.578125,
           "clipTop": 40,
-          "offsetTop": 674.578125
+          "offsetTop": 674.578125,
+          "left": 933,
+          "clipLeft": 250,
+          "offsetLeft": 683
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -191,11 +223,14 @@
           "textual": true,
           "disabled": false,
           "width": 288.5,
-          "height": 39,
+          "height": 40,
           "font": 14,
           "top": 714.578125,
           "clipTop": 40,
-          "offsetTop": 674.578125
+          "offsetTop": 674.578125,
+          "left": 1237.5,
+          "clipLeft": 250,
+          "offsetLeft": 987.5
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -211,24 +246,18 @@
           "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
-          "width": 44,
+          "width": 42.015625,
           "height": 28,
           "font": 12,
-          "top": 852.078125,
-          "clipTop": 787.578125,
-          "offsetTop": 64.5
+          "top": 853.078125,
+          "clipTop": 788.578125,
+          "offsetTop": 64.5,
+          "left": 1350.59375,
+          "clipLeft": 308,
+          "offsetLeft": 1042.59375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        }
-      ],
+      "issues": [],
       "scope": ".page-container",
       "axe": [],
       "newIssues": []
@@ -243,16 +272,23 @@
           "text": "全部数据表全部数据表人员项目角色分配资源",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 288.5,
-          "height": 39,
+          "height": 40,
           "font": 14,
           "top": 714.578125,
           "clipTop": 40,
-          "offsetTop": 674.578125
+          "offsetTop": 674.578125,
+          "left": 324,
+          "clipLeft": 250,
+          "offsetLeft": 74
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
@@ -260,16 +296,23 @@
           "text": "全部操作全部操作创建更新删除",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 288.5,
-          "height": 39,
+          "height": 40,
           "font": 14,
           "top": 714.578125,
           "clipTop": 40,
-          "offsetTop": 674.578125
+          "offsetTop": 674.578125,
+          "left": 628.5,
+          "clipLeft": 250,
+          "offsetLeft": 378.5
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -286,11 +329,14 @@
           "textual": true,
           "disabled": false,
           "width": 288.5,
-          "height": 39,
+          "height": 40,
           "font": 14,
           "top": 714.578125,
           "clipTop": 40,
-          "offsetTop": 674.578125
+          "offsetTop": 674.578125,
+          "left": 933,
+          "clipLeft": 250,
+          "offsetLeft": 683
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -307,11 +353,14 @@
           "textual": true,
           "disabled": false,
           "width": 288.5,
-          "height": 39,
+          "height": 40,
           "font": 14,
           "top": 714.578125,
           "clipTop": 40,
-          "offsetTop": 674.578125
+          "offsetTop": 674.578125,
+          "left": 1237.5,
+          "clipLeft": 250,
+          "offsetLeft": 987.5
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -327,24 +376,18 @@
           "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
-          "width": 44,
+          "width": 42.015625,
           "height": 28,
           "font": 12,
-          "top": 852.078125,
-          "clipTop": 787.578125,
-          "offsetTop": 64.5
+          "top": 853.078125,
+          "clipTop": 788.578125,
+          "offsetTop": 64.5,
+          "left": 1350.59375,
+          "clipLeft": 308,
+          "offsetLeft": 1042.59375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        }
-      ],
+      "issues": [],
       "scope": ".page-container",
       "axe": [],
       "newIssues": []
@@ -359,16 +402,23 @@
           "text": "全部数据表全部数据表人员项目角色分配资源",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 288.5,
-          "height": 39,
+          "height": 40,
           "font": 14,
           "top": 714.578125,
           "clipTop": 40,
-          "offsetTop": 674.578125
+          "offsetTop": 674.578125,
+          "left": 324,
+          "clipLeft": 250,
+          "offsetLeft": 74
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
@@ -376,16 +426,23 @@
           "text": "全部操作全部操作创建更新删除",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 288.5,
-          "height": 39,
+          "height": 40,
           "font": 14,
           "top": 714.578125,
           "clipTop": 40,
-          "offsetTop": 674.578125
+          "offsetTop": 674.578125,
+          "left": 628.5,
+          "clipLeft": 250,
+          "offsetLeft": 378.5
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -402,11 +459,14 @@
           "textual": true,
           "disabled": false,
           "width": 288.5,
-          "height": 39,
+          "height": 40,
           "font": 14,
           "top": 714.578125,
           "clipTop": 40,
-          "offsetTop": 674.578125
+          "offsetTop": 674.578125,
+          "left": 933,
+          "clipLeft": 250,
+          "offsetLeft": 683
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -423,11 +483,14 @@
           "textual": true,
           "disabled": false,
           "width": 288.5,
-          "height": 39,
+          "height": 40,
           "font": 14,
           "top": 714.578125,
           "clipTop": 40,
-          "offsetTop": 674.578125
+          "offsetTop": 674.578125,
+          "left": 1237.5,
+          "clipLeft": 250,
+          "offsetLeft": 987.5
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -443,24 +506,18 @@
           "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
-          "width": 44,
+          "width": 42.015625,
           "height": 28,
           "font": 12,
-          "top": 852.078125,
-          "clipTop": 787.578125,
-          "offsetTop": 64.5
+          "top": 853.078125,
+          "clipTop": 788.578125,
+          "offsetTop": 64.5,
+          "left": 1350.59375,
+          "clipLeft": 308,
+          "offsetLeft": 1042.59375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        }
-      ],
+      "issues": [],
       "scope": ".page-container",
       "axe": [],
       "newIssues": []
@@ -475,16 +532,23 @@
           "text": "全部数据表全部数据表人员项目角色分配资源",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 288.5,
-          "height": 39,
+          "height": 40,
           "font": 14,
           "top": 714.578125,
           "clipTop": 40,
-          "offsetTop": 674.578125
+          "offsetTop": 674.578125,
+          "left": 324,
+          "clipLeft": 250,
+          "offsetLeft": 74
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
@@ -492,16 +556,23 @@
           "text": "全部操作全部操作创建更新删除",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 288.5,
-          "height": 39,
+          "height": 40,
           "font": 14,
           "top": 714.578125,
           "clipTop": 40,
-          "offsetTop": 674.578125
+          "offsetTop": 674.578125,
+          "left": 628.5,
+          "clipLeft": 250,
+          "offsetLeft": 378.5
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -518,11 +589,14 @@
           "textual": true,
           "disabled": false,
           "width": 288.5,
-          "height": 39,
+          "height": 40,
           "font": 14,
           "top": 714.578125,
           "clipTop": 40,
-          "offsetTop": 674.578125
+          "offsetTop": 674.578125,
+          "left": 933,
+          "clipLeft": 250,
+          "offsetLeft": 683
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -539,11 +613,14 @@
           "textual": true,
           "disabled": false,
           "width": 288.5,
-          "height": 39,
+          "height": 40,
           "font": 14,
           "top": 714.578125,
           "clipTop": 40,
-          "offsetTop": 674.578125
+          "offsetTop": 674.578125,
+          "left": 1237.5,
+          "clipLeft": 250,
+          "offsetLeft": 987.5
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -559,24 +636,18 @@
           "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
-          "width": 44,
+          "width": 42.015625,
           "height": 28,
           "font": 12,
-          "top": 852.078125,
-          "clipTop": 787.578125,
-          "offsetTop": 64.5
+          "top": 853.078125,
+          "clipTop": 788.578125,
+          "offsetTop": 64.5,
+          "left": 1350.59375,
+          "clipLeft": 308,
+          "offsetLeft": 1042.59375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        }
-      ],
+      "issues": [],
       "scope": ".page-container",
       "axe": [],
       "newIssues": []
@@ -591,16 +662,23 @@
           "text": "全部数据表全部数据表人员项目角色分配资源",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 288.5,
-          "height": 39,
+          "height": 40,
           "font": 14,
           "top": 714.578125,
           "clipTop": 40,
-          "offsetTop": 674.578125
+          "offsetTop": 674.578125,
+          "left": 324,
+          "clipLeft": 250,
+          "offsetLeft": 74
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
@@ -608,16 +686,23 @@
           "text": "全部操作全部操作创建更新删除",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 288.5,
-          "height": 39,
+          "height": 40,
           "font": 14,
           "top": 714.578125,
           "clipTop": 40,
-          "offsetTop": 674.578125
+          "offsetTop": 674.578125,
+          "left": 628.5,
+          "clipLeft": 250,
+          "offsetLeft": 378.5
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -634,11 +719,14 @@
           "textual": true,
           "disabled": false,
           "width": 288.5,
-          "height": 39,
+          "height": 40,
           "font": 14,
           "top": 714.578125,
           "clipTop": 40,
-          "offsetTop": 674.578125
+          "offsetTop": 674.578125,
+          "left": 933,
+          "clipLeft": 250,
+          "offsetLeft": 683
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -655,11 +743,14 @@
           "textual": true,
           "disabled": false,
           "width": 288.5,
-          "height": 39,
+          "height": 40,
           "font": 14,
           "top": 714.578125,
           "clipTop": 40,
-          "offsetTop": 674.578125
+          "offsetTop": 674.578125,
+          "left": 1237.5,
+          "clipLeft": 250,
+          "offsetLeft": 987.5
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -675,25 +766,20 @@
           "contrast": 16.97538624440406,
           "textual": true,
           "disabled": false,
-          "width": 44,
+          "width": 42.015625,
           "height": 28,
           "font": 12,
-          "top": 852.078125,
-          "clipTop": 787.578125,
-          "offsetTop": 64.5
+          "top": 853.078125,
+          "clipTop": 788.578125,
+          "offsetTop": 64.5,
+          "left": 1350.59375,
+          "clipLeft": 308,
+          "offsetLeft": 1042.59375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        }
-      ],
+      "issues": [],
       "scope": ".page-container",
+      "staticGaps": [],
       "axe": [],
       "newIssues": []
     },
@@ -707,16 +793,23 @@
           "text": "全部数据表全部数据表人员项目角色分配资源",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 288.5,
-          "height": 39,
+          "height": 40,
           "font": 14,
           "top": 714.578125,
           "clipTop": 40,
-          "offsetTop": 674.578125
+          "offsetTop": 674.578125,
+          "left": 324,
+          "clipLeft": 250,
+          "offsetLeft": 74
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
@@ -724,16 +817,23 @@
           "text": "全部操作全部操作创建更新删除",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 288.5,
-          "height": 39,
+          "height": 40,
           "font": 14,
           "top": 714.578125,
           "clipTop": 40,
-          "offsetTop": 674.578125
+          "offsetTop": 674.578125,
+          "left": 628.5,
+          "clipLeft": 250,
+          "offsetLeft": 378.5
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -750,11 +850,14 @@
           "textual": true,
           "disabled": false,
           "width": 288.5,
-          "height": 39,
+          "height": 40,
           "font": 14,
           "top": 714.578125,
           "clipTop": 40,
-          "offsetTop": 674.578125
+          "offsetTop": 674.578125,
+          "left": 933,
+          "clipLeft": 250,
+          "offsetLeft": 683
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -771,11 +874,14 @@
           "textual": true,
           "disabled": false,
           "width": 288.5,
-          "height": 39,
+          "height": 40,
           "font": 14,
           "top": 714.578125,
           "clipTop": 40,
-          "offsetTop": 674.578125
+          "offsetTop": 674.578125,
+          "left": 1237.5,
+          "clipLeft": 250,
+          "offsetLeft": 987.5
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -791,24 +897,18 @@
           "contrast": 16.97538624440406,
           "textual": true,
           "disabled": false,
-          "width": 44,
+          "width": 42.015625,
           "height": 28,
           "font": 12,
-          "top": 852.078125,
-          "clipTop": 787.578125,
-          "offsetTop": 64.5
+          "top": 853.078125,
+          "clipTop": 788.578125,
+          "offsetTop": 64.5,
+          "left": 1350.59375,
+          "clipLeft": 308,
+          "offsetLeft": 1042.59375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        }
-      ],
+      "issues": [],
       "scope": ".page-container",
       "axe": [],
       "newIssues": []
@@ -823,16 +923,23 @@
           "text": "全部数据表全部数据表人员项目角色分配资源",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 288.5,
-          "height": 39,
+          "height": 40,
           "font": 14,
           "top": 714.578125,
           "clipTop": 40,
-          "offsetTop": 674.578125
+          "offsetTop": 674.578125,
+          "left": 324,
+          "clipLeft": 250,
+          "offsetLeft": 74
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
@@ -840,16 +947,23 @@
           "text": "全部操作全部操作创建更新删除",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 288.5,
-          "height": 39,
+          "height": 40,
           "font": 14,
           "top": 714.578125,
           "clipTop": 40,
-          "offsetTop": 674.578125
+          "offsetTop": 674.578125,
+          "left": 628.5,
+          "clipLeft": 250,
+          "offsetLeft": 378.5
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -866,11 +980,14 @@
           "textual": true,
           "disabled": false,
           "width": 288.5,
-          "height": 39,
+          "height": 40,
           "font": 14,
           "top": 714.578125,
           "clipTop": 40,
-          "offsetTop": 674.578125
+          "offsetTop": 674.578125,
+          "left": 933,
+          "clipLeft": 250,
+          "offsetLeft": 683
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -887,11 +1004,14 @@
           "textual": true,
           "disabled": false,
           "width": 288.5,
-          "height": 39,
+          "height": 40,
           "font": 14,
           "top": 714.578125,
           "clipTop": 40,
-          "offsetTop": 674.578125
+          "offsetTop": 674.578125,
+          "left": 1237.5,
+          "clipLeft": 250,
+          "offsetLeft": 987.5
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -907,24 +1027,18 @@
           "contrast": 16.97538624440406,
           "textual": true,
           "disabled": false,
-          "width": 44,
+          "width": 42.015625,
           "height": 28,
           "font": 12,
-          "top": 852.078125,
-          "clipTop": 787.578125,
-          "offsetTop": 64.5
+          "top": 853.078125,
+          "clipTop": 788.578125,
+          "offsetTop": 64.5,
+          "left": 1350.59375,
+          "clipLeft": 308,
+          "offsetLeft": 1042.59375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        }
-      ],
+      "issues": [],
       "scope": ".page-container",
       "axe": [],
       "newIssues": []
@@ -939,16 +1053,23 @@
           "text": "全部数据表全部数据表人员项目角色分配资源",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 288.5,
-          "height": 39,
+          "height": 40,
           "font": 14,
           "top": 714.578125,
           "clipTop": 40,
-          "offsetTop": 674.578125
+          "offsetTop": 674.578125,
+          "left": 324,
+          "clipLeft": 250,
+          "offsetLeft": 74
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
@@ -956,16 +1077,23 @@
           "text": "全部操作全部操作创建更新删除",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 288.5,
-          "height": 39,
+          "height": 40,
           "font": 14,
           "top": 714.578125,
           "clipTop": 40,
-          "offsetTop": 674.578125
+          "offsetTop": 674.578125,
+          "left": 628.5,
+          "clipLeft": 250,
+          "offsetLeft": 378.5
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -982,11 +1110,14 @@
           "textual": true,
           "disabled": false,
           "width": 288.5,
-          "height": 39,
+          "height": 40,
           "font": 14,
           "top": 714.578125,
           "clipTop": 40,
-          "offsetTop": 674.578125
+          "offsetTop": 674.578125,
+          "left": 933,
+          "clipLeft": 250,
+          "offsetLeft": 683
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -1003,11 +1134,14 @@
           "textual": true,
           "disabled": false,
           "width": 288.5,
-          "height": 39,
+          "height": 40,
           "font": 14,
           "top": 714.578125,
           "clipTop": 40,
-          "offsetTop": 674.578125
+          "offsetTop": 674.578125,
+          "left": 1237.5,
+          "clipLeft": 250,
+          "offsetLeft": 987.5
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1023,24 +1157,18 @@
           "contrast": 16.97538624440406,
           "textual": true,
           "disabled": false,
-          "width": 44,
+          "width": 42.015625,
           "height": 28,
           "font": 12,
-          "top": 852.078125,
-          "clipTop": 787.578125,
-          "offsetTop": 64.5
+          "top": 853.078125,
+          "clipTop": 788.578125,
+          "offsetTop": 64.5,
+          "left": 1350.59375,
+          "clipLeft": 308,
+          "offsetLeft": 1042.59375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        }
-      ],
+      "issues": [],
       "scope": ".page-container",
       "axe": [],
       "newIssues": []
@@ -1055,16 +1183,23 @@
           "text": "全部数据表全部数据表人员项目角色分配资源",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 288.5,
-          "height": 39,
+          "height": 40,
           "font": 14,
           "top": 714.578125,
           "clipTop": 40,
-          "offsetTop": 674.578125
+          "offsetTop": 674.578125,
+          "left": 324,
+          "clipLeft": 250,
+          "offsetLeft": 74
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
@@ -1072,16 +1207,23 @@
           "text": "全部操作全部操作创建更新删除",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 288.5,
-          "height": 39,
+          "height": 40,
           "font": 14,
           "top": 714.578125,
           "clipTop": 40,
-          "offsetTop": 674.578125
+          "offsetTop": 674.578125,
+          "left": 628.5,
+          "clipLeft": 250,
+          "offsetLeft": 378.5
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -1098,11 +1240,14 @@
           "textual": true,
           "disabled": false,
           "width": 288.5,
-          "height": 39,
+          "height": 40,
           "font": 14,
           "top": 714.578125,
           "clipTop": 40,
-          "offsetTop": 674.578125
+          "offsetTop": 674.578125,
+          "left": 933,
+          "clipLeft": 250,
+          "offsetLeft": 683
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -1119,11 +1264,14 @@
           "textual": true,
           "disabled": false,
           "width": 288.5,
-          "height": 39,
+          "height": 40,
           "font": 14,
           "top": 714.578125,
           "clipTop": 40,
-          "offsetTop": 674.578125
+          "offsetTop": 674.578125,
+          "left": 1237.5,
+          "clipLeft": 250,
+          "offsetLeft": 987.5
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1139,24 +1287,18 @@
           "contrast": 16.97538624440406,
           "textual": true,
           "disabled": false,
-          "width": 44,
+          "width": 42.015625,
           "height": 28,
           "font": 12,
-          "top": 852.078125,
-          "clipTop": 787.578125,
-          "offsetTop": 64.5
+          "top": 853.078125,
+          "clipTop": 788.578125,
+          "offsetTop": 64.5,
+          "left": 1350.59375,
+          "clipLeft": 308,
+          "offsetLeft": 1042.59375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        }
-      ],
+      "issues": [],
       "scope": ".page-container",
       "axe": [],
       "newIssues": []

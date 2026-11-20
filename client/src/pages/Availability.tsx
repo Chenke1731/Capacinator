@@ -8,6 +8,7 @@ import { api } from '../lib/api-client';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '../components/ui/dialog';
 import { queryKeys } from '../lib/queryKeys';
 import { useBookmarkableTabs } from '../hooks/useBookmarkableTabs';
+import { useConfirmDialog } from '../hooks/useConfirmDialog';
 import { getLocale } from '../i18n';
 import type { Person, PersonAvailabilityOverride } from '../types';
 
@@ -24,6 +25,7 @@ interface OverrideForm {
 export default function Availability() {
   const queryClient = useQueryClient();
   const { t } = useTranslation();
+  const confirm = useConfirmDialog();
   // U03: 跳转上下文预选——/people?tab=availability&person=<id> 直达该人员的日历
   const [searchParams] = useSearchParams();
   const [selectedPerson, setSelectedPerson] = useState<string>(searchParams.get('person') || '');
@@ -299,8 +301,14 @@ export default function Availability() {
                   </button>
                   <button
                     className="btn table-action-btn btn-danger"
-                    onClick={() => {
-                      if (confirm(t('people:availability.deleteConfirm'))) {
+                    onClick={async () => {
+                      const confirmed = await confirm.ask({
+                        title: t('common:delete'),
+                        message: t('people:availability.deleteConfirm'),
+                        confirmText: t('common:delete'),
+                        variant: 'danger',
+                      });
+                      if (confirmed) {
                         deleteMutation.mutate(override.id);
                       }
                     }}
@@ -478,6 +486,8 @@ export default function Availability() {
       </Dialog>
 
       {viewMode === 'calendar' ? renderCalendarView() : renderListView()}
+
+      {confirm.dialog}
     </div>
   );
 }

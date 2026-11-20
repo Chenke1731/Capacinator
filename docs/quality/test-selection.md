@@ -58,7 +58,7 @@ Stop condition:
 |---|---|---|
 | 局部逻辑/文案/禁用条件 | targeted Jest + typecheck | 触碰共享组件、契约或异步状态 |
 | CSS/布局几何 | lint:ui + `verify-invariants --id U1,U3 --changed` + 受影响 states profile | 默认像素外观变化才 visual；新浮层/裁剪才浏览器几何/E2E |
-| 跨路由/共享 CSS | `verify-css-isolation --all --trace`（一次只读普查）+ lint:ui 所有权守卫 | 新共享类/重复 owner 才升级为 blocking |
+| 跨路由/共享 CSS | `verify-css-isolation --all --strict`（CSS/共享原语改动）+ lint:ui 所有权守卫 | 非 CSS 页面改动不跑；新共享类/重复 owner 仍由 lint:ui 拦 |
 | API 契约/信封 | `verify-invariants --id D2 --static-only` + targeted integration | 新端点多契约面才全量后端回归 |
 | 交互状态机/手势 | 状态×事件矩阵 + 重复手势测试 + focused review | 新页面、共享原语或跨页行为才 full review |
 | 浮层/贴锚/遮挡 | 贴锚/遮挡/焦点 targeted 浏览器测试 + states floatingRoot | 跨页面/新导航路径才 E2E 套件 |

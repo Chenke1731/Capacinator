@@ -5,6 +5,11 @@ import '@testing-library/jest-dom';
 import { AuditLog } from '../AuditLog';
 import { apiClient } from '../../lib/api-client';
 
+const mockToast = jest.fn();
+jest.mock('../../hooks/use-toast', () => ({
+  useToast: () => ({ toast: mockToast }),
+}));
+
 // Mock the API client
 jest.mock('../../lib/api-client', () => ({
   apiClient: {
@@ -184,8 +189,6 @@ describe('AuditLog Page', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    window.confirm = jest.fn();
-    window.alert = jest.fn();
 
     // Setup default mock responses
     (apiClient.get as jest.Mock).mockImplementation((url) => {
@@ -383,8 +386,6 @@ describe('AuditLog Page', () => {
 
     test('handles undo action with confirmation', async () => {
       const user = userEvent.setup();
-      (window.confirm as jest.Mock).mockReturnValue(true);
-      (window.alert as jest.Mock).mockImplementation(() => {});
       (apiClient.post as jest.Mock).mockResolvedValue({});
 
       render(<AuditLog />);
@@ -394,23 +395,21 @@ describe('AuditLog Page', () => {
       });
 
       await user.click(screen.getAllByText('Undo')[0]);
+      const dialog = await screen.findByTestId('confirm-dialog');
+      await user.click(within(dialog).getByRole('button', { name: 'Confirm' }));
 
-      expect(window.confirm).toHaveBeenCalledWith(
-        'Are you sure you want to undo the last change to this record?'
-      );
       expect(apiClient.post).toHaveBeenCalledWith(
         '/audit/undo/projects/proj-1',
         { comment: undefined }
       );
-      
+
       await waitFor(() => {
-        expect(window.alert).toHaveBeenCalledWith('Change undone successfully');
+        expect(mockToast).toHaveBeenCalledWith({ title: 'Change undone successfully', variant: 'success' });
       });
     });
 
     test('cancels undo when not confirmed', async () => {
       const user = userEvent.setup();
-      (window.confirm as jest.Mock).mockReturnValue(false);
 
       render(<AuditLog />);
 
@@ -419,14 +418,14 @@ describe('AuditLog Page', () => {
       });
 
       await user.click(screen.getAllByText('Undo')[0]);
+      const dialog = await screen.findByTestId('confirm-dialog');
+      await user.click(within(dialog).getByRole('button', { name: 'Cancel' }));
 
       expect(apiClient.post).not.toHaveBeenCalled();
     });
 
     test('shows error when undo fails', async () => {
       const user = userEvent.setup();
-      (window.confirm as jest.Mock).mockReturnValue(true);
-      (window.alert as jest.Mock).mockImplementation(() => {});
       (apiClient.post as jest.Mock).mockRejectedValue({
         response: { data: { error: 'Cannot undo this change' } },
       });
@@ -438,11 +437,14 @@ describe('AuditLog Page', () => {
       });
 
       await user.click(screen.getAllByText('Undo')[0]);
+      const dialog = await screen.findByTestId('confirm-dialog');
+      await user.click(within(dialog).getByRole('button', { name: 'Confirm' }));
 
       await waitFor(() => {
-        expect(window.alert).toHaveBeenCalledWith(
-          'Failed to undo change: Cannot undo this change'
-        );
+        expect(mockToast).toHaveBeenCalledWith({
+          title: 'Failed to undo change: Cannot undo this change',
+          variant: 'destructive',
+        });
       });
     });
 
@@ -481,8 +483,6 @@ describe('AuditLog Page', () => {
 
     test('I01v/R4：undone:false 时提示不支持撤销（不再谎报成功）', async () => {
       const user = userEvent.setup();
-      (window.confirm as jest.Mock).mockReturnValue(true);
-      (window.alert as jest.Mock).mockImplementation(() => {});
       (apiClient.post as jest.Mock).mockResolvedValue({
         data: { success: true, data: { undone: false } },
       });
@@ -494,11 +494,16 @@ describe('AuditLog Page', () => {
       });
 
       await user.click(screen.getAllByText('Undo')[0]);
+      const dialog = await screen.findByTestId('confirm-dialog');
+      await user.click(within(dialog).getByRole('button', { name: 'Confirm' }));
 
       await waitFor(() => {
-        expect(window.alert).toHaveBeenCalledWith('This action cannot be undone');
+        expect(mockToast).toHaveBeenCalledWith({
+          title: 'This action cannot be undone',
+          variant: 'destructive',
+        });
       });
-      expect(window.alert).not.toHaveBeenCalledWith('Change undone successfully');
+      expect(mockToast).not.toHaveBeenCalledWith(expect.objectContaining({ title: 'Change undone successfully' }));
     });
   });
 

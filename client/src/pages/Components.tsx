@@ -11,12 +11,14 @@ import { ComponentModal } from '../components/modals/ComponentModal';
 import { ConfirmDialog } from '../components/ui/ConfirmDialog';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
 import { ErrorMessage } from '../components/ui/ErrorMessage';
+import { useToast } from '../hooks/use-toast';
 
 // Software component management (066) — the Locations page pattern: a
 // controlled CRUD table so components cannot be free-typed; demand
 // analytics group by this dimension.
 export function Components() {
   const { t } = useTranslation();
+  const { toast } = useToast();
   const queryClient = useQueryClient();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState<{ isOpen: boolean; component: Component | null }>({
@@ -42,7 +44,7 @@ export function Components() {
     },
     onError: (error) => {
       console.error('Failed to update component:', error);
-      alert(t('components:updateFailed'));
+      toast({ title: t('components:updateFailed'), variant: 'destructive' });
     }
   });
 
@@ -58,7 +60,7 @@ export function Components() {
       console.error('Failed to delete component:', error);
       // RESTRICT: component still referenced by projects
       setDeleteConfirm({ isOpen: false, component: null });
-      alert(t('components:deleteFailedInUse'));
+      toast({ title: t('components:deleteFailedInUse'), variant: 'destructive' });
     }
   });
 

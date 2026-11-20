@@ -21,6 +21,7 @@ import { PersonAllocationChart } from '../components/PersonAllocationChart';
 import PersonRoleModal from '../components/modals/PersonRoleModal';
 import { DetailTable, DetailTableColumn } from '../components/ui/DetailTable';
 import { Badge } from '../components/ui/badge';
+import { useConfirmDialog } from '../hooks/useConfirmDialog';
 import './PersonDetails.css';
 
 interface PersonDetails {
@@ -100,6 +101,7 @@ export default function PersonDetails() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { t } = useTranslation();
+  const confirm = useConfirmDialog();
   const { currentScenario } = useScenario();
   
   const [expandedSections, setExpandedSections] = useState({
@@ -328,7 +330,7 @@ export default function PersonDetails() {
     queryFn: async () => {
       const response = await api.roles.list();
       const payload = response.data;
-      return Array.isArray(payload) ? payload : payload?.data || [];
+      return payload?.data ?? [];
     }
   });
 
@@ -660,8 +662,14 @@ export default function PersonDetails() {
     setEditingTimeOffData(null);
   };
 
-  const handleDeleteTimeOff = (overrideId: string) => {
-    if (confirm(t('people:details.deleteTimeOffConfirm'))) {
+  const handleDeleteTimeOff = async (overrideId: string) => {
+    const confirmed = await confirm.ask({
+      title: t('common:delete'),
+      message: t('people:details.deleteTimeOffConfirm'),
+      confirmText: t('common:delete'),
+      variant: 'danger',
+    });
+    if (confirmed) {
       deleteOverrideMutation.mutate(overrideId);
     }
   };
@@ -704,8 +712,14 @@ export default function PersonDetails() {
     navigate(`/people/${id}/workload`);
   };
 
-  const handleDeleteAssignment = (assignment: any) => {
-    if (window.confirm(t('common:deleteAssignmentConfirm'))) {
+  const handleDeleteAssignment = async (assignment: any) => {
+    const confirmed = await confirm.ask({
+      title: t('common:delete'),
+      message: t('common:deleteAssignmentConfirm'),
+      confirmText: t('common:delete'),
+      variant: 'danger',
+    });
+    if (confirmed) {
       deleteAssignmentMutation.mutate({ id: assignment.id, version: assignment.version });
     }
   };
@@ -1303,6 +1317,8 @@ export default function PersonDetails() {
         personId={id!}
         editingRole={editingRole}
       />
+
+      {confirm.dialog}
     </div>
   );
 }

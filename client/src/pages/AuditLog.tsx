@@ -7,6 +7,8 @@ import { LoadingSpinner } from '../components/ui/LoadingSpinner';
 import { ErrorMessage } from '../components/ui/ErrorMessage';
 import { apiClient } from '../lib/api-client';
 import { getLocale } from '../i18n';
+import { useConfirmDialog } from '../hooks/useConfirmDialog';
+import { useToast } from '../hooks/use-toast';
 import './AuditLog.css';
 
 interface AuditEntry {
@@ -36,6 +38,8 @@ interface AuditStats {
 
 export function AuditLog() {
   const { t } = useTranslation();
+  const { toast } = useToast();
+  const confirm = useConfirmDialog();
   const [entries, setEntries] = useState<AuditEntry[]>([]);
   const [stats, setStats] = useState<AuditStats | null>(null);
   const [loading, setLoading] = useState(true);
@@ -94,7 +98,13 @@ export function AuditLog() {
   };
 
   const handleUndoChange = async (tableName: string, recordId: string, comment?: string) => {
-    if (!confirm(t('auditLog:undoConfirm'))) {
+    const confirmed = await confirm.ask({
+      title: t('auditLog:undoConfirm'),
+      message: t('auditLog:undoConfirm'),
+      confirmText: t('common:confirm'),
+      variant: 'danger',
+    });
+    if (!confirmed) {
       return;
     }
 
@@ -105,12 +115,15 @@ export function AuditLog() {
       // I01v/R4：服务端对不可撤销事件（INTAKE_* 等）返回 success:true+undone:false，
       // 旧实现一律 alert 成功=决策支持谎言——必须读 undone 字段
       if (response.data?.data?.undone === false) {
-        alert(t('auditLog:undoNotApplicable'));
+        toast({ title: t('auditLog:undoNotApplicable'), variant: 'destructive' });
         return;
       }
-      alert(t('auditLog:undoSuccess'));
+      toast({ title: t('auditLog:undoSuccess'), variant: 'success' });
     } catch (err) {
-      alert(t('auditLog:undoFailed', { message: (err as any).response?.data?.error || t('auditLog:unknownError') }));
+      toast({
+        title: t('auditLog:undoFailed', { message: (err as any).response?.data?.error || t('auditLog:unknownError') }),
+        variant: 'destructive',
+      });
     } finally {
       setUndoingEntry(null);
     }
@@ -248,7 +261,7 @@ export function AuditLog() {
   }
 
   return (
-    <div className="page-container">
+    <div className="page-container audit-log-page">
       <header className="page-header" role="banner">
         <div>
           <h1>{t('auditLog:title')}</h1>
@@ -387,6 +400,8 @@ export function AuditLog() {
           </button>
         </div>
       </Card>
+
+      {confirm.dialog}
     </div>
   );
 }

@@ -39,47 +39,6 @@
     "client/src/components/AppHeader.css",
     "client/src/components/ScenarioSelector.css"
   ],
-  "btn": [
-    "client/src/App.css",
-    "client/src/components/PhaseTemplateDesigner.css",
-    "client/src/pages/AuditLog.css",
-    "client/src/pages/Import.css",
-    "client/src/pages/Locations.css",
-    "client/src/styles/reports.css"
-  ],
-  "btn-danger": [
-    "client/src/App.css",
-    "client/src/components/PhaseTemplateDesigner.css",
-    "client/src/pages/Locations.css",
-    "client/src/pages/People.css",
-    "client/src/styles/reports.css"
-  ],
-  "btn-outline": [
-    "client/src/App.css",
-    "client/src/styles/reports.css"
-  ],
-  "btn-primary": [
-    "client/src/App.css",
-    "client/src/components/PhaseTemplateDesigner.css",
-    "client/src/pages/Locations.css",
-    "client/src/pages/Scenarios.css",
-    "client/src/styles/reports.css"
-  ],
-  "btn-secondary": [
-    "client/src/App.css",
-    "client/src/components/PhaseTemplateDesigner.css",
-    "client/src/pages/Scenarios.css",
-    "client/src/styles/reports.css"
-  ],
-  "btn-sm": [
-    "client/src/App.css",
-    "client/src/components/PhaseTemplateDesigner.css",
-    "client/src/components/ProjectsTable.css",
-    "client/src/pages/Assignments.css",
-    "client/src/pages/Locations.css",
-    "client/src/pages/Scenarios.css",
-    "client/src/styles/reports.css"
-  ],
   "card-action-link": [
     "client/src/App.css",
     "client/src/styles/reports.css"
@@ -88,18 +47,9 @@
     "client/src/components/ui/Card.css",
     "client/src/pages/Import.css"
   ],
-  "charts-grid": [
-    "client/src/index.css",
-    "client/src/pages/Dashboard.css",
-    "client/src/styles/reports.css"
-  ],
   "chevron": [
     "client/src/components/AppHeader.css",
     "client/src/components/ScenarioSelector.css"
-  ],
-  "count-badge": [
-    "client/src/pages/ProjectTypes.css",
-    "client/src/pages/Roles.css"
   ],
   "enhanced-kpis": [
     "client/src/components/dashboard/Dashboard.css",
@@ -139,20 +89,6 @@
     "client/src/pages/PersonDetails.css",
     "client/src/pages/ProjectDetail.css"
   ],
-  "info-grid": [
-    "client/src/index.css",
-    "client/src/pages/PersonDetails.css",
-    "client/src/pages/ProjectDetail.css"
-  ],
-  "info-item": [
-    "client/src/index.css",
-    "client/src/pages/PersonDetails.css",
-    "client/src/pages/ProjectDetail.css"
-  ],
-  "info-value": [
-    "client/src/pages/PersonDetails.css",
-    "client/src/pages/ProjectDetail.css"
-  ],
   "item-actions": [
     "client/src/index.css",
     "client/src/styles/reports.css"
@@ -160,10 +96,6 @@
   "item-detail": [
     "client/src/index.css",
     "client/src/styles/reports.css"
-  ],
-  "legend-item": [
-    "client/src/pages/ProjectTypeDetails.css",
-    "client/src/pages/Scenarios.css"
   ],
   "level-badge": [
     "client/src/pages/ProjectTypeDetails.css",
@@ -193,15 +125,6 @@
     "client/src/pages/Assignments.css",
     "client/src/pages/ProjectRoadmap.css"
   ],
-  "project-info": [
-    "client/src/pages/Assignments.css",
-    "client/src/pages/ProjectRoadmap.css"
-  ],
-  "project-name": [
-    "client/src/pages/Assignments.css",
-    "client/src/pages/ProjectRoadmap.css",
-    "client/src/pages/Projects.css"
-  ],
   "project-type-color": [
     "client/src/App.css",
     "client/src/pages/ProjectTypes.css"
@@ -227,29 +150,9 @@
     "client/src/components/chart-colors.css",
     "client/src/index.css"
   ],
-  "recommendation-card": [
-    "client/src/components/modals/SmartAssignmentModal.css",
-    "client/src/pages/Assignments.css"
-  ],
-  "recommendation-details": [
-    "client/src/components/modals/SmartAssignmentModal.css",
-    "client/src/pages/Assignments.css"
-  ],
-  "recommendation-header": [
-    "client/src/components/modals/SmartAssignmentModal.css",
-    "client/src/pages/Assignments.css"
-  ],
   "recommendations-list": [
     "client/src/components/modals/SmartAssignmentModal.css",
     "client/src/pages/Assignments.css"
-  ],
-  "report-content": [
-    "client/src/index.css",
-    "client/src/styles/reports.css"
-  ],
-  "report-summary": [
-    "client/src/index.css",
-    "client/src/styles/reports.css"
   ],
   "resize-handle": [
     "client/src/components/InteractiveTimeline.css",
@@ -307,13 +210,8 @@
     "client/src/components/ScenarioSelector.css",
     "client/src/pages/Scenarios.css"
   ],
-  "search-input": [
-    "client/src/components/ui/FilterBar.css",
-    "client/src/pages/Scenarios.css"
-  ],
   "section-header": [
     "client/src/index.css",
-    "client/src/pages/PersonDetails.css",
     "client/src/pages/ProjectTypeDetails.css"
   ],
   "setting-description": [
@@ -345,41 +243,14 @@
     "client/src/pages/Assignments.css"
   ],
   "sr-only": [
-    "client/src/components/PhaseTemplateDesigner.css",
     "client/src/pages/Import.css",
     "client/src/pages/Scenarios.css"
   ],
-  "stat-item": [
-    "client/src/pages/Dashboard.css",
-    "client/src/pages/Import.css"
-  ],
-  "stat-label": [
-    "client/src/pages/Dashboard.css",
-    "client/src/pages/Import.css"
-  ],
-  "stat-value": [
-    "client/src/pages/Dashboard.css",
-    "client/src/pages/Import.css"
-  ],
-  "stats-grid": [
-    "client/src/pages/Dashboard.css",
-    "client/src/pages/Import.css"
-  ],
   "status-indicator": [
     "client/src/components/AppHeader.css",
-    "client/src/index.css",
-    "client/src/pages/People.css"
-  ],
-  "summary-item": [
-    "client/src/components/modals/SmartAssignmentModal.css",
-    "client/src/pages/PersonDetails.css"
-  ],
-  "summary-label": [
-    "client/src/components/modals/SmartAssignmentModal.css",
     "client/src/index.css"
   ],
   "summary-value": [
-    "client/src/components/modals/SmartAssignmentModal.css",
     "client/src/index.css",
     "client/src/pages/PersonDetails.css"
   ],
@@ -404,21 +275,9 @@
     "client/src/App.css",
     "client/src/pages/Projects.css"
   ],
-  "text-danger": [
-    "client/src/App.css",
-    "client/src/pages/People.css"
-  ],
   "text-sm": [
     "client/src/App.css",
     "client/src/pages/Assignments.css"
-  ],
-  "text-success": [
-    "client/src/App.css",
-    "client/src/pages/People.css"
-  ],
-  "text-warning": [
-    "client/src/App.css",
-    "client/src/pages/People.css"
   ],
   "theme-selector": [
     "client/src/App.css",
@@ -428,26 +287,9 @@
     "client/src/components/InteractiveTimeline.css",
     "client/src/pages/ProjectRoadmap.css"
   ],
-  "timeline-content": [
-    "client/src/pages/PersonDetails.css",
-    "client/src/pages/ProjectDetail.css"
-  ],
-  "timeline-date": [
-    "client/src/pages/PersonDetails.css",
-    "client/src/pages/ProjectDetail.css"
-  ],
-  "timeline-item": [
-    "client/src/components/InteractiveTimeline.css",
-    "client/src/pages/PersonDetails.css",
-    "client/src/pages/ProjectDetail.css"
-  ],
   "today-line": [
     "client/src/components/InteractiveTimeline.css",
     "client/src/pages/ProjectRoadmap.css"
-  ],
-  "view-controls": [
-    "client/src/pages/ProjectRoadmap.css",
-    "client/src/pages/Scenarios.css"
   ],
   "view-mode-toggle": [
     "client/src/pages/ProjectTypes.css",

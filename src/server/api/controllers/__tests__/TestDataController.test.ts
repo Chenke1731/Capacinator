@@ -73,6 +73,7 @@ describe('TestDataController', () => {
       await controller.deleteAllocations(mockReq, mockRes);
 
       expect(mockRes.json).toHaveBeenCalledWith({
+        success: true,
         message: 'Deleted 0 test allocations'
       });
       expect(mockDb.del).not.toHaveBeenCalled();

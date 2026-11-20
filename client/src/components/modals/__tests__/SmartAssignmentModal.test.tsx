@@ -1,9 +1,14 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, within } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SmartAssignmentModal } from '../SmartAssignmentModal';
 import { api } from '../../../lib/api-client';
+
+const mockToast = jest.fn();
+jest.mock('../../../hooks/use-toast', () => ({
+  useToast: () => ({ toast: mockToast }),
+}));
 
 // Mock the API client
 jest.mock('../../../lib/api-client', () => ({
@@ -413,7 +418,6 @@ describe('SmartAssignmentModal', () => {
 
     it('projects selected removal and batch-deletes selected assignments', async () => {
       (api.assignments.delete as jest.Mock).mockResolvedValue({});
-      globalThis.confirm = jest.fn(() => true);
       const person = {
         ...mockPerson,
         default_availability_percentage: 100,
@@ -435,9 +439,10 @@ describe('SmartAssignmentModal', () => {
       expect(screen.getAllByText(/within capacity/i).length).toBeGreaterThan(0);
 
       fireEvent.click(screen.getByRole('button', { name: /Remove selected \(1\)/i }));
+      const dialog = await screen.findByTestId('confirm-dialog');
+      fireEvent.click(within(dialog).getByRole('button', { name: 'Delete' }));
 
       await waitFor(() => {
-        expect(globalThis.confirm).toHaveBeenCalled();
         expect(api.assignments.delete).toHaveBeenCalledWith('small', { expected_version: 3 });
       });
     });
@@ -740,7 +745,6 @@ describe('SmartAssignmentModal', () => {
   describe('Workload Reduction - Delete Flow', () => {
     it('calls delete API when removing an assignment', async () => {
       (api.assignments.delete as jest.Mock).mockResolvedValue({});
-      globalThis.confirm = jest.fn(() => true);
 
       renderComponent({
         triggerContext: 'manual_add',
@@ -760,10 +764,11 @@ describe('SmartAssignmentModal', () => {
       expect(removeButtons.length).toBeGreaterThan(0);
 
       fireEvent.click(removeButtons[0]);
+      const dialog = await screen.findByTestId('confirm-dialog');
+      fireEvent.click(within(dialog).getByRole('button', { name: 'Delete' }));
 
       await waitFor(() => {
         expect(api.assignments.delete).toHaveBeenCalledWith('assignment-1', { expected_version: 4 });
-        expect(globalThis.confirm).toHaveBeenCalled();
       });
     });
 
@@ -817,7 +822,6 @@ describe('SmartAssignmentModal', () => {
     it('invalidates queries after successful deletion', async () => {
       (api.assignments.delete as jest.Mock).mockResolvedValue({});
       const invalidateSpy = jest.spyOn(queryClient, 'invalidateQueries');
-      globalThis.confirm = jest.fn(() => true);
 
       renderComponent({
         triggerContext: 'manual_add',
@@ -835,6 +839,8 @@ describe('SmartAssignmentModal', () => {
 
       const removeButtons = screen.getAllByRole('button', { name: /Remove/i });
       fireEvent.click(removeButtons[0]);
+      const dialog = await screen.findByTestId('confirm-dialog');
+      fireEvent.click(within(dialog).getByRole('button', { name: 'Delete' }));
 
       await waitFor(() => {
         expect(api.assignments.delete).toHaveBeenCalled();
@@ -1498,8 +1504,6 @@ describe('SmartAssignmentModal', () => {
     describe('Delete Assignment Error Handling', () => {
       it('handles delete API error gracefully', async () => {
         (api.assignments.delete as jest.Mock).mockRejectedValue(new Error('Network error'));
-        globalThis.confirm = jest.fn(() => true);
-        globalThis.alert = jest.fn();
 
         renderComponent({
           triggerContext: 'manual_add',
@@ -1517,17 +1521,20 @@ describe('SmartAssignmentModal', () => {
 
         const removeButtons = screen.getAllByRole('button', { name: /Remove/i });
         fireEvent.click(removeButtons[0]);
+        const dialog = await screen.findByTestId('confirm-dialog');
+        fireEvent.click(within(dialog).getByRole('button', { name: 'Delete' }));
 
         await waitFor(() => {
           expect(api.assignments.delete).toHaveBeenCalled();
-          // Error alert should be shown
-          expect(globalThis.alert).toHaveBeenCalledWith(expect.stringContaining('Failed to delete'));
+          expect(mockToast).toHaveBeenCalledWith({
+            title: expect.stringContaining('Failed to delete'),
+            variant: 'destructive',
+          });
         }, { timeout: 2000 });
       });
 
       it('prevents delete when user cancels confirmation', async () => {
         (api.assignments.delete as jest.Mock).mockResolvedValue({});
-        globalThis.confirm = jest.fn(() => false); // User cancels
 
         renderComponent({
           triggerContext: 'manual_add',
@@ -1540,12 +1547,13 @@ describe('SmartAssignmentModal', () => {
 
         const removeButtons = screen.getAllByRole('button', { name: /Remove/i });
         fireEvent.click(removeButtons[0]);
+        const dialog = await screen.findByTestId('confirm-dialog');
+        fireEvent.click(within(dialog).getByRole('button', { name: 'Cancel' }));
 
         // API should not be called when user cancels - verify with waitFor for stability
         await waitFor(() => {
           expect(api.assignments.delete).not.toHaveBeenCalled();
         }, { timeout: 1000 });
-        expect(globalThis.confirm).toHaveBeenCalled();
       });
     });
   });

@@ -19,12 +19,15 @@
           "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
           "top": 167,
           "clipTop": 100,
-          "offsetTop": 67
+          "offsetTop": 67,
+          "left": 414,
+          "clipLeft": 250,
+          "offsetLeft": 164
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
@@ -40,12 +43,15 @@
           "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
           "top": 167,
           "clipTop": 100,
-          "offsetTop": 67
+          "offsetTop": 67,
+          "left": 624,
+          "clipLeft": 250,
+          "offsetLeft": 374
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -64,24 +70,17 @@
           "width": 98.015625,
           "height": 33.5,
           "font": 13,
-          "top": 259,
+          "top": 264,
           "clipTop": 100,
-          "offsetTop": 159
+          "offsetTop": 164,
+          "left": 1328.984375,
+          "clipLeft": 250,
+          "offsetLeft": 1078.984375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        }
-      ],
+      "issues": [],
       "scope": ".import-container",
+      "staticGaps": [],
       "axe": [],
       "newIssues": []
     },
@@ -103,12 +102,15 @@
           "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
           "top": 167,
           "clipTop": 100,
-          "offsetTop": 67
+          "offsetTop": 67,
+          "left": 414,
+          "clipLeft": 250,
+          "offsetLeft": 164
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
@@ -124,12 +126,15 @@
           "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
           "top": 167,
           "clipTop": 100,
-          "offsetTop": 67
+          "offsetTop": 67,
+          "left": 624,
+          "clipLeft": 250,
+          "offsetLeft": 374
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -148,23 +153,15 @@
           "width": 98.015625,
           "height": 33.5,
           "font": 13,
-          "top": 259,
+          "top": 264,
           "clipTop": 100,
-          "offsetTop": 159
+          "offsetTop": 164,
+          "left": 1328.984375,
+          "clipLeft": 250,
+          "offsetLeft": 1078.984375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        }
-      ],
+      "issues": [],
       "scope": ".import-container",
       "axe": [],
       "newIssues": []
@@ -187,12 +184,15 @@
           "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
           "top": 167,
           "clipTop": 100,
-          "offsetTop": 67
+          "offsetTop": 67,
+          "left": 414,
+          "clipLeft": 250,
+          "offsetLeft": 164
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
@@ -208,12 +208,15 @@
           "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
           "top": 167,
           "clipTop": 100,
-          "offsetTop": 67
+          "offsetTop": 67,
+          "left": 624,
+          "clipLeft": 250,
+          "offsetLeft": 374
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -232,23 +235,15 @@
           "width": 98.015625,
           "height": 33.5,
           "font": 13,
-          "top": 259,
+          "top": 264,
           "clipTop": 100,
-          "offsetTop": 159
+          "offsetTop": 164,
+          "left": 1328.984375,
+          "clipLeft": 250,
+          "offsetLeft": 1078.984375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        }
-      ],
+      "issues": [],
       "scope": ".import-container",
       "axe": [],
       "newIssues": []
@@ -271,12 +266,15 @@
           "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
           "top": 167,
           "clipTop": 100,
-          "offsetTop": 67
+          "offsetTop": 67,
+          "left": 414,
+          "clipLeft": 250,
+          "offsetLeft": 164
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
@@ -292,12 +290,15 @@
           "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
           "top": 167,
           "clipTop": 100,
-          "offsetTop": 67
+          "offsetTop": 67,
+          "left": 624,
+          "clipLeft": 250,
+          "offsetLeft": 374
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -316,23 +317,15 @@
           "width": 98.015625,
           "height": 33.5,
           "font": 13,
-          "top": 259,
+          "top": 264,
           "clipTop": 100,
-          "offsetTop": 159
+          "offsetTop": 164,
+          "left": 1328.984375,
+          "clipLeft": 250,
+          "offsetLeft": 1078.984375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        }
-      ],
+      "issues": [],
       "scope": ".import-container",
       "axe": [],
       "newIssues": []
@@ -355,12 +348,15 @@
           "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
           "top": 167,
           "clipTop": 100,
-          "offsetTop": 67
+          "offsetTop": 67,
+          "left": 414,
+          "clipLeft": 250,
+          "offsetLeft": 164
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
@@ -376,12 +372,15 @@
           "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
           "top": 167,
           "clipTop": 100,
-          "offsetTop": 67
+          "offsetTop": 67,
+          "left": 624,
+          "clipLeft": 250,
+          "offsetLeft": 374
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -400,9 +399,12 @@
           "width": 124.015625,
           "height": 33.5,
           "font": 13,
-          "top": 259,
+          "top": 264,
           "clipTop": 100,
-          "offsetTop": 159
+          "offsetTop": 164,
+          "left": 1302.984375,
+          "clipLeft": 250,
+          "offsetLeft": 1052.984375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
@@ -418,12 +420,15 @@
           "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
-          "top": 407.09375,
+          "top": 412.09375,
           "clipTop": 100,
-          "offsetTop": 307.09375
+          "offsetTop": 312.09375,
+          "left": 431,
+          "clipLeft": 250,
+          "offsetLeft": 181
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
@@ -439,12 +444,15 @@
           "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
-          "top": 407.09375,
+          "top": 412.09375,
           "clipTop": 100,
-          "offsetTop": 307.09375
+          "offsetTop": 312.09375,
+          "left": 769.65625,
+          "clipLeft": 250,
+          "offsetLeft": 519.65625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > label:nth-of-type(3) > input:nth-of-type(1)",
@@ -460,12 +468,15 @@
           "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
-          "top": 407.09375,
+          "top": 412.09375,
           "clipTop": 100,
-          "offsetTop": 307.09375
+          "offsetTop": 312.09375,
+          "left": 1108.328125,
+          "clipLeft": 250,
+          "offsetLeft": 858.328125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)",
@@ -484,9 +495,12 @@
           "width": 326.65625,
           "height": 49,
           "font": 14,
-          "top": 503.09375,
+          "top": 513.09375,
           "clipTop": 100,
-          "offsetTop": 403.09375
+          "offsetTop": 413.09375,
+          "left": 423,
+          "clipLeft": 250,
+          "offsetLeft": 173
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
@@ -505,38 +519,15 @@
           "width": 326.671875,
           "height": 49,
           "font": 14,
-          "top": 503.09375,
+          "top": 513.09375,
           "clipTop": 100,
-          "offsetTop": 403.09375
+          "offsetTop": 413.09375,
+          "left": 761.65625,
+          "clipLeft": 250,
+          "offsetLeft": 511.65625
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > label:nth-of-type(3) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        }
-      ],
+      "issues": [],
       "scope": ".import-container",
       "axe": [],
       "newIssues": []
@@ -559,12 +550,15 @@
           "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
           "top": 167,
           "clipTop": 100,
-          "offsetTop": 67
+          "offsetTop": 67,
+          "left": 414,
+          "clipLeft": 250,
+          "offsetLeft": 164
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
@@ -580,12 +574,15 @@
           "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
           "top": 167,
           "clipTop": 100,
-          "offsetTop": 67
+          "offsetTop": 67,
+          "left": 624,
+          "clipLeft": 250,
+          "offsetLeft": 374
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -604,24 +601,17 @@
           "width": 98.015625,
           "height": 33.5,
           "font": 13,
-          "top": 259,
+          "top": 264,
           "clipTop": 100,
-          "offsetTop": 159
+          "offsetTop": 164,
+          "left": 1328.984375,
+          "clipLeft": 250,
+          "offsetLeft": 1078.984375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        }
-      ],
+      "issues": [],
       "scope": ".import-container",
+      "staticGaps": [],
       "axe": [],
       "newIssues": []
     },
@@ -643,12 +633,15 @@
           "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
           "top": 167,
           "clipTop": 100,
-          "offsetTop": 67
+          "offsetTop": 67,
+          "left": 414,
+          "clipLeft": 250,
+          "offsetLeft": 164
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
@@ -664,12 +657,15 @@
           "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
           "top": 167,
           "clipTop": 100,
-          "offsetTop": 67
+          "offsetTop": 67,
+          "left": 624,
+          "clipLeft": 250,
+          "offsetLeft": 374
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -688,23 +684,15 @@
           "width": 98.015625,
           "height": 33.5,
           "font": 13,
-          "top": 259,
+          "top": 264,
           "clipTop": 100,
-          "offsetTop": 159
+          "offsetTop": 164,
+          "left": 1328.984375,
+          "clipLeft": 250,
+          "offsetLeft": 1078.984375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        }
-      ],
+      "issues": [],
       "scope": ".import-container",
       "axe": [],
       "newIssues": []
@@ -727,12 +715,15 @@
           "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
           "top": 167,
           "clipTop": 100,
-          "offsetTop": 67
+          "offsetTop": 67,
+          "left": 414,
+          "clipLeft": 250,
+          "offsetLeft": 164
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
@@ -748,12 +739,15 @@
           "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
           "top": 167,
           "clipTop": 100,
-          "offsetTop": 67
+          "offsetTop": 67,
+          "left": 624,
+          "clipLeft": 250,
+          "offsetLeft": 374
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -772,23 +766,15 @@
           "width": 98.015625,
           "height": 33.5,
           "font": 13,
-          "top": 259,
+          "top": 264,
           "clipTop": 100,
-          "offsetTop": 159
+          "offsetTop": 164,
+          "left": 1328.984375,
+          "clipLeft": 250,
+          "offsetLeft": 1078.984375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        }
-      ],
+      "issues": [],
       "scope": ".import-container",
       "axe": [],
       "newIssues": []
@@ -811,12 +797,15 @@
           "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
           "top": 167,
           "clipTop": 100,
-          "offsetTop": 67
+          "offsetTop": 67,
+          "left": 414,
+          "clipLeft": 250,
+          "offsetLeft": 164
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
@@ -832,47 +821,42 @@
           "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
           "top": 167,
           "clipTop": 100,
-          "offsetTop": 67
+          "offsetTop": 67,
+          "left": 624,
+          "clipLeft": 250,
+          "offsetLeft": 374
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
           "family": "btn btn-sm btn-ghost|",
           "text": "高级设置",
-          "foreground": "rgb(237, 239, 242)",
-          "background": "rgba(55, 65, 81, 0.424)",
+          "foreground": "rgb(235, 237, 240)",
+          "background": "rgba(55, 65, 81, 0.294)",
           "effectiveBackground": [
-            54.576470588235296,
-            65.4235294117647,
-            80.57647058823528
+            54.705882352941174,
+            65,
+            81.29411764705881
           ],
-          "contrast": 8.920835555236135,
+          "contrast": 8.791265189080354,
           "textual": true,
           "disabled": false,
           "width": 98.015625,
           "height": 33.5,
           "font": 13,
-          "top": 259,
+          "top": 264,
           "clipTop": 100,
-          "offsetTop": 159
+          "offsetTop": 164,
+          "left": 1328.984375,
+          "clipLeft": 250,
+          "offsetLeft": 1078.984375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        }
-      ],
+      "issues": [],
       "scope": ".import-container",
       "axe": [],
       "newIssues": []
@@ -895,12 +879,15 @@
           "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
           "top": 167,
           "clipTop": 100,
-          "offsetTop": 67
+          "offsetTop": 67,
+          "left": 414,
+          "clipLeft": 250,
+          "offsetLeft": 164
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
@@ -916,12 +903,15 @@
           "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
           "top": 167,
           "clipTop": 100,
-          "offsetTop": 67
+          "offsetTop": 67,
+          "left": 624,
+          "clipLeft": 250,
+          "offsetLeft": 374
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -940,9 +930,12 @@
           "width": 124.015625,
           "height": 33.5,
           "font": 13,
-          "top": 259,
+          "top": 264,
           "clipTop": 100,
-          "offsetTop": 159
+          "offsetTop": 164,
+          "left": 1302.984375,
+          "clipLeft": 250,
+          "offsetLeft": 1052.984375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
@@ -958,12 +951,15 @@
           "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
-          "top": 407.09375,
+          "top": 412.09375,
           "clipTop": 100,
-          "offsetTop": 307.09375
+          "offsetTop": 312.09375,
+          "left": 431,
+          "clipLeft": 250,
+          "offsetLeft": 181
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
@@ -979,12 +975,15 @@
           "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
-          "top": 407.09375,
+          "top": 412.09375,
           "clipTop": 100,
-          "offsetTop": 307.09375
+          "offsetTop": 312.09375,
+          "left": 769.65625,
+          "clipLeft": 250,
+          "offsetLeft": 519.65625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > label:nth-of-type(3) > input:nth-of-type(1)",
@@ -1000,12 +999,15 @@
           "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
-          "top": 407.09375,
+          "top": 412.09375,
           "clipTop": 100,
-          "offsetTop": 307.09375
+          "offsetTop": 312.09375,
+          "left": 1108.328125,
+          "clipLeft": 250,
+          "offsetLeft": 858.328125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)",
@@ -1024,9 +1026,12 @@
           "width": 326.65625,
           "height": 49,
           "font": 14,
-          "top": 503.09375,
+          "top": 513.09375,
           "clipTop": 100,
-          "offsetTop": 403.09375
+          "offsetTop": 413.09375,
+          "left": 423,
+          "clipLeft": 250,
+          "offsetLeft": 173
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
@@ -1045,38 +1050,15 @@
           "width": 326.671875,
           "height": 49,
           "font": 14,
-          "top": 503.09375,
+          "top": 513.09375,
           "clipTop": 100,
-          "offsetTop": 403.09375
+          "offsetTop": 413.09375,
+          "left": 761.65625,
+          "clipLeft": 250,
+          "offsetLeft": 511.65625
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > label:nth-of-type(3) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        }
-      ],
+      "issues": [],
       "scope": ".import-container",
       "axe": [],
       "newIssues": []

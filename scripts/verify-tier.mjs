@@ -185,6 +185,15 @@ function main() {
   if (tier === 't1' && plan.clientTests.length) {
     if (!run('UI invariants (U1 text fit + U3 actions, changed routes)', 'node', ['scripts/verify-invariants.mjs', '--id', 'U1,U3', '--changed'])) return 1;
   }
+  const cssSurfaceChanged = changed.some((file) =>
+    file.endsWith('.css') ||
+    file.startsWith('client/src/components/ui/') ||
+    file === 'client/src/index.css' ||
+    file === 'client/src/App.css'
+  );
+  if (tier === 't1' && cssSurfaceChanged) {
+    if (!run('CSS isolation census (strict)', 'node', ['scripts/verify-css-isolation.mjs', '--all', '--strict'])) return 1;
+  }
 
   // T1 E2E (mapped specs only; source-to-spec mapping is explicit).
   if (tier === 't1' && plan.e2e.length) {

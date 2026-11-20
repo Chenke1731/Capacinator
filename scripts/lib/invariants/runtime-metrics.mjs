@@ -126,6 +126,24 @@ export function measurePage() {
     const headerHeight = Math.round((table.querySelector('thead tr')?.getBoundingClientRect().height || 0) * 10) / 10;
     const firstRow = table.querySelector('tbody tr');
     const rowHeight = Math.round((firstRow?.getBoundingClientRect().height || 0) * 10) / 10;
+    const dataCells = firstRow
+      ? [...firstRow.querySelectorAll('td')].map((cell, cellIndex) => {
+          const rect = cell.getBoundingClientRect();
+          const style = getComputedStyle(cell);
+          return {
+            index: cellIndex,
+            selector: describe(cell),
+            text: textOf(cell).slice(0, 80),
+            width: Math.round(rect.width * 10) / 10,
+            clientWidth: cell.clientWidth,
+            scrollWidth: cell.scrollWidth,
+            overflowX: style.overflowX,
+            whiteSpace: style.whiteSpace,
+            textOverflow: style.textOverflow,
+            hasControl: Boolean(cell.querySelector('button, input, select, textarea, [role="button"]')),
+          };
+        })
+      : [];
     const actionIndex = headers.findIndex((header) => /操作|actions?/i.test(header.text));
     let action = null;
     if (actionIndex >= 0 && firstRow) {
@@ -175,6 +193,7 @@ export function measurePage() {
       horizontalScroll: wrapper ? Math.max(0, wrapper.scrollWidth - wrapper.clientWidth) : 0,
       headerHeight,
       rowHeight,
+      dataCells,
       headers,
       action,
     };

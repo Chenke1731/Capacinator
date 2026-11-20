@@ -311,7 +311,6 @@ describe('Roles Page', () => {
 
     test('deletes role with confirmation', async () => {
       const user = userEvent.setup();
-      window.confirm = jest.fn(() => true);
       (api.roles.delete as jest.Mock).mockResolvedValue({});
 
       renderComponent();
@@ -321,16 +320,14 @@ describe('Roles Page', () => {
       });
 
       await user.click(screen.getAllByTitle('Delete')[0]);
+      const dialog = await screen.findByTestId('confirm-dialog');
+      await user.click(within(dialog).getByRole('button', { name: 'Delete' }));
 
-      expect(window.confirm).toHaveBeenCalledWith(
-        'Are you sure you want to delete the role "Software Developer"? This action cannot be undone.'
-      );
       expect(api.roles.delete).toHaveBeenCalledWith('role-1');
     });
 
     test('cancels delete when not confirmed', async () => {
       const user = userEvent.setup();
-      window.confirm = jest.fn(() => false);
 
       renderComponent();
 
@@ -339,6 +336,8 @@ describe('Roles Page', () => {
       });
 
       await user.click(screen.getAllByTitle('Delete')[0]);
+      const dialog = await screen.findByTestId('confirm-dialog');
+      await user.click(within(dialog).getByRole('button', { name: 'Cancel' }));
 
       expect(api.roles.delete).not.toHaveBeenCalled();
     });

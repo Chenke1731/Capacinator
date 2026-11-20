@@ -303,7 +303,7 @@
   gap: 0.5rem;
 }
 
-.stat-item {
+:where(.import-container) .stat-item {
   display: flex;
   justify-content: space-between;
   padding: 0.5rem 0.75rem;
@@ -312,12 +312,12 @@
   font-size: 0.875rem;
 }
 
-.stat-label {
+:where(.import-container) .stat-label {
   color: var(--text-secondary);
   text-transform: capitalize;
 }
 
-.stat-value {
+:where(.import-container) .stat-value {
   font-weight: 600;
   color: var(--text-primary);
 }
@@ -774,7 +774,7 @@
   z-index: 1;
 }
 
-.btn {
+:where(.import-container) .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -791,7 +791,7 @@
   text-align: center;
 }
 
-.btn:disabled {
+:where(.import-container) .btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
   transform: none !important;
@@ -961,7 +961,7 @@ legend {
 @media (prefers-reduced-motion: reduce) {
   .progressive-disclosure-content,
   .export-type-card,
-  .btn,
+  :where(.import-container) .btn,
   .tip-item {
     transition: none;
     animation: none;

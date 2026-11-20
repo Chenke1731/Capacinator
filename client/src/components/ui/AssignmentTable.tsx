@@ -5,6 +5,7 @@ import { Users, Plus, Trash2 } from 'lucide-react';
 import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from './table';
 import { formatDate } from '../../utils/date';
 import { cn } from '../../lib/utils';
+import { useConfirmDialog } from '../../hooks/useConfirmDialog';
 
 interface Assignment {
   id: string;
@@ -58,6 +59,7 @@ export function AssignmentTable({
   showPersonColumn = true
 }: AssignmentTableProps) {
   const { t } = useTranslation();
+  const confirm = useConfirmDialog();
 
   const formatAllocationBadge = (percentage: number) => (
     <span className="inline-flex items-center rounded-md bg-primary/10 px-2 py-1 text-xs font-medium text-primary ring-1 ring-inset ring-primary/20">
@@ -65,9 +67,16 @@ export function AssignmentTable({
     </span>
   );
 
-  const handleDeleteClick = (e: React.MouseEvent, assignment: Assignment) => {
+  const handleDeleteClick = async (e: React.MouseEvent, assignment: Assignment) => {
     e.stopPropagation();
-    if (onDelete && confirm(t('common:deleteAssignmentConfirm'))) {
+    if (!onDelete) return;
+    const confirmed = await confirm.ask({
+      title: t('common:delete'),
+      message: t('common:deleteAssignmentConfirm'),
+      confirmText: t('common:delete'),
+      variant: 'danger',
+    });
+    if (confirmed) {
       onDelete(assignment);
     }
   };
@@ -194,6 +203,8 @@ export function AssignmentTable({
           ))}
         </TableBody>
       </Table>
+
+      {confirm.dialog}
     </div>
   );
 }

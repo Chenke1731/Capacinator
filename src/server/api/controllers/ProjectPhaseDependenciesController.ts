@@ -223,6 +223,7 @@ export class ProjectPhaseDependenciesController {
       }
 
       res.json({
+        success: true,
         message: 'Cascade changes applied successfully',
         updated_phases: result.updated_phases,
         updated_assignments: result.assignment_changes.length

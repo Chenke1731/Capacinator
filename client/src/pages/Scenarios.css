@@ -54,7 +54,7 @@
   font-size: 1rem;
 }
 
-.btn-primary {
+:where(.scenarios-page) .btn-primary {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -69,16 +69,16 @@
   white-space: nowrap;
 }
 
-.btn-primary:hover {
+:where(.scenarios-page) .btn-primary:hover {
   background: color-mix(in srgb, var(--primary-solid) 90%, var(--solid-shade));
 }
 
-.btn-primary:disabled {
+:where(.scenarios-page) .btn-primary:disabled {
   background: var(--bg-tertiary);
   cursor: not-allowed;
 }
 
-.btn-secondary {
+:where(.scenarios-page) .btn-secondary {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -92,7 +92,7 @@
   transition: all 0.2s;
 }
 
-.btn-secondary:hover {
+:where(.scenarios-page) .btn-secondary:hover {
   background: var(--bg-hover);
   border-color: var(--border-hover);
 }
@@ -545,7 +545,7 @@
   min-height: 60px;
 }
 
-.comparison-actions .btn-primary {
+:where(.scenarios-page) .comparison-actions .btn-primary {
   padding: 0.75rem 2rem;
   font-size: 1rem;
   font-weight: 600;
@@ -554,12 +554,12 @@
   border: 2px solid var(--bg-primary);
 }
 
-.comparison-actions .btn-primary:hover:not(:disabled) {
+:where(.scenarios-page) .comparison-actions .btn-primary:hover:not(:disabled) {
   background: color-mix(in srgb, var(--primary-solid) 90%, var(--solid-shade));
   border-color: var(--bg-secondary);
 }
 
-.comparison-actions .btn-primary:disabled {
+:where(.scenarios-page) .comparison-actions .btn-primary:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
@@ -647,7 +647,7 @@
 }
 
 /* View Controls */
-.view-controls {
+:where(.scenarios-page) .view-controls {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -664,13 +664,13 @@
   flex: 1;
 }
 
-.search-input {
+:where(.scenarios-page) .search-input {
   position: relative;
   flex: 1;
   max-width: 300px;
 }
 
-.search-input input {
+:where(.scenarios-page) .search-input input {
   width: 100%;
   padding: 0.75rem 1rem 0.75rem 2.5rem;
   border: 1px solid var(--border-color);
@@ -681,13 +681,13 @@
   transition: border-color 0.2s;
 }
 
-.search-input input:focus {
+:where(.scenarios-page) .search-input input:focus {
   outline: 2px solid var(--primary);
   outline-offset: 2px;
   border-color: var(--primary);
 }
 
-.search-input .search-icon {
+:where(.scenarios-page) .search-input .search-icon {
   position: absolute;
   left: 0.75rem;
   top: 50%;
@@ -825,13 +825,13 @@
   border-top: 1px solid var(--border-color);
 }
 
-.filter-actions .btn {
+:where(.scenarios-page) .filter-actions .btn {
   width: 100%;
   justify-content: center;
 }
 
 
-.btn-sm {
+:where(.scenarios-page) .btn-sm {
   padding: 0.5rem 0.75rem;
   font-size: 0.875rem;
 }
@@ -864,7 +864,7 @@
   gap: 1rem;
 }
 
-.legend-item {
+:where(.scenarios-page) .legend-item {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -1128,7 +1128,7 @@
 }
 
 /* View controls and quick filters */
-.view-controls {
+:where(.scenarios-page) .view-controls {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -1691,7 +1691,7 @@
     gap: 1rem;
   }
   
-  .view-controls {
+  :where(.scenarios-page) .view-controls {
     flex-direction: column;
     align-items: stretch;
     gap: 1rem;
@@ -1703,7 +1703,7 @@
     gap: 0.75rem;
   }
   
-  .search-input {
+  :where(.scenarios-page) .search-input {
     max-width: none;
   }
   

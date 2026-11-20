@@ -93,7 +93,7 @@
   align-items: center;
 }
 
-.btn {
+:where(.audit-log-page) .btn {
   padding: 6px 12px;
   border: 1px solid transparent;
   border-radius: 4px;
@@ -110,39 +110,39 @@
   min-height: 32px;
 }
 
-.btn:hover {
+:where(.audit-log-page) .btn:hover {
   background: var(--primary-hover);
   /* 2026-11-10: 移除 hover translateY(-1px)——未作用域按钮位移随路由泄漏
      （收件箱录入按钮越界事故同族）；按钮只做底色变化，不做 bounce。 */
 }
 
-.btn:disabled {
+:where(.audit-log-page) .btn:disabled {
   background: var(--text-disabled);
   cursor: not-allowed;
   transform: none;
 }
 
-.btn--small {
+:where(.audit-log-page) .btn--small {
   padding: 4px 8px;
   font-size: 0.75rem;
   min-height: 28px;
 }
 
-.btn--secondary {
+:where(.audit-log-page) .btn--secondary {
   background: var(--secondary);
   color: var(--text-on-secondary);
 }
 
-.btn--secondary:hover {
+:where(.audit-log-page) .btn--secondary:hover {
   background: var(--secondary-hover);
 }
 
-.btn--danger {
+:where(.audit-log-page) .btn--danger {
   background: var(--status-danger-solid);
   color: var(--solid-foreground);
 }
 
-.btn--danger:hover {
+:where(.audit-log-page) .btn--danger:hover {
   background: var(--status-danger-solid);
   color: var(--solid-foreground);
 }

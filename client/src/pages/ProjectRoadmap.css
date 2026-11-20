@@ -655,11 +655,11 @@
   background: hsl(var(--accent)/0.4);
 }
 
-.project-row:nth-child(even) .project-info {
+:where(.project-roadmap) .project-row:nth-child(even) .project-info {
   background: hsl(var(--muted)/0.15);
 }
 
-.project-info {
+:where(.project-roadmap) .project-info {
   width: 400px;
   padding: 0;
   background: hsl(var(--card));
@@ -694,7 +694,7 @@
   gap: 0;
 }
 
-.project-name-row {
+:where(.project-roadmap) .project-name-row {
   display: flex;
   align-items: center;
   width: 100%;
@@ -863,7 +863,7 @@
   font-weight: 600;
 }
 
-.project-name {
+:where(.project-roadmap) .project-name {
   font-size: 0.8rem;
   font-weight: 600;
   color: hsl(var(--foreground));
@@ -1128,7 +1128,7 @@
     gap: 1rem;
   }
   
-  .project-info {
+  :where(.project-roadmap) .project-info {
     width: 360px;
   }
   
@@ -1154,7 +1154,7 @@
     justify-content: center;
   }
   
-  .project-info {
+  :where(.project-roadmap) .project-info {
     width: 320px;
   }
   
@@ -1203,7 +1203,7 @@
     gap: 0.5rem;
   }
   
-  .project-info {
+  :where(.project-roadmap) .project-info {
     width: 260px;
     padding: 0.2rem 0.4rem;
   }
@@ -1212,7 +1212,7 @@
     margin-left: 260px;
   }
   
-  .project-name {
+  :where(.project-roadmap) .project-name {
     font-size: 0.875rem;
   }
   
@@ -1225,7 +1225,7 @@
     width: 100%;
   }
   
-  .project-name-row {
+  :where(.project-roadmap) .project-name-row {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.25rem;
@@ -1246,7 +1246,7 @@
 }
 
 @media (max-width: 480px) {
-  .project-info {
+  :where(.project-roadmap) .project-info {
     width: 200px;
     padding: 0.2rem 0.3rem;
   }
@@ -1255,7 +1255,7 @@
     margin-left: 200px;
   }
   
-  .project-name {
+  :where(.project-roadmap) .project-name {
     font-size: 0.8rem;
     line-height: 1.1;
   }
@@ -1325,7 +1325,7 @@ body.dragging * {
 /* Project Name Link Styling */
 /* 名称链接是行内紧凑件: 退出全局 44px 触控规则, 否则被 min-height:44px 撑高,
    溢出 52px 行头压住下方徽章行(2026-09-22 审计 P0-2, 同 lifecycle-badge-btn 前案) */
-.project-name-link {
+:where(.project-roadmap) .project-name-link {
   min-height: 0;
   min-width: 0;
   background: none;
@@ -1356,7 +1356,7 @@ body.dragging * {
 .dark .project-name-link {
   color: var(--project-active);
 }
-.project-name-link:hover {
+:where(.project-roadmap) .project-name-link:hover {
   color: var(--status-info-text);
   background: var(--status-info-soft);
   /* 2026-11-10: 删除 padding+负 margin 的"外扩"位移——容器 overflow:hidden
@@ -1372,7 +1372,7 @@ body.dragging * {
   background: color-mix(in srgb, var(--status-info-border) 18%, transparent);
 }
 
-.project-name-link:focus {
+:where(.project-roadmap) .project-name-link:focus {
   outline: none;
   color: var(--status-info-text);
   background: var(--status-info-soft);

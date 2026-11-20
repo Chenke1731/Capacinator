@@ -24,7 +24,10 @@
           "font": 16,
           "top": 56,
           "clipTop": 40,
-          "offsetTop": 16
+          "offsetTop": 16,
+          "left": 1463.984375,
+          "clipLeft": 250,
+          "offsetLeft": 1213.984375
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -45,7 +48,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 266,
+          "clipLeft": 250,
+          "offsetLeft": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -66,7 +72,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 582,
+          "clipLeft": 250,
+          "offsetLeft": 332
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -87,7 +96,10 @@
           "font": 14,
           "top": 142.390625,
           "clipTop": 40,
-          "offsetTop": 102.390625
+          "offsetTop": 102.390625,
+          "left": 1386.0625,
+          "clipLeft": 250,
+          "offsetLeft": 1136.0625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -108,7 +120,10 @@
           "font": 16,
           "top": 322.390625,
           "clipTop": 214.390625,
-          "offsetTop": 108
+          "offsetTop": 108,
+          "left": 267,
+          "clipLeft": 266,
+          "offsetLeft": 1
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -129,7 +144,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1385,
+          "clipLeft": 266,
+          "offsetLeft": 1119
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -150,7 +168,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1421,
+          "clipLeft": 266,
+          "offsetLeft": 1155
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -171,11 +192,15 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1493,
+          "clipLeft": 266,
+          "offsetLeft": 1227
         }
       ],
       "issues": [],
       "scope": ".scenarios-page",
+      "staticGaps": [],
       "axe": [],
       "newIssues": []
     },
@@ -202,7 +227,10 @@
           "font": 16,
           "top": 56,
           "clipTop": 40,
-          "offsetTop": 16
+          "offsetTop": 16,
+          "left": 1463.984375,
+          "clipLeft": 250,
+          "offsetLeft": 1213.984375
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -223,7 +251,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 266,
+          "clipLeft": 250,
+          "offsetLeft": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -244,7 +275,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 582,
+          "clipLeft": 250,
+          "offsetLeft": 332
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -265,7 +299,10 @@
           "font": 14,
           "top": 142.390625,
           "clipTop": 40,
-          "offsetTop": 102.390625
+          "offsetTop": 102.390625,
+          "left": 1386.0625,
+          "clipLeft": 250,
+          "offsetLeft": 1136.0625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -286,7 +323,10 @@
           "font": 16,
           "top": 322.390625,
           "clipTop": 214.390625,
-          "offsetTop": 108
+          "offsetTop": 108,
+          "left": 267,
+          "clipLeft": 266,
+          "offsetLeft": 1
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -307,7 +347,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1385,
+          "clipLeft": 266,
+          "offsetLeft": 1119
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -328,7 +371,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1421,
+          "clipLeft": 266,
+          "offsetLeft": 1155
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -349,7 +395,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1493,
+          "clipLeft": 266,
+          "offsetLeft": 1227
         }
       ],
       "issues": [],
@@ -380,7 +429,10 @@
           "font": 16,
           "top": 56,
           "clipTop": 40,
-          "offsetTop": 16
+          "offsetTop": 16,
+          "left": 1463.984375,
+          "clipLeft": 250,
+          "offsetLeft": 1213.984375
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -401,7 +453,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 266,
+          "clipLeft": 250,
+          "offsetLeft": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -422,7 +477,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 582,
+          "clipLeft": 250,
+          "offsetLeft": 332
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -443,7 +501,10 @@
           "font": 14,
           "top": 142.390625,
           "clipTop": 40,
-          "offsetTop": 102.390625
+          "offsetTop": 102.390625,
+          "left": 1386.0625,
+          "clipLeft": 250,
+          "offsetLeft": 1136.0625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -464,7 +525,10 @@
           "font": 16,
           "top": 322.390625,
           "clipTop": 214.390625,
-          "offsetTop": 108
+          "offsetTop": 108,
+          "left": 267,
+          "clipLeft": 266,
+          "offsetLeft": 1
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -485,7 +549,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1385,
+          "clipLeft": 266,
+          "offsetLeft": 1119
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -506,7 +573,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1421,
+          "clipLeft": 266,
+          "offsetLeft": 1155
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -527,7 +597,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1493,
+          "clipLeft": 266,
+          "offsetLeft": 1227
         }
       ],
       "issues": [],
@@ -558,7 +631,10 @@
           "font": 16,
           "top": 56,
           "clipTop": 40,
-          "offsetTop": 16
+          "offsetTop": 16,
+          "left": 1463.984375,
+          "clipLeft": 250,
+          "offsetLeft": 1213.984375
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -579,7 +655,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 266,
+          "clipLeft": 250,
+          "offsetLeft": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -600,7 +679,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 582,
+          "clipLeft": 250,
+          "offsetLeft": 332
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -621,7 +703,10 @@
           "font": 14,
           "top": 142.390625,
           "clipTop": 40,
-          "offsetTop": 102.390625
+          "offsetTop": 102.390625,
+          "left": 1386.0625,
+          "clipLeft": 250,
+          "offsetLeft": 1136.0625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -642,7 +727,10 @@
           "font": 16,
           "top": 322.390625,
           "clipTop": 214.390625,
-          "offsetTop": 108
+          "offsetTop": 108,
+          "left": 267,
+          "clipLeft": 266,
+          "offsetLeft": 1
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -663,7 +751,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1385,
+          "clipLeft": 266,
+          "offsetLeft": 1119
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -684,7 +775,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1421,
+          "clipLeft": 266,
+          "offsetLeft": 1155
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -705,7 +799,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1493,
+          "clipLeft": 266,
+          "offsetLeft": 1227
         }
       ],
       "issues": [],
@@ -736,7 +833,10 @@
           "font": 16,
           "top": 56,
           "clipTop": 40,
-          "offsetTop": 16
+          "offsetTop": 16,
+          "left": 1463.984375,
+          "clipLeft": 250,
+          "offsetLeft": 1213.984375
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -757,7 +857,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 266,
+          "clipLeft": 250,
+          "offsetLeft": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -778,7 +881,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 582,
+          "clipLeft": 250,
+          "offsetLeft": 332
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -799,7 +905,10 @@
           "font": 14,
           "top": 142.390625,
           "clipTop": 40,
-          "offsetTop": 102.390625
+          "offsetTop": 102.390625,
+          "left": 1386.0625,
+          "clipLeft": 250,
+          "offsetLeft": 1136.0625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -820,7 +929,10 @@
           "font": 16,
           "top": 322.390625,
           "clipTop": 214.390625,
-          "offsetTop": 108
+          "offsetTop": 108,
+          "left": 267,
+          "clipLeft": 266,
+          "offsetLeft": 1
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -841,7 +953,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1385,
+          "clipLeft": 266,
+          "offsetLeft": 1119
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -862,7 +977,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1421,
+          "clipLeft": 266,
+          "offsetLeft": 1155
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -883,7 +1001,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1493,
+          "clipLeft": 266,
+          "offsetLeft": 1227
         }
       ],
       "issues": [],
@@ -914,7 +1035,10 @@
           "font": 16,
           "top": 56,
           "clipTop": 40,
-          "offsetTop": 16
+          "offsetTop": 16,
+          "left": 1463.984375,
+          "clipLeft": 250,
+          "offsetLeft": 1213.984375
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -935,7 +1059,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 266,
+          "clipLeft": 250,
+          "offsetLeft": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -956,7 +1083,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 582,
+          "clipLeft": 250,
+          "offsetLeft": 332
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -977,7 +1107,10 @@
           "font": 14,
           "top": 142.390625,
           "clipTop": 40,
-          "offsetTop": 102.390625
+          "offsetTop": 102.390625,
+          "left": 1386.0625,
+          "clipLeft": 250,
+          "offsetLeft": 1136.0625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -998,7 +1131,10 @@
           "font": 16,
           "top": 322.390625,
           "clipTop": 214.390625,
-          "offsetTop": 108
+          "offsetTop": 108,
+          "left": 267,
+          "clipLeft": 266,
+          "offsetLeft": 1
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1019,7 +1155,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1385,
+          "clipLeft": 266,
+          "offsetLeft": 1119
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1040,7 +1179,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1421,
+          "clipLeft": 266,
+          "offsetLeft": 1155
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -1061,7 +1203,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1493,
+          "clipLeft": 266,
+          "offsetLeft": 1227
         }
       ],
       "issues": [],
@@ -1092,7 +1237,10 @@
           "font": 16,
           "top": 56,
           "clipTop": 40,
-          "offsetTop": 16
+          "offsetTop": 16,
+          "left": 1463.984375,
+          "clipLeft": 250,
+          "offsetLeft": 1213.984375
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -1113,7 +1261,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 266,
+          "clipLeft": 250,
+          "offsetLeft": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -1134,7 +1285,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 582,
+          "clipLeft": 250,
+          "offsetLeft": 332
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1155,7 +1309,10 @@
           "font": 14,
           "top": 142.390625,
           "clipTop": 40,
-          "offsetTop": 102.390625
+          "offsetTop": 102.390625,
+          "left": 1386.0625,
+          "clipLeft": 250,
+          "offsetLeft": 1136.0625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -1176,7 +1333,10 @@
           "font": 16,
           "top": 322.390625,
           "clipTop": 214.390625,
-          "offsetTop": 108
+          "offsetTop": 108,
+          "left": 267,
+          "clipLeft": 266,
+          "offsetLeft": 1
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1197,7 +1357,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1385,
+          "clipLeft": 266,
+          "offsetLeft": 1119
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1218,7 +1381,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1421,
+          "clipLeft": 266,
+          "offsetLeft": 1155
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -1239,7 +1405,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1493,
+          "clipLeft": 266,
+          "offsetLeft": 1227
         }
       ],
       "issues": [],
@@ -1270,7 +1439,10 @@
           "font": 16,
           "top": 56,
           "clipTop": 40,
-          "offsetTop": 16
+          "offsetTop": 16,
+          "left": 1463.984375,
+          "clipLeft": 250,
+          "offsetLeft": 1213.984375
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -1291,7 +1463,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 266,
+          "clipLeft": 250,
+          "offsetLeft": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -1312,7 +1487,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 582,
+          "clipLeft": 250,
+          "offsetLeft": 332
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1333,7 +1511,10 @@
           "font": 14,
           "top": 142.390625,
           "clipTop": 40,
-          "offsetTop": 102.390625
+          "offsetTop": 102.390625,
+          "left": 1386.0625,
+          "clipLeft": 250,
+          "offsetLeft": 1136.0625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -1354,7 +1535,10 @@
           "font": 16,
           "top": 322.390625,
           "clipTop": 214.390625,
-          "offsetTop": 108
+          "offsetTop": 108,
+          "left": 267,
+          "clipLeft": 266,
+          "offsetLeft": 1
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1375,7 +1559,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1385,
+          "clipLeft": 266,
+          "offsetLeft": 1119
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1396,7 +1583,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1421,
+          "clipLeft": 266,
+          "offsetLeft": 1155
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -1417,7 +1607,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1493,
+          "clipLeft": 266,
+          "offsetLeft": 1227
         }
       ],
       "issues": [],
@@ -1448,7 +1641,10 @@
           "font": 16,
           "top": 56,
           "clipTop": 40,
-          "offsetTop": 16
+          "offsetTop": 16,
+          "left": 1463.984375,
+          "clipLeft": 250,
+          "offsetLeft": 1213.984375
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -1469,7 +1665,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 266,
+          "clipLeft": 250,
+          "offsetLeft": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -1490,7 +1689,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 582,
+          "clipLeft": 250,
+          "offsetLeft": 332
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1511,7 +1713,10 @@
           "font": 14,
           "top": 142.390625,
           "clipTop": 40,
-          "offsetTop": 102.390625
+          "offsetTop": 102.390625,
+          "left": 1386.0625,
+          "clipLeft": 250,
+          "offsetLeft": 1136.0625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -1532,7 +1737,10 @@
           "font": 16,
           "top": 322.390625,
           "clipTop": 214.390625,
-          "offsetTop": 108
+          "offsetTop": 108,
+          "left": 267,
+          "clipLeft": 266,
+          "offsetLeft": 1
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1553,7 +1761,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1385,
+          "clipLeft": 266,
+          "offsetLeft": 1119
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1574,7 +1785,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1421,
+          "clipLeft": 266,
+          "offsetLeft": 1155
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -1595,7 +1809,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1493,
+          "clipLeft": 266,
+          "offsetLeft": 1227
         }
       ],
       "issues": [],
@@ -1626,7 +1843,10 @@
           "font": 16,
           "top": 56,
           "clipTop": 40,
-          "offsetTop": 16
+          "offsetTop": 16,
+          "left": 1463.984375,
+          "clipLeft": 250,
+          "offsetLeft": 1213.984375
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -1647,7 +1867,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 266,
+          "clipLeft": 250,
+          "offsetLeft": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -1668,7 +1891,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 582,
+          "clipLeft": 250,
+          "offsetLeft": 332
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1689,7 +1915,10 @@
           "font": 14,
           "top": 142.390625,
           "clipTop": 40,
-          "offsetTop": 102.390625
+          "offsetTop": 102.390625,
+          "left": 1386.0625,
+          "clipLeft": 250,
+          "offsetLeft": 1136.0625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -1710,7 +1939,10 @@
           "font": 16,
           "top": 322.390625,
           "clipTop": 214.390625,
-          "offsetTop": 108
+          "offsetTop": 108,
+          "left": 267,
+          "clipLeft": 266,
+          "offsetLeft": 1
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1731,7 +1963,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1385,
+          "clipLeft": 266,
+          "offsetLeft": 1119
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1752,20 +1987,23 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1421,
+          "clipLeft": 266,
+          "offsetLeft": 1155
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
           "family": "action-button edit|",
           "text": "",
-          "foreground": "rgb(192, 145, 116)",
-          "background": "rgb(223, 182, 151)",
+          "foreground": "rgb(178, 120, 85)",
+          "background": "rgb(233, 204, 183)",
           "effectiveBackground": [
-            223,
-            182,
-            151
+            233,
+            204,
+            183
           ],
-          "contrast": 1.4947216065910562,
+          "contrast": 2.4139790854988337,
           "textual": false,
           "disabled": false,
           "width": 32,
@@ -1773,7 +2011,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1493,
+          "clipLeft": 266,
+          "offsetLeft": 1227
         }
       ],
       "issues": [],
@@ -1804,7 +2045,10 @@
           "font": 14,
           "top": 341.796875,
           "clipTop": null,
-          "offsetTop": null
+          "offsetTop": null,
+          "left": 601,
+          "clipLeft": null,
+          "offsetLeft": null
         },
         {
           "selector": "form:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > textarea:nth-of-type(1)",
@@ -1825,7 +2069,10 @@
           "font": 14,
           "top": 421.796875,
           "clipTop": null,
-          "offsetTop": null
+          "offsetTop": null,
+          "left": 601,
+          "clipLeft": null,
+          "offsetLeft": null
         },
         {
           "selector": "form:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(1)",
@@ -1846,7 +2093,10 @@
           "font": 14,
           "top": 541.796875,
           "clipTop": null,
-          "offsetTop": null
+          "offsetTop": null,
+          "left": 601,
+          "clipLeft": null,
+          "offsetLeft": null
         },
         {
           "selector": "form:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -1867,7 +2117,10 @@
           "font": 14,
           "top": 605.796875,
           "clipTop": null,
-          "offsetTop": null
+          "offsetTop": null,
+          "left": 835.8125,
+          "clipLeft": null,
+          "offsetLeft": null
         },
         {
           "selector": "form:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
@@ -1888,7 +2141,10 @@
           "font": 14,
           "top": 605.796875,
           "clipTop": null,
-          "offsetTop": null
+          "offsetTop": null,
+          "left": 907.40625,
+          "clipLeft": null,
+          "offsetLeft": null
         },
         {
           "selector": "button:nth-of-type(1)",
@@ -1909,7 +2165,10 @@
           "font": 16,
           "top": 242.203125,
           "clipTop": null,
-          "offsetTop": null
+          "offsetTop": null,
+          "left": 967,
+          "clipLeft": null,
+          "offsetLeft": null
         }
       ],
       "issues": [],
@@ -1940,7 +2199,10 @@
           "font": 16,
           "top": 56,
           "clipTop": 40,
-          "offsetTop": 16
+          "offsetTop": 16,
+          "left": 1463.984375,
+          "clipLeft": 250,
+          "offsetLeft": 1213.984375
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -1961,7 +2223,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 266,
+          "clipLeft": 250,
+          "offsetLeft": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -1982,7 +2247,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 582,
+          "clipLeft": 250,
+          "offsetLeft": 332
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > input:nth-of-type(1)",
@@ -2003,7 +2271,10 @@
           "font": 14,
           "top": 225.890625,
           "clipTop": 40,
-          "offsetTop": 185.890625
+          "offsetTop": 185.890625,
+          "left": 584,
+          "clipLeft": 250,
+          "offsetLeft": 334
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
@@ -2024,7 +2295,10 @@
           "font": 14,
           "top": 333.890625,
           "clipTop": 40,
-          "offsetTop": 293.890625
+          "offsetTop": 293.890625,
+          "left": 584,
+          "clipLeft": 250,
+          "offsetLeft": 334
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > input:nth-of-type(1)",
@@ -2045,7 +2319,10 @@
           "font": 14,
           "top": 452.890625,
           "clipTop": 40,
-          "offsetTop": 412.890625
+          "offsetTop": 412.890625,
+          "left": 595.921875,
+          "clipLeft": 250,
+          "offsetLeft": 345.921875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2066,7 +2343,10 @@
           "font": 14,
           "top": 142.390625,
           "clipTop": 40,
-          "offsetTop": 102.390625
+          "offsetTop": 102.390625,
+          "left": 1386.0625,
+          "clipLeft": 250,
+          "offsetLeft": 1136.0625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -2087,7 +2367,10 @@
           "font": 16,
           "top": 322.390625,
           "clipTop": 214.390625,
-          "offsetTop": 108
+          "offsetTop": 108,
+          "left": 267,
+          "clipLeft": 266,
+          "offsetLeft": 1
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2108,7 +2391,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1385,
+          "clipLeft": 266,
+          "offsetLeft": 1119
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -2129,7 +2415,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1421,
+          "clipLeft": 266,
+          "offsetLeft": 1155
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -2150,7 +2439,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1493,
+          "clipLeft": 266,
+          "offsetLeft": 1227
         }
       ],
       "issues": [],
@@ -2181,7 +2473,10 @@
           "font": 14,
           "top": 385.796875,
           "clipTop": null,
-          "offsetTop": null
+          "offsetTop": null,
+          "left": 601,
+          "clipLeft": null,
+          "offsetLeft": null
         },
         {
           "selector": "form:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > textarea:nth-of-type(1)",
@@ -2202,7 +2497,10 @@
           "font": 14,
           "top": 465.796875,
           "clipTop": null,
-          "offsetTop": null
+          "offsetTop": null,
+          "left": 601,
+          "clipLeft": null,
+          "offsetLeft": null
         },
         {
           "selector": "form:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -2223,7 +2521,10 @@
           "font": 14,
           "top": 561.796875,
           "clipTop": null,
-          "offsetTop": null
+          "offsetTop": null,
+          "left": 835.8125,
+          "clipLeft": null,
+          "offsetLeft": null
         },
         {
           "selector": "form:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
@@ -2244,7 +2545,10 @@
           "font": 14,
           "top": 561.796875,
           "clipTop": null,
-          "offsetTop": null
+          "offsetTop": null,
+          "left": 907.40625,
+          "clipLeft": null,
+          "offsetLeft": null
         },
         {
           "selector": "button:nth-of-type(1)",
@@ -2265,7 +2569,10 @@
           "font": 16,
           "top": 286.203125,
           "clipTop": null,
-          "offsetTop": null
+          "offsetTop": null,
+          "left": 967,
+          "clipLeft": null,
+          "offsetLeft": null
         }
       ],
       "issues": [],
@@ -2296,7 +2603,10 @@
           "font": 16,
           "top": 56,
           "clipTop": 40,
-          "offsetTop": 16
+          "offsetTop": 16,
+          "left": 1463.984375,
+          "clipLeft": 250,
+          "offsetLeft": 1213.984375
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -2317,7 +2627,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 266,
+          "clipLeft": 250,
+          "offsetLeft": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -2338,7 +2651,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 582,
+          "clipLeft": 250,
+          "offsetLeft": 332
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2359,7 +2675,10 @@
           "font": 14,
           "top": 142.390625,
           "clipTop": 40,
-          "offsetTop": 102.390625
+          "offsetTop": 102.390625,
+          "left": 1386.0625,
+          "clipLeft": 250,
+          "offsetLeft": 1136.0625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -2380,7 +2699,10 @@
           "font": 16,
           "top": 322.390625,
           "clipTop": 214.390625,
-          "offsetTop": 108
+          "offsetTop": 108,
+          "left": 267,
+          "clipLeft": 266,
+          "offsetLeft": 1
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2401,7 +2723,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1385,
+          "clipLeft": 266,
+          "offsetLeft": 1119
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -2422,7 +2747,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1421,
+          "clipLeft": 266,
+          "offsetLeft": 1155
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -2443,11 +2771,15 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1493,
+          "clipLeft": 266,
+          "offsetLeft": 1227
         }
       ],
       "issues": [],
       "scope": ".scenarios-page",
+      "staticGaps": [],
       "axe": [],
       "newIssues": []
     },
@@ -2474,7 +2806,10 @@
           "font": 16,
           "top": 56,
           "clipTop": 40,
-          "offsetTop": 16
+          "offsetTop": 16,
+          "left": 1463.984375,
+          "clipLeft": 250,
+          "offsetLeft": 1213.984375
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -2495,7 +2830,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 266,
+          "clipLeft": 250,
+          "offsetLeft": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -2516,7 +2854,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 582,
+          "clipLeft": 250,
+          "offsetLeft": 332
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2537,7 +2878,10 @@
           "font": 14,
           "top": 142.390625,
           "clipTop": 40,
-          "offsetTop": 102.390625
+          "offsetTop": 102.390625,
+          "left": 1386.0625,
+          "clipLeft": 250,
+          "offsetLeft": 1136.0625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -2558,7 +2902,10 @@
           "font": 16,
           "top": 322.390625,
           "clipTop": 214.390625,
-          "offsetTop": 108
+          "offsetTop": 108,
+          "left": 267,
+          "clipLeft": 266,
+          "offsetLeft": 1
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2579,7 +2926,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1385,
+          "clipLeft": 266,
+          "offsetLeft": 1119
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -2600,7 +2950,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1421,
+          "clipLeft": 266,
+          "offsetLeft": 1155
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -2621,7 +2974,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1493,
+          "clipLeft": 266,
+          "offsetLeft": 1227
         }
       ],
       "issues": [],
@@ -2652,7 +3008,10 @@
           "font": 16,
           "top": 56,
           "clipTop": 40,
-          "offsetTop": 16
+          "offsetTop": 16,
+          "left": 1463.984375,
+          "clipLeft": 250,
+          "offsetLeft": 1213.984375
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -2673,7 +3032,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 266,
+          "clipLeft": 250,
+          "offsetLeft": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -2694,7 +3056,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 582,
+          "clipLeft": 250,
+          "offsetLeft": 332
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2715,7 +3080,10 @@
           "font": 14,
           "top": 142.390625,
           "clipTop": 40,
-          "offsetTop": 102.390625
+          "offsetTop": 102.390625,
+          "left": 1386.0625,
+          "clipLeft": 250,
+          "offsetLeft": 1136.0625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -2736,7 +3104,10 @@
           "font": 16,
           "top": 322.390625,
           "clipTop": 214.390625,
-          "offsetTop": 108
+          "offsetTop": 108,
+          "left": 267,
+          "clipLeft": 266,
+          "offsetLeft": 1
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2757,7 +3128,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1385,
+          "clipLeft": 266,
+          "offsetLeft": 1119
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -2778,7 +3152,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1421,
+          "clipLeft": 266,
+          "offsetLeft": 1155
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -2799,7 +3176,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1493,
+          "clipLeft": 266,
+          "offsetLeft": 1227
         }
       ],
       "issues": [],
@@ -2830,7 +3210,10 @@
           "font": 16,
           "top": 56,
           "clipTop": 40,
-          "offsetTop": 16
+          "offsetTop": 16,
+          "left": 1463.984375,
+          "clipLeft": 250,
+          "offsetLeft": 1213.984375
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -2851,7 +3234,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 266,
+          "clipLeft": 250,
+          "offsetLeft": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -2872,7 +3258,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 582,
+          "clipLeft": 250,
+          "offsetLeft": 332
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2893,7 +3282,10 @@
           "font": 14,
           "top": 142.390625,
           "clipTop": 40,
-          "offsetTop": 102.390625
+          "offsetTop": 102.390625,
+          "left": 1386.0625,
+          "clipLeft": 250,
+          "offsetLeft": 1136.0625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -2914,7 +3306,10 @@
           "font": 16,
           "top": 322.390625,
           "clipTop": 214.390625,
-          "offsetTop": 108
+          "offsetTop": 108,
+          "left": 267,
+          "clipLeft": 266,
+          "offsetLeft": 1
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2935,7 +3330,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1385,
+          "clipLeft": 266,
+          "offsetLeft": 1119
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -2956,7 +3354,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1421,
+          "clipLeft": 266,
+          "offsetLeft": 1155
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -2977,7 +3378,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1493,
+          "clipLeft": 266,
+          "offsetLeft": 1227
         }
       ],
       "issues": [],
@@ -3008,7 +3412,10 @@
           "font": 16,
           "top": 56,
           "clipTop": 40,
-          "offsetTop": 16
+          "offsetTop": 16,
+          "left": 1463.984375,
+          "clipLeft": 250,
+          "offsetLeft": 1213.984375
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -3029,7 +3436,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 266,
+          "clipLeft": 250,
+          "offsetLeft": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -3050,7 +3460,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 582,
+          "clipLeft": 250,
+          "offsetLeft": 332
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -3071,7 +3484,10 @@
           "font": 14,
           "top": 142.390625,
           "clipTop": 40,
-          "offsetTop": 102.390625
+          "offsetTop": 102.390625,
+          "left": 1386.0625,
+          "clipLeft": 250,
+          "offsetLeft": 1136.0625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -3092,7 +3508,10 @@
           "font": 16,
           "top": 322.390625,
           "clipTop": 214.390625,
-          "offsetTop": 108
+          "offsetTop": 108,
+          "left": 267,
+          "clipLeft": 266,
+          "offsetLeft": 1
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -3113,7 +3532,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1385,
+          "clipLeft": 266,
+          "offsetLeft": 1119
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -3134,7 +3556,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1421,
+          "clipLeft": 266,
+          "offsetLeft": 1155
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -3155,7 +3580,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1493,
+          "clipLeft": 266,
+          "offsetLeft": 1227
         }
       ],
       "issues": [],
@@ -3186,7 +3614,10 @@
           "font": 16,
           "top": 56,
           "clipTop": 40,
-          "offsetTop": 16
+          "offsetTop": 16,
+          "left": 1463.984375,
+          "clipLeft": 250,
+          "offsetLeft": 1213.984375
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -3207,7 +3638,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 266,
+          "clipLeft": 250,
+          "offsetLeft": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -3228,7 +3662,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 582,
+          "clipLeft": 250,
+          "offsetLeft": 332
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -3249,7 +3686,10 @@
           "font": 14,
           "top": 142.390625,
           "clipTop": 40,
-          "offsetTop": 102.390625
+          "offsetTop": 102.390625,
+          "left": 1386.0625,
+          "clipLeft": 250,
+          "offsetLeft": 1136.0625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -3270,7 +3710,10 @@
           "font": 16,
           "top": 322.390625,
           "clipTop": 214.390625,
-          "offsetTop": 108
+          "offsetTop": 108,
+          "left": 267,
+          "clipLeft": 266,
+          "offsetLeft": 1
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -3291,7 +3734,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1385,
+          "clipLeft": 266,
+          "offsetLeft": 1119
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -3312,7 +3758,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1421,
+          "clipLeft": 266,
+          "offsetLeft": 1155
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -3333,7 +3782,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1493,
+          "clipLeft": 266,
+          "offsetLeft": 1227
         }
       ],
       "issues": [],
@@ -3364,7 +3816,10 @@
           "font": 16,
           "top": 56,
           "clipTop": 40,
-          "offsetTop": 16
+          "offsetTop": 16,
+          "left": 1463.984375,
+          "clipLeft": 250,
+          "offsetLeft": 1213.984375
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -3385,7 +3840,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 266,
+          "clipLeft": 250,
+          "offsetLeft": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -3406,7 +3864,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 582,
+          "clipLeft": 250,
+          "offsetLeft": 332
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -3427,7 +3888,10 @@
           "font": 14,
           "top": 142.390625,
           "clipTop": 40,
-          "offsetTop": 102.390625
+          "offsetTop": 102.390625,
+          "left": 1386.0625,
+          "clipLeft": 250,
+          "offsetLeft": 1136.0625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -3448,7 +3912,10 @@
           "font": 16,
           "top": 322.390625,
           "clipTop": 214.390625,
-          "offsetTop": 108
+          "offsetTop": 108,
+          "left": 267,
+          "clipLeft": 266,
+          "offsetLeft": 1
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -3469,7 +3936,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1385,
+          "clipLeft": 266,
+          "offsetLeft": 1119
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -3490,7 +3960,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1421,
+          "clipLeft": 266,
+          "offsetLeft": 1155
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -3511,7 +3984,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1493,
+          "clipLeft": 266,
+          "offsetLeft": 1227
         }
       ],
       "issues": [],
@@ -3542,7 +4018,10 @@
           "font": 16,
           "top": 56,
           "clipTop": 40,
-          "offsetTop": 16
+          "offsetTop": 16,
+          "left": 1463.984375,
+          "clipLeft": 250,
+          "offsetLeft": 1213.984375
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -3563,7 +4042,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 266,
+          "clipLeft": 250,
+          "offsetLeft": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -3584,7 +4066,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 582,
+          "clipLeft": 250,
+          "offsetLeft": 332
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -3605,7 +4090,10 @@
           "font": 14,
           "top": 142.390625,
           "clipTop": 40,
-          "offsetTop": 102.390625
+          "offsetTop": 102.390625,
+          "left": 1386.0625,
+          "clipLeft": 250,
+          "offsetLeft": 1136.0625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -3626,7 +4114,10 @@
           "font": 16,
           "top": 322.390625,
           "clipTop": 214.390625,
-          "offsetTop": 108
+          "offsetTop": 108,
+          "left": 267,
+          "clipLeft": 266,
+          "offsetLeft": 1
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -3647,7 +4138,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1385,
+          "clipLeft": 266,
+          "offsetLeft": 1119
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -3668,7 +4162,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1421,
+          "clipLeft": 266,
+          "offsetLeft": 1155
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -3689,7 +4186,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1493,
+          "clipLeft": 266,
+          "offsetLeft": 1227
         }
       ],
       "issues": [],
@@ -3720,7 +4220,10 @@
           "font": 16,
           "top": 56,
           "clipTop": 40,
-          "offsetTop": 16
+          "offsetTop": 16,
+          "left": 1463.984375,
+          "clipLeft": 250,
+          "offsetLeft": 1213.984375
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -3741,7 +4244,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 266,
+          "clipLeft": 250,
+          "offsetLeft": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -3762,7 +4268,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 582,
+          "clipLeft": 250,
+          "offsetLeft": 332
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -3783,7 +4292,10 @@
           "font": 14,
           "top": 142.390625,
           "clipTop": 40,
-          "offsetTop": 102.390625
+          "offsetTop": 102.390625,
+          "left": 1386.0625,
+          "clipLeft": 250,
+          "offsetLeft": 1136.0625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -3804,7 +4316,10 @@
           "font": 16,
           "top": 322.390625,
           "clipTop": 214.390625,
-          "offsetTop": 108
+          "offsetTop": 108,
+          "left": 267,
+          "clipLeft": 266,
+          "offsetLeft": 1
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -3825,7 +4340,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1385,
+          "clipLeft": 266,
+          "offsetLeft": 1119
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -3846,7 +4364,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1421,
+          "clipLeft": 266,
+          "offsetLeft": 1155
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -3867,7 +4388,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1493,
+          "clipLeft": 266,
+          "offsetLeft": 1227
         }
       ],
       "issues": [],
@@ -3898,7 +4422,10 @@
           "font": 16,
           "top": 56,
           "clipTop": 40,
-          "offsetTop": 16
+          "offsetTop": 16,
+          "left": 1463.984375,
+          "clipLeft": 250,
+          "offsetLeft": 1213.984375
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -3919,7 +4446,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 266,
+          "clipLeft": 250,
+          "offsetLeft": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -3940,7 +4470,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 582,
+          "clipLeft": 250,
+          "offsetLeft": 332
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -3961,7 +4494,10 @@
           "font": 14,
           "top": 142.390625,
           "clipTop": 40,
-          "offsetTop": 102.390625
+          "offsetTop": 102.390625,
+          "left": 1386.0625,
+          "clipLeft": 250,
+          "offsetLeft": 1136.0625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -3982,7 +4518,10 @@
           "font": 16,
           "top": 322.390625,
           "clipTop": 214.390625,
-          "offsetTop": 108
+          "offsetTop": 108,
+          "left": 267,
+          "clipLeft": 266,
+          "offsetLeft": 1
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -4003,7 +4542,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1385,
+          "clipLeft": 266,
+          "offsetLeft": 1119
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -4024,7 +4566,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1421,
+          "clipLeft": 266,
+          "offsetLeft": 1155
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -4045,7 +4590,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1493,
+          "clipLeft": 266,
+          "offsetLeft": 1227
         }
       ],
       "issues": [],
@@ -4076,7 +4624,10 @@
           "font": 14,
           "top": 341.796875,
           "clipTop": null,
-          "offsetTop": null
+          "offsetTop": null,
+          "left": 601,
+          "clipLeft": null,
+          "offsetLeft": null
         },
         {
           "selector": "form:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > textarea:nth-of-type(1)",
@@ -4097,7 +4648,10 @@
           "font": 14,
           "top": 421.796875,
           "clipTop": null,
-          "offsetTop": null
+          "offsetTop": null,
+          "left": 601,
+          "clipLeft": null,
+          "offsetLeft": null
         },
         {
           "selector": "form:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(1)",
@@ -4118,7 +4672,10 @@
           "font": 14,
           "top": 541.796875,
           "clipTop": null,
-          "offsetTop": null
+          "offsetTop": null,
+          "left": 601,
+          "clipLeft": null,
+          "offsetLeft": null
         },
         {
           "selector": "form:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -4139,7 +4696,10 @@
           "font": 14,
           "top": 605.796875,
           "clipTop": null,
-          "offsetTop": null
+          "offsetTop": null,
+          "left": 835.8125,
+          "clipLeft": null,
+          "offsetLeft": null
         },
         {
           "selector": "form:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
@@ -4160,7 +4720,10 @@
           "font": 14,
           "top": 605.796875,
           "clipTop": null,
-          "offsetTop": null
+          "offsetTop": null,
+          "left": 907.40625,
+          "clipLeft": null,
+          "offsetLeft": null
         },
         {
           "selector": "button:nth-of-type(1)",
@@ -4181,7 +4744,10 @@
           "font": 16,
           "top": 242.203125,
           "clipTop": null,
-          "offsetTop": null
+          "offsetTop": null,
+          "left": 967,
+          "clipLeft": null,
+          "offsetLeft": null
         }
       ],
       "issues": [],
@@ -4212,7 +4778,10 @@
           "font": 16,
           "top": 56,
           "clipTop": 40,
-          "offsetTop": 16
+          "offsetTop": 16,
+          "left": 1463.984375,
+          "clipLeft": 250,
+          "offsetLeft": 1213.984375
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -4233,7 +4802,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 266,
+          "clipLeft": 250,
+          "offsetLeft": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -4254,7 +4826,10 @@
           "font": 14,
           "top": 146.890625,
           "clipTop": 40,
-          "offsetTop": 106.890625
+          "offsetTop": 106.890625,
+          "left": 582,
+          "clipLeft": 250,
+          "offsetLeft": 332
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > input:nth-of-type(1)",
@@ -4275,7 +4850,10 @@
           "font": 14,
           "top": 225.890625,
           "clipTop": 40,
-          "offsetTop": 185.890625
+          "offsetTop": 185.890625,
+          "left": 584,
+          "clipLeft": 250,
+          "offsetLeft": 334
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
@@ -4296,7 +4874,10 @@
           "font": 14,
           "top": 333.890625,
           "clipTop": 40,
-          "offsetTop": 293.890625
+          "offsetTop": 293.890625,
+          "left": 584,
+          "clipLeft": 250,
+          "offsetLeft": 334
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > input:nth-of-type(1)",
@@ -4317,7 +4898,10 @@
           "font": 14,
           "top": 452.890625,
           "clipTop": 40,
-          "offsetTop": 412.890625
+          "offsetTop": 412.890625,
+          "left": 595.921875,
+          "clipLeft": 250,
+          "offsetLeft": 345.921875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -4338,7 +4922,10 @@
           "font": 14,
           "top": 142.390625,
           "clipTop": 40,
-          "offsetTop": 102.390625
+          "offsetTop": 102.390625,
+          "left": 1386.0625,
+          "clipLeft": 250,
+          "offsetLeft": 1136.0625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -4359,7 +4946,10 @@
           "font": 16,
           "top": 322.390625,
           "clipTop": 214.390625,
-          "offsetTop": 108
+          "offsetTop": 108,
+          "left": 267,
+          "clipLeft": 266,
+          "offsetLeft": 1
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -4380,7 +4970,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1385,
+          "clipLeft": 266,
+          "offsetLeft": 1119
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -4401,7 +4994,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1421,
+          "clipLeft": 266,
+          "offsetLeft": 1155
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -4422,7 +5018,10 @@
           "font": 14.4,
           "top": 338.1875,
           "clipTop": 214.390625,
-          "offsetTop": 123.796875
+          "offsetTop": 123.796875,
+          "left": 1493,
+          "clipLeft": 266,
+          "offsetLeft": 1227
         }
       ],
       "issues": [],
@@ -4453,7 +5052,10 @@
           "font": 14,
           "top": 385.796875,
           "clipTop": null,
-          "offsetTop": null
+          "offsetTop": null,
+          "left": 601,
+          "clipLeft": null,
+          "offsetLeft": null
         },
         {
           "selector": "form:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > textarea:nth-of-type(1)",
@@ -4474,7 +5076,10 @@
           "font": 14,
           "top": 465.796875,
           "clipTop": null,
-          "offsetTop": null
+          "offsetTop": null,
+          "left": 601,
+          "clipLeft": null,
+          "offsetLeft": null
         },
         {
           "selector": "form:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -4495,7 +5100,10 @@
           "font": 14,
           "top": 561.796875,
           "clipTop": null,
-          "offsetTop": null
+          "offsetTop": null,
+          "left": 835.8125,
+          "clipLeft": null,
+          "offsetLeft": null
         },
         {
           "selector": "form:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
@@ -4516,7 +5124,10 @@
           "font": 14,
           "top": 561.796875,
           "clipTop": null,
-          "offsetTop": null
+          "offsetTop": null,
+          "left": 907.40625,
+          "clipLeft": null,
+          "offsetLeft": null
         },
         {
           "selector": "button:nth-of-type(1)",
@@ -4537,7 +5148,10 @@
           "font": 16,
           "top": 286.203125,
           "clipTop": null,
-          "offsetTop": null
+          "offsetTop": null,
+          "left": 967,
+          "clipLeft": null,
+          "offsetLeft": null
         }
       ],
       "issues": [],

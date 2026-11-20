@@ -12,10 +12,12 @@ import { LocationModal } from '../components/modals/LocationModal';
 import { ConfirmDialog } from '../components/ui/ConfirmDialog';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
 import { ErrorMessage } from '../components/ui/ErrorMessage';
+import { useToast } from '../hooks/use-toast';
 import './Locations.css';
 
 export function Locations() {
   const { t } = useTranslation();
+  const { toast } = useToast();
   const queryClient = useQueryClient();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState<{ isOpen: boolean; location: Location | null }>({
@@ -43,7 +45,7 @@ export function Locations() {
     },
     onError: (error) => {
       console.error('Failed to update location:', error);
-      alert(t('locations:updateFailed'));
+      toast({ title: t('locations:updateFailed'), variant: 'destructive' });
     }
   });
 
@@ -58,7 +60,7 @@ export function Locations() {
     },
     onError: (error) => {
       console.error('Failed to delete location:', error);
-      alert(t('locations:deleteFailed'));
+      toast({ title: t('locations:deleteFailed'), variant: 'destructive' });
     }
   });
 

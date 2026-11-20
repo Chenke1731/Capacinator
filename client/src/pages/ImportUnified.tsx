@@ -7,6 +7,7 @@ import { useScenario } from '../contexts/ScenarioContext';
 import { useBookmarkableTabs } from '../hooks/useBookmarkableTabs';
 import { UnifiedTabComponent } from '../components/ui/UnifiedTabComponent';
 import { OperationProgress, useOperationProgress } from '../components/ui/OperationProgress';
+import { useToast } from '../hooks/use-toast';
 import type { ImportAnalysisResponse } from '../types';
 import './Import.css';
 
@@ -62,6 +63,7 @@ function ImportUnified() {
   // every page until a manual reload.
   const queryClient = useQueryClient();
   const { t } = useTranslation();
+  const { toast } = useToast();
   const [file, setFile] = useState<File | null>(null);
   const [clearExisting, setClearExisting] = useState(false);
   const [useV2, setUseV2] = useState(true);
@@ -171,7 +173,7 @@ function ImportUnified() {
         setPreviewError(null);
         setConsistency(null);
       } else {
-        alert(t('importExport:errors.selectValidFile'));
+        toast({ title: t('importExport:errors.selectValidFile'), variant: 'destructive' });
       }
     }
   };
@@ -186,7 +188,7 @@ function ImportUnified() {
       setPreviewError(null);
       setConsistency(null);
     } else {
-      alert(t('importExport:errors.dropValidFile'));
+      toast({ title: t('importExport:errors.dropValidFile'), variant: 'destructive' });
     }
   };
 
@@ -314,7 +316,7 @@ function ImportUnified() {
     const scenarioToExport = exportScenarioId || currentScenario?.id;
 
     if (!scenarioToExport) {
-      alert(t('importExport:errors.selectScenario'));
+      toast({ title: t('importExport:errors.selectScenario'), variant: 'destructive' });
       return;
     }
 

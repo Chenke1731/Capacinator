@@ -183,7 +183,7 @@
   border-color: var(--primary-text);
 }
 
-.sr-only {
+:where(.phase-template-designer) .sr-only {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -251,7 +251,7 @@
   gap: 4px;
 }
 
-.btn-sm {
+:where(.phase-template-designer) .btn-sm {
   padding: 6px;
   font-size: 0.75rem;
 }
@@ -318,7 +318,7 @@
   align-items: center;
 }
 
-.btn {
+:where(.phase-template-designer) .btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -334,12 +334,12 @@
   text-decoration: none;
 }
 
-.btn:hover {
+:where(.phase-template-designer) .btn:hover {
   background: var(--bg-secondary);
   border-color: var(--border-color-hover);
 }
 
-.btn:disabled {
+:where(.phase-template-designer) .btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
@@ -348,34 +348,34 @@
    defines the box-style icon button; the old min-width:32 delta was already
    dead under a fixed-width owner. */
 
-.btn-primary {
+:where(.phase-template-designer) .btn-primary {
   background: var(--primary-solid);
   border-color: var(--primary-solid);
   color: var(--solid-foreground);
 }
 
-.btn-primary:hover {
+:where(.phase-template-designer) .btn-primary:hover {
   background: var(--primary-solid);
   border-color: var(--primary-solid);
 }
 
-.btn-secondary {
+:where(.phase-template-designer) .btn-secondary {
   background: var(--neutral-button-solid);
   border-color: var(--neutral-button-solid);
   color: var(--solid-foreground);
 }
 
-.btn-secondary:hover {
+:where(.phase-template-designer) .btn-secondary:hover {
   background: var(--neutral-button-hover);
   border-color: var(--neutral-button-hover);
 }
 
-.btn-danger {
+:where(.phase-template-designer) .btn-danger {
   color: var(--status-danger-text);
   border-color: var(--status-danger-border);
 }
 
-.btn-danger:hover {
+:where(.phase-template-designer) .btn-danger:hover {
   background: var(--status-danger-soft);
   border-color: var(--status-danger-border);
 }

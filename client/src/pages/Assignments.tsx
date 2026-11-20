@@ -5,6 +5,8 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Plus, Edit2, Trash2, Eye, AlertTriangle, Users } from 'lucide-react';
 import { useBookmarkableTabs } from '../hooks/useBookmarkableTabs';
+import { useConfirmDialog } from '../hooks/useConfirmDialog';
+import { useToast } from '../hooks/use-toast';
 import { getLocale } from '../i18n';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
@@ -26,6 +28,8 @@ export default function Assignments() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const { toast } = useToast();
+  const confirm = useConfirmDialog();
   const [searchParams] = useSearchParams();
   const { currentScenario } = useScenario();
   const [contextMessage, setContextMessage] = useState<string | null>(null);
@@ -122,7 +126,7 @@ export default function Assignments() {
       const response = await api.people.list({ limit: 500 });
       const payload = response.data as any;
       // Shared ['people'] cache must always hold an array
-      return Array.isArray(payload) ? payload : payload?.data || [];
+      return payload?.data ?? [];
     }
   });
 
@@ -132,9 +136,8 @@ export default function Assignments() {
     queryFn: async () => {
       const response = await api.roles.list();
       const payload = response.data as any;
-      // Shared ['roles'] cache must always hold an array — raw envelopes here
-      // have crashed other consumers (roles?.find is not a function)
-      return Array.isArray(payload) ? payload : payload?.data || [];
+      // Shared ['roles'] cache must always hold an array
+      return payload?.data ?? [];
     }
   });
 
@@ -166,15 +169,21 @@ export default function Assignments() {
       if (status === 409) {
         const current = (error as { response?: { data?: { current?: { allocation_percentage?: number } } } })
           ?.response?.data?.current?.allocation_percentage;
-        alert(t('assignments:errors.versionConflict', { current: current ?? '?' }));
+        toast({ title: t('assignments:errors.versionConflict', { current: current ?? '?' }), variant: 'destructive' });
         return;
       }
-      alert(t('assignments:errors.updateFailed'));
+      toast({ title: t('assignments:errors.updateFailed'), variant: 'destructive' });
     }
   });
 
-  const handleDeleteAssignment = (assignment: ProjectAssignment, assignmentInfo: string) => {
-    if (confirm(t('assignments:deleteConfirm', { name: assignmentInfo }))) {
+  const handleDeleteAssignment = async (assignment: ProjectAssignment, assignmentInfo: string) => {
+    const confirmed = await confirm.ask({
+      title: t('common:delete'),
+      message: t('assignments:deleteConfirm', { name: assignmentInfo }),
+      confirmText: t('common:delete'),
+      variant: 'danger',
+    });
+    if (confirmed) {
       deleteAssignmentMutation.mutate({ id: assignment.id, version: assignment.version });
     }
   };
@@ -610,7 +619,7 @@ export default function Assignments() {
       name: 'person_id',
       label: t('assignments:fields.person'),
       type: 'select' as const,
-      options: (Array.isArray(people) ? people : (people as any)?.data)?.map((person: any) => ({ value: person.id, label: person.name })) || []
+      options: (people as any[])?.map((person: any) => ({ value: person.id, label: person.name })) || []
     },
     {
       name: 'role_id',
@@ -744,6 +753,8 @@ export default function Assignments() {
         onSuccess={handleAssignmentSuccess}
         editingAssignment={editingAssignment}
       />
+
+      {confirm.dialog}
       
       {/* Add spinner animation styles */}
       <style>{`

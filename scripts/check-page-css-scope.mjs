@@ -72,9 +72,12 @@ export function collectPageSelectors(files) {
 }
 
 function isScoped(selector, roots) {
-  return roots.some((rootClass) =>
-    new RegExp(`^${rootClass.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?:$|[\\s.:#\\[])`).test(selector)
-  );
+  return roots.some((rootClass) => {
+    const escaped = rootClass.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    // `:where(.root)` blocks cross-route leakage without raising specificity
+    // above the original naked selector (keeps App.css dark overrides working).
+    return new RegExp(`^(?:${escaped}|:where\\(${escaped}\\))(?:$|[\\s.:#\\[])`).test(selector);
+  });
 }
 
 export function classifyPageScope(current, roots = PAGE_ROOTS, baseline = {}) {
@@ -117,9 +120,9 @@ function selfTest() {
   const noRoot = classifyPageScope(new Map([['b.css', new Set(['.x'])]]), roots, {});
   if (noRoot.length === 0) pass++;
   else console.error('SELF_TEST 3 失败: 未登记文件不应报错', noRoot);
-  const composedRoot = classifyPageScope(new Map([['a.css', new Set(['.a-page.title', '.a-page:hover'])]]), roots, {});
+  const composedRoot = classifyPageScope(new Map([['a.css', new Set(['.a-page.title', '.a-page:hover', ':where(.a-page) .title'])]]), roots, {});
   if (composedRoot.length === 0) pass++;
-  else console.error('SELF_TEST 4 失败: 根类复合选择器误报', composedRoot);
+  else console.error('SELF_TEST 4 失败: 根类复合选择器/:where scope 误报', composedRoot);
   console.log(`SELF_TEST check-page-css-scope: ${pass}/${total} 组通过`);
   return pass === total;
 }

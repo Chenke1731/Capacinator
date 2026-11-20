@@ -22,6 +22,7 @@ import { LoadingSpinner } from '../components/ui/LoadingSpinner';
 import { ErrorMessage } from '../components/ui/ErrorMessage';
 import PersonModal from '../components/modals/PersonModal';
 import { useModal } from '../hooks/useModal';
+import { useConfirmDialog } from '../hooks/useConfirmDialog';
 import type { Person, Location } from '../types';
 import './People.css';
 
@@ -30,6 +31,7 @@ export default function People() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { currentScenario } = useScenario();
+  const confirm = useConfirmDialog();
   const [searchParams, setSearchParams] = useSearchParams();
   const [filters, setFilters] = useState({
     search: '',
@@ -77,9 +79,8 @@ export default function People() {
     queryFn: async () => {
       const response = await api.roles.list();
       const payload = response.data as any;
-      // Shared ['roles'] cache must always hold an array — raw envelopes here
-      // have crashed other consumers (roles?.find is not a function)
-      return Array.isArray(payload) ? payload : payload?.data || [];
+      // Shared ['roles'] cache must always hold an array.
+      return payload?.data ?? [];
     }
   });
 
@@ -114,8 +115,14 @@ export default function People() {
     }
   });
 
-  const handleDeletePerson = (personId: string, personName: string) => {
-    if (confirm(t('people:deleteConfirmation', { name: personName }))) {
+  const handleDeletePerson = async (personId: string, personName: string) => {
+    const confirmed = await confirm.ask({
+      title: t('common:delete'),
+      message: t('people:deleteConfirmation', { name: personName }),
+      confirmText: t('common:delete'),
+      variant: 'danger',
+    });
+    if (confirmed) {
       deletePersonMutation.mutate(personId);
     }
   };
@@ -662,6 +669,8 @@ export default function People() {
         onSuccess={handlePersonSuccess}
         editingPerson={editingPerson ?? undefined}
       />
+
+      {confirm.dialog}
     </div>
   );
 }

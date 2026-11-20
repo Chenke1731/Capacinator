@@ -487,7 +487,6 @@ describe('Assignments Page', () => {
 
     test('deletes assignment with confirmation', async () => {
       const user = userEvent.setup();
-      window.confirm = jest.fn(() => true);
 
       renderComponent();
 
@@ -497,16 +496,14 @@ describe('Assignments Page', () => {
 
       const deleteButton = screen.getAllByRole('button', { name: /delete/i })[0];
       await user.click(deleteButton);
+      const dialog = await screen.findByTestId('confirm-dialog');
+      await user.click(within(dialog).getByRole('button', { name: 'Delete' }));
 
-      expect(window.confirm).toHaveBeenCalledWith(
-        expect.stringContaining('Are you sure you want to delete')
-      );
       expect(api.assignments.delete).toHaveBeenCalledWith('assign-1', { expected_version: 3 });
     });
 
     test('cancels delete when not confirmed', async () => {
       const user = userEvent.setup();
-      window.confirm = jest.fn(() => false);
 
       renderComponent();
 
@@ -516,6 +513,8 @@ describe('Assignments Page', () => {
 
       const deleteButton = screen.getAllByRole('button', { name: /delete/i })[0];
       await user.click(deleteButton);
+      const dialog = await screen.findByTestId('confirm-dialog');
+      await user.click(within(dialog).getByRole('button', { name: 'Cancel' }));
 
       expect(api.assignments.delete).not.toHaveBeenCalled();
     });

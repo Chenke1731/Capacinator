@@ -64,9 +64,10 @@ jest.mock('../../../../client/src/components/InteractiveTimeline', () => {
 // Mock UI components that might be used
 jest.mock('../../../../client/src/components/ui/dialog', () => ({
   Dialog: ({ children, open }: any) => open ? <div data-testid="dialog">{children}</div> : null,
-  DialogContent: ({ children }: any) => <div>{children}</div>,
+  DialogContent: ({ children, ...props }: any) => <div {...props}>{children}</div>,
   DialogHeader: ({ children }: any) => <div>{children}</div>,
   DialogTitle: ({ children }: any) => <h2>{children}</h2>,
+  DialogDescription: ({ children }: any) => <p>{children}</p>,
   DialogFooter: ({ children }: any) => <div>{children}</div>,
 }));
 
@@ -98,11 +99,16 @@ jest.mock('../../../../client/src/contexts/ThemeContext', () => ({
 
 // Now import everything else
 import { describe, test, it, expect, beforeAll, afterAll, beforeEach, afterEach, jest } from '@jest/globals';
-import { screen, fireEvent, waitFor } from '@testing-library/react';
+import { screen, fireEvent, waitFor, within } from '@testing-library/react';
 import { renderWithProviders } from '../test-utils';
 import '@testing-library/jest-dom';
 import VisualPhaseManager from '../../../../client/src/components/VisualPhaseManager';
 import { api } from '../../../../client/src/lib/api-client';
+
+const mockToast = jest.fn();
+jest.mock('../../../../client/src/hooks/use-toast', () => ({
+  useToast: () => ({ toast: mockToast }),
+}));
 
 const mockApi = api as jest.Mocked<typeof api>;
 
@@ -264,9 +270,6 @@ describe('VisualPhaseManager - Dependencies', () => {
       };
       mockApi.projectPhases.update.mockRejectedValue(error);
       
-      // Mock window.alert
-      const alertSpy = jest.spyOn(window, 'alert').mockImplementation(() => {});
-      
       renderWithProviders(<VisualPhaseManager {...defaultProps} />);
 
       await waitFor(() => {
@@ -277,12 +280,12 @@ describe('VisualPhaseManager - Dependencies', () => {
       fireEvent.click(moveButton);
 
       await waitFor(() => {
-        expect(alertSpy).toHaveBeenCalledWith(
-          'Dependency validation failed:\nDependency validation failed: Phase cannot start before predecessor ends'
-        );
+        expect(mockToast).toHaveBeenCalledWith({
+          title: 'Dependency validation failed:',
+          description: 'Dependency validation failed: Phase cannot start before predecessor ends',
+          variant: 'destructive',
+        });
       });
-      
-      alertSpy.mockRestore();
     });
   });
 
@@ -397,9 +400,6 @@ describe('VisualPhaseManager - Dependencies', () => {
     test('should delete dependency with confirmation', async () => {
       mockApi.projectPhaseDependencies.delete.mockResolvedValue({});
       
-      // Mock window.confirm
-      const confirmSpy = jest.spyOn(window, 'confirm').mockReturnValue(true);
-      
       renderWithProviders(<VisualPhaseManager {...defaultProps} />);
 
       await waitFor(() => {
@@ -409,13 +409,12 @@ describe('VisualPhaseManager - Dependencies', () => {
       // Click delete button for first dependency
       const deleteButtons = screen.getAllByRole('button', { name: /Delete/i });
       fireEvent.click(deleteButtons[0]);
+      const dialog = await screen.findByTestId('confirm-dialog');
+      fireEvent.click(within(dialog).getByRole('button', { name: 'Delete' }));
 
       await waitFor(() => {
-        expect(confirmSpy).toHaveBeenCalledWith('Are you sure you want to delete this dependency?');
         expect(mockApi.projectPhaseDependencies.delete).toHaveBeenCalledWith('dep-1');
       });
-      
-      confirmSpy.mockRestore();
     });
   });
 
@@ -484,8 +483,6 @@ describe('VisualPhaseManager - Dependencies', () => {
       const error = new Error('Failed to delete dependency');
       mockApi.projectPhaseDependencies.delete.mockRejectedValue(error);
       
-      // Mock window.confirm and console.error
-      const confirmSpy = jest.spyOn(window, 'confirm').mockReturnValue(true);
       const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
       
       renderWithProviders(<VisualPhaseManager {...defaultProps} />);
@@ -497,12 +494,13 @@ describe('VisualPhaseManager - Dependencies', () => {
       // Click delete button
       const deleteButtons = screen.getAllByRole('button', { name: /Delete/i });
       fireEvent.click(deleteButtons[0]);
+      const dialog = await screen.findByTestId('confirm-dialog');
+      fireEvent.click(within(dialog).getByRole('button', { name: 'Delete' }));
 
       await waitFor(() => {
         expect(consoleErrorSpy).toHaveBeenCalledWith('Failed to delete dependency:', error);
       });
       
-      confirmSpy.mockRestore();
       consoleErrorSpy.mockRestore();
     });
   });

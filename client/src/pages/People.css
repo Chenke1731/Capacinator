@@ -66,15 +66,15 @@
   font-weight: 700;
 }
 
-.text-success {
+:where(.people-page) .text-success {
   color: var(--success);
 }
 
-.text-warning {
+:where(.people-page) .text-warning {
   color: var(--warning);
 }
 
-.text-danger {
+:where(.people-page) .text-danger {
   color: var(--danger);
 }
 
@@ -202,57 +202,57 @@
   padding: 0.25rem 0.4rem;
 }
 
-.btn-danger {
+:where(.people-page) .btn-danger {
   background-color: var(--danger-bg);
   color: var(--danger);
   border: 1px solid var(--badge-danger-bg);
 }
 
-.btn-danger:hover {
+:where(.people-page) .btn-danger:hover {
   background-color: var(--badge-danger-bg);
   border-color: var(--badge-danger-bg);
 }
 
-.btn-warning {
+:where(.people-page) .btn-warning {
   background-color: var(--warning-bg);
   color: var(--warning);
   border: 1px solid var(--badge-warning-bg);
 }
 
-.btn-warning:hover {
+:where(.people-page) .btn-warning:hover {
   background-color: var(--badge-warning-bg);
   border-color: var(--badge-warning-bg);
 }
 
-.btn-info {
+:where(.people-page) .btn-info {
   background-color: var(--badge-primary-bg);
   color: var(--primary-text);
   border: 1px solid var(--badge-primary-bg);
 }
 
-.btn-info:hover {
+:where(.people-page) .btn-info:hover {
   background-color: var(--badge-primary-bg);
   border-color: var(--badge-primary-bg);
 }
 
-.btn-success {
+:where(.people-page) .btn-success {
   background-color: var(--success-bg);
   color: var(--success);
   border: 1px solid var(--badge-success-bg);
 }
 
-.btn-success:hover {
+:where(.people-page) .btn-success:hover {
   background-color: var(--badge-success-bg);
   border-color: var(--badge-success-bg);
 }
 
-.btn-gray {
+:where(.people-page) .btn-gray {
   background-color: var(--bg-tertiary);
   color: var(--text-tertiary);
   border: 1px solid var(--border-color);
 }
 
-.btn-gray:hover {
+:where(.people-page) .btn-gray:hover {
   background-color: var(--border-color);
   border-color: var(--border-color-hover);
 }
@@ -309,19 +309,19 @@
    App.css owner pill family fixes it to 9.98:1). */
 
 /* Status-specific insight value colors */
-.text-danger {
+:where(.people-page) .text-danger {
   color: var(--danger);
 }
 
-.text-warning {
+:where(.people-page) .text-warning {
   color: var(--warning);
 }
 
-.text-info {
+:where(.people-page) .text-info {
   color: var(--primary-text);
 }
 
-.text-success {
+:where(.people-page) .text-success {
   color: var(--success);
 }
 

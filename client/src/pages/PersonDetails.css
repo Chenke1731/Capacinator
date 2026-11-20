@@ -61,7 +61,7 @@
   box-shadow: var(--shadow-md);
 }
 
-.section-header {
+:where(.person-details) .section-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -72,7 +72,7 @@
   user-select: none;
 }
 
-.section-header:hover {
+:where(.person-details) .section-header:hover {
   background-color: var(--bg-hover);
 }
 
@@ -101,7 +101,7 @@
   color: var(--primary-text);
 }
 
-.section-header h2 {
+:where(.person-details) .section-header h2 {
   display: flex;
   align-items: center;
   gap: var(--space-2);
@@ -111,54 +111,54 @@
   color: var(--text-primary);
 }
 
-.section-header svg {
+:where(.person-details) .section-header svg {
   width: 24px;
   height: 24px;
   color: var(--primary);
 }
 
-.section-toggle {
+:where(.person-details) .section-toggle {
   display: flex;
   align-items: center;
   gap: var(--space-2);
 }
 
-.section-toggle svg {
+:where(.person-details) .section-toggle svg {
   width: 20px;
   height: 20px;
   transition: transform var(--transition-base);
 }
 
-.section-header.expanded .section-toggle svg {
+:where(.person-details) .section-header.expanded .section-toggle svg {
   transform: rotate(180deg);
 }
 
-.section-content {
+:where(.person-details) .section-content {
   padding: 1.5rem;
   border-top: 1px solid hsl(var(--border));
   background: hsl(var(--background));
 }
 
 /* Info Grid */
-.info-grid {
+:where(.person-details) .info-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem;
 }
 
-.info-item {
+:where(.person-details) .info-item {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
-.info-item label {
+:where(.person-details) .info-item label {
   font-size: 0.875rem;
   font-weight: 500;
   color: var(--text-secondary);
 }
 
-.info-value {
+:where(.person-details) .info-value {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -166,13 +166,13 @@
   color: var(--text-primary);
 }
 
-.info-value a {
+:where(.person-details) .info-value a {
   color: var(--primary);
   text-decoration: none;
   transition: color 0.2s;
 }
 
-.info-value a:hover {
+:where(.person-details) .info-value a:hover {
   /* 2026-11-10: 深色 --primary-hover 3.50:1 → 语义文字令牌 */
   color: var(--primary-text);
   text-decoration: underline;
@@ -384,12 +384,12 @@
   background: var(--border-color);
 }
 
-.timeline-item {
+:where(.person-details) .timeline-item {
   position: relative;
   padding-bottom: 1.5rem;
 }
 
-.timeline-item::before {
+:where(.person-details) .timeline-item::before {
   content: '';
   position: absolute;
   left: -1.5rem;
@@ -400,13 +400,13 @@
   border-radius: 50%;
 }
 
-.timeline-date {
+:where(.person-details) .timeline-date {
   font-size: 0.875rem;
   color: var(--text-secondary);
   margin-bottom: 0.25rem;
 }
 
-.timeline-content {
+:where(.person-details) .timeline-content {
   font-size: 0.875rem;
   color: var(--text-primary);
 }
@@ -436,7 +436,7 @@
     gap: 1rem;
   }
 
-  .info-grid {
+  :where(.person-details) .info-grid {
     grid-template-columns: 1fr;
   }
 
@@ -450,7 +450,7 @@
 }
 
 /* Inline Editing Styles */
-.inline-editable {
+:where(.person-details) .inline-editable {
   cursor: pointer;
   position: relative;
   transition: background-color 0.2s;
@@ -462,26 +462,26 @@
   gap: 0.5rem;
 }
 
-.inline-editable:hover {
+:where(.person-details) .inline-editable:hover {
   background-color: var(--bg-hover);
 }
 
-.inline-editable .edit-icon {
+:where(.person-details) .inline-editable .edit-icon {
   opacity: 0;
   transition: opacity 0.2s;
   color: var(--text-secondary);
 }
 
-.inline-editable:hover .edit-icon {
+:where(.person-details) .inline-editable:hover .edit-icon {
   opacity: 1;
 }
 
-.inline-edit-container {
+:where(.person-details) .inline-edit-container {
   position: relative;
 }
 
-.inline-edit-container input,
-.inline-edit-container select {
+:where(.person-details) .inline-edit-container input,
+:where(.person-details) .inline-edit-container select {
   width: 100%;
   margin: 0;
 }
@@ -726,13 +726,13 @@
   border-color: var(--control-border);
 }
 
-[data-theme="dark"] .action-btn.btn-danger {
+:where(.person-details) [data-theme="dark"] .action-btn.btn-danger {
   background: var(--status-danger-solid);
   color: var(--solid-foreground);
   border: 1px solid var(--status-danger-border);
 }
 
-[data-theme="dark"] .action-btn.btn-danger:hover {
+:where(.person-details) [data-theme="dark"] .action-btn.btn-danger:hover {
   background: var(--status-danger-solid);
   border-color: var(--status-danger-border);
 }

@@ -20,11 +20,14 @@
           "textual": true,
           "disabled": false,
           "width": 114,
-          "height": 44,
+          "height": 40,
           "font": 14,
-          "top": 93.1875,
+          "top": 95.1875,
           "clipTop": 40,
-          "offsetTop": 53.1875
+          "offsetTop": 55.1875,
+          "left": 1454,
+          "clipLeft": 250,
+          "offsetLeft": 1204
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -45,7 +48,10 @@
           "font": 13,
           "top": 255.890625,
           "clipTop": 191.390625,
-          "offsetTop": 64.5
+          "offsetTop": 64.5,
+          "left": 1463,
+          "clipLeft": 283,
+          "offsetLeft": 1180
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -66,7 +72,10 @@
           "font": 13,
           "top": 317.453125,
           "clipTop": 191.390625,
-          "offsetTop": 126.0625
+          "offsetTop": 126.0625,
+          "left": 1463,
+          "clipLeft": 283,
+          "offsetLeft": 1180
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -87,7 +96,10 @@
           "font": 13,
           "top": 379.015625,
           "clipTop": 191.390625,
-          "offsetTop": 187.625
+          "offsetTop": 187.625,
+          "left": 1463,
+          "clipLeft": 283,
+          "offsetLeft": 1180
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -108,11 +120,15 @@
           "font": 13,
           "top": 440.578125,
           "clipTop": 191.390625,
-          "offsetTop": 249.1875
+          "offsetTop": 249.1875,
+          "left": 1463,
+          "clipLeft": 283,
+          "offsetLeft": 1180
         }
       ],
       "issues": [],
       "scope": ".page-container",
+      "staticGaps": [],
       "axe": [],
       "newIssues": []
     },
@@ -135,11 +151,14 @@
           "textual": true,
           "disabled": false,
           "width": 114,
-          "height": 44,
+          "height": 40,
           "font": 14,
-          "top": 93.1875,
+          "top": 95.1875,
           "clipTop": 40,
-          "offsetTop": 53.1875
+          "offsetTop": 55.1875,
+          "left": 1454,
+          "clipLeft": 250,
+          "offsetLeft": 1204
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -160,7 +179,10 @@
           "font": 13,
           "top": 255.890625,
           "clipTop": 191.390625,
-          "offsetTop": 64.5
+          "offsetTop": 64.5,
+          "left": 1463,
+          "clipLeft": 283,
+          "offsetLeft": 1180
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -181,7 +203,10 @@
           "font": 13,
           "top": 317.453125,
           "clipTop": 191.390625,
-          "offsetTop": 126.0625
+          "offsetTop": 126.0625,
+          "left": 1463,
+          "clipLeft": 283,
+          "offsetLeft": 1180
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -202,7 +227,10 @@
           "font": 13,
           "top": 379.015625,
           "clipTop": 191.390625,
-          "offsetTop": 187.625
+          "offsetTop": 187.625,
+          "left": 1463,
+          "clipLeft": 283,
+          "offsetLeft": 1180
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -223,7 +251,10 @@
           "font": 13,
           "top": 440.578125,
           "clipTop": 191.390625,
-          "offsetTop": 249.1875
+          "offsetTop": 249.1875,
+          "left": 1463,
+          "clipLeft": 283,
+          "offsetLeft": 1180
         }
       ],
       "issues": [],
@@ -250,11 +281,14 @@
           "textual": true,
           "disabled": false,
           "width": 114,
-          "height": 44,
+          "height": 40,
           "font": 14,
-          "top": 93.1875,
+          "top": 95.1875,
           "clipTop": 40,
-          "offsetTop": 53.1875
+          "offsetTop": 55.1875,
+          "left": 1454,
+          "clipLeft": 250,
+          "offsetLeft": 1204
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -275,7 +309,10 @@
           "font": 13,
           "top": 255.890625,
           "clipTop": 191.390625,
-          "offsetTop": 64.5
+          "offsetTop": 64.5,
+          "left": 1463,
+          "clipLeft": 283,
+          "offsetLeft": 1180
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -296,7 +333,10 @@
           "font": 13,
           "top": 317.453125,
           "clipTop": 191.390625,
-          "offsetTop": 126.0625
+          "offsetTop": 126.0625,
+          "left": 1463,
+          "clipLeft": 283,
+          "offsetLeft": 1180
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -317,7 +357,10 @@
           "font": 13,
           "top": 379.015625,
           "clipTop": 191.390625,
-          "offsetTop": 187.625
+          "offsetTop": 187.625,
+          "left": 1463,
+          "clipLeft": 283,
+          "offsetLeft": 1180
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -338,7 +381,10 @@
           "font": 13,
           "top": 440.578125,
           "clipTop": 191.390625,
-          "offsetTop": 249.1875
+          "offsetTop": 249.1875,
+          "left": 1463,
+          "clipLeft": 283,
+          "offsetLeft": 1180
         }
       ],
       "issues": [],
@@ -365,11 +411,14 @@
           "textual": true,
           "disabled": false,
           "width": 114,
-          "height": 44,
+          "height": 40,
           "font": 14,
-          "top": 93.1875,
+          "top": 95.1875,
           "clipTop": 40,
-          "offsetTop": 53.1875
+          "offsetTop": 55.1875,
+          "left": 1454,
+          "clipLeft": 250,
+          "offsetLeft": 1204
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -390,7 +439,10 @@
           "font": 13,
           "top": 255.890625,
           "clipTop": 191.390625,
-          "offsetTop": 64.5
+          "offsetTop": 64.5,
+          "left": 1463,
+          "clipLeft": 283,
+          "offsetLeft": 1180
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -411,7 +463,10 @@
           "font": 13,
           "top": 317.453125,
           "clipTop": 191.390625,
-          "offsetTop": 126.0625
+          "offsetTop": 126.0625,
+          "left": 1463,
+          "clipLeft": 283,
+          "offsetLeft": 1180
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -432,7 +487,10 @@
           "font": 13,
           "top": 379.015625,
           "clipTop": 191.390625,
-          "offsetTop": 187.625
+          "offsetTop": 187.625,
+          "left": 1463,
+          "clipLeft": 283,
+          "offsetLeft": 1180
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -453,7 +511,10 @@
           "font": 13,
           "top": 440.578125,
           "clipTop": 191.390625,
-          "offsetTop": 249.1875
+          "offsetTop": 249.1875,
+          "left": 1463,
+          "clipLeft": 283,
+          "offsetLeft": 1180
         }
       ],
       "issues": [],
@@ -480,11 +541,14 @@
           "textual": true,
           "disabled": false,
           "width": 114,
-          "height": 44,
+          "height": 40,
           "font": 14,
-          "top": 93.1875,
+          "top": 95.1875,
           "clipTop": 40,
-          "offsetTop": 53.1875
+          "offsetTop": 55.1875,
+          "left": 1454,
+          "clipLeft": 250,
+          "offsetLeft": 1204
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -505,7 +569,10 @@
           "font": 13,
           "top": 255.890625,
           "clipTop": 191.390625,
-          "offsetTop": 64.5
+          "offsetTop": 64.5,
+          "left": 1463,
+          "clipLeft": 283,
+          "offsetLeft": 1180
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -526,7 +593,10 @@
           "font": 13,
           "top": 317.453125,
           "clipTop": 191.390625,
-          "offsetTop": 126.0625
+          "offsetTop": 126.0625,
+          "left": 1463,
+          "clipLeft": 283,
+          "offsetLeft": 1180
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -547,7 +617,10 @@
           "font": 13,
           "top": 379.015625,
           "clipTop": 191.390625,
-          "offsetTop": 187.625
+          "offsetTop": 187.625,
+          "left": 1463,
+          "clipLeft": 283,
+          "offsetLeft": 1180
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -568,11 +641,15 @@
           "font": 13,
           "top": 440.578125,
           "clipTop": 191.390625,
-          "offsetTop": 249.1875
+          "offsetTop": 249.1875,
+          "left": 1463,
+          "clipLeft": 283,
+          "offsetLeft": 1180
         }
       ],
       "issues": [],
       "scope": ".page-container",
+      "staticGaps": [],
       "axe": [],
       "newIssues": []
     },
@@ -595,11 +672,14 @@
           "textual": true,
           "disabled": false,
           "width": 114,
-          "height": 44,
+          "height": 40,
           "font": 14,
-          "top": 93.1875,
+          "top": 95.1875,
           "clipTop": 40,
-          "offsetTop": 53.1875
+          "offsetTop": 55.1875,
+          "left": 1454,
+          "clipLeft": 250,
+          "offsetLeft": 1204
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -620,7 +700,10 @@
           "font": 13,
           "top": 255.890625,
           "clipTop": 191.390625,
-          "offsetTop": 64.5
+          "offsetTop": 64.5,
+          "left": 1463,
+          "clipLeft": 283,
+          "offsetLeft": 1180
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -641,7 +724,10 @@
           "font": 13,
           "top": 317.453125,
           "clipTop": 191.390625,
-          "offsetTop": 126.0625
+          "offsetTop": 126.0625,
+          "left": 1463,
+          "clipLeft": 283,
+          "offsetLeft": 1180
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -662,7 +748,10 @@
           "font": 13,
           "top": 379.015625,
           "clipTop": 191.390625,
-          "offsetTop": 187.625
+          "offsetTop": 187.625,
+          "left": 1463,
+          "clipLeft": 283,
+          "offsetLeft": 1180
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -683,7 +772,10 @@
           "font": 13,
           "top": 440.578125,
           "clipTop": 191.390625,
-          "offsetTop": 249.1875
+          "offsetTop": 249.1875,
+          "left": 1463,
+          "clipLeft": 283,
+          "offsetLeft": 1180
         }
       ],
       "issues": [],
@@ -710,11 +802,14 @@
           "textual": true,
           "disabled": false,
           "width": 114,
-          "height": 44,
+          "height": 40,
           "font": 14,
-          "top": 93.1875,
+          "top": 95.1875,
           "clipTop": 40,
-          "offsetTop": 53.1875
+          "offsetTop": 55.1875,
+          "left": 1454,
+          "clipLeft": 250,
+          "offsetLeft": 1204
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -735,7 +830,10 @@
           "font": 13,
           "top": 255.890625,
           "clipTop": 191.390625,
-          "offsetTop": 64.5
+          "offsetTop": 64.5,
+          "left": 1463,
+          "clipLeft": 283,
+          "offsetLeft": 1180
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -756,7 +854,10 @@
           "font": 13,
           "top": 317.453125,
           "clipTop": 191.390625,
-          "offsetTop": 126.0625
+          "offsetTop": 126.0625,
+          "left": 1463,
+          "clipLeft": 283,
+          "offsetLeft": 1180
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -777,7 +878,10 @@
           "font": 13,
           "top": 379.015625,
           "clipTop": 191.390625,
-          "offsetTop": 187.625
+          "offsetTop": 187.625,
+          "left": 1463,
+          "clipLeft": 283,
+          "offsetLeft": 1180
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -798,7 +902,10 @@
           "font": 13,
           "top": 440.578125,
           "clipTop": 191.390625,
-          "offsetTop": 249.1875
+          "offsetTop": 249.1875,
+          "left": 1463,
+          "clipLeft": 283,
+          "offsetLeft": 1180
         }
       ],
       "issues": [],
@@ -825,11 +932,14 @@
           "textual": true,
           "disabled": false,
           "width": 114,
-          "height": 44,
+          "height": 40,
           "font": 14,
-          "top": 93.1875,
+          "top": 95.1875,
           "clipTop": 40,
-          "offsetTop": 53.1875
+          "offsetTop": 55.1875,
+          "left": 1454,
+          "clipLeft": 250,
+          "offsetLeft": 1204
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -850,7 +960,10 @@
           "font": 13,
           "top": 255.890625,
           "clipTop": 191.390625,
-          "offsetTop": 64.5
+          "offsetTop": 64.5,
+          "left": 1463,
+          "clipLeft": 283,
+          "offsetLeft": 1180
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -871,7 +984,10 @@
           "font": 13,
           "top": 317.453125,
           "clipTop": 191.390625,
-          "offsetTop": 126.0625
+          "offsetTop": 126.0625,
+          "left": 1463,
+          "clipLeft": 283,
+          "offsetLeft": 1180
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -892,7 +1008,10 @@
           "font": 13,
           "top": 379.015625,
           "clipTop": 191.390625,
-          "offsetTop": 187.625
+          "offsetTop": 187.625,
+          "left": 1463,
+          "clipLeft": 283,
+          "offsetLeft": 1180
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -913,7 +1032,10 @@
           "font": 13,
           "top": 440.578125,
           "clipTop": 191.390625,
-          "offsetTop": 249.1875
+          "offsetTop": 249.1875,
+          "left": 1463,
+          "clipLeft": 283,
+          "offsetLeft": 1180
         }
       ],
       "issues": [],

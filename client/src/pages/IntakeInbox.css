@@ -154,6 +154,12 @@
   flex-wrap: wrap;
 }
 
+.intake-actions .btn.intake-icon-btn {
+  min-width: 30px;
+  min-height: 24px;
+  padding: 0.25rem 0.4rem;
+}
+
 .intake-delete-btn {
   color: var(--status-danger-text, var(--text-primary));
 }

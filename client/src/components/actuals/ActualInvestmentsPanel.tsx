@@ -4,6 +4,7 @@ import { isImeComposing } from '../../lib/ime';
 import { useTranslation } from 'react-i18next';
 import { Camera, Trash2 } from 'lucide-react';
 import { api } from '../../lib/api-client';
+import { useToast } from '../../hooks/use-toast';
 
 /**
  * 实投入月帐(详情页"投入履历"): 计划 vs 实际的闭环。
@@ -12,6 +13,7 @@ import { api } from '../../lib/api-client';
  */
 export function ActualInvestmentsPanel({ projectId }: { projectId: string }) {
   const { t } = useTranslation();
+  const { toast } = useToast();
   const queryClient = useQueryClient();
   const [busy, setBusy] = useState(false);
   const [editing, setEditing] = useState<string | null>(null);
@@ -77,7 +79,7 @@ export function ActualInvestmentsPanel({ projectId }: { projectId: string }) {
           ?.response?.data?.current?.fte;
         setDraft(v); // 草稿保留
         setEditing(month); // 回到编辑态,不静默丢弃
-        alert(t('projects:actuals.versionConflict', { current: current ?? '?' }));
+        toast({ title: t('projects:actuals.versionConflict', { current: current ?? '?' }), variant: 'destructive' });
         await invalidate();
       } else {
         throw error;

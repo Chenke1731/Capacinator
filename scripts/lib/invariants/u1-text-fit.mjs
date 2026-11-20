@@ -11,7 +11,6 @@ export const U1_THRESHOLDS = {
   actionRatioWarn: 0.3,
   actionRatioMax: 0.4,
   minTableWidthForRatio: 600,
-  rowHeightWarn: 96,
 };
 
 const finding = (metrics, context, severity, rule, detail) => ({
@@ -28,6 +27,34 @@ const finding = (metrics, context, severity, rule, detail) => ({
   actual: detail.actual,
   message: detail.message,
 });
+
+export function evaluateLongContent(metrics, context) {
+  const findings = [];
+  for (const table of metrics.tables || []) {
+    for (const cell of table.dataCells || []) {
+      if (cell.hasControl) continue;
+      if (cell.overflowX === 'visible' && cell.scrollWidth > cell.clientWidth + 4) {
+        findings.push(finding(metrics, context, 'fail', 'long-content-overflow', {
+          selector: `${table.selector} > row[0] > cell[${cell.index}]`,
+          text: cell.text,
+          expected: 'wrap, clip with ellipsis, or scroll container',
+          actual: `overflow-x:${cell.overflowX}, scroll ${cell.scrollWidth}/${cell.clientWidth}px`,
+          message: `长内容在单元格内溢出到相邻列（${cell.selector}）`,
+        }));
+      }
+    }
+    if (table.action && !table.action.visible) {
+      findings.push(finding(metrics, context, 'info', 'long-content-action-hidden', {
+        selector: `${table.selector} > action`,
+        text: table.action.header,
+        expected: 'action remains reachable',
+        actual: `table scroll ${table.horizontalScroll}px`,
+        message: '长内容使动作列需要横向滚动（en-US 长词场景允许，需人眼确认）',
+      }));
+    }
+  }
+  return findings;
+}
 
 export function evaluateU1(metrics, context) {
   const findings = [];
@@ -55,7 +82,7 @@ export function evaluateU1(metrics, context) {
     }
     if (table.action) {
       if (!table.action.visible) {
-        const hiddenSeverity = table.horizontalScroll > 0 ? 'warn' : 'fail';
+        const hiddenSeverity = table.horizontalScroll > 0 ? 'info' : 'fail';
         findings.push(finding(metrics, context, hiddenSeverity, 'action-hidden', {
           selector: `${table.selector} > action`,
           text: table.action.header,
@@ -95,20 +122,12 @@ export function evaluateU1(metrics, context) {
         }
       }
     }
-    if (table.rowHeight > U1_THRESHOLDS.rowHeightWarn) {
-      findings.push(finding(metrics, context, 'warn', 'row-height', {
-        selector: `table[${table.index}] row[0]`,
-        expected: `<=${U1_THRESHOLDS.rowHeightWarn}px`,
-        actual: `${table.rowHeight}px`,
-        message: `首行行高 ${table.rowHeight}px，超过 ${U1_THRESHOLDS.rowHeightWarn}px（可能是多行内容，需人眼确认）`,
-      }));
-    }
     if (table.horizontalScroll > 0) {
-      findings.push(finding(metrics, context, 'warn', 'table-scroll', {
+      findings.push(finding(metrics, context, 'info', 'table-scroll', {
         selector: `table[${table.index}]`,
         expected: '0px',
         actual: `${table.horizontalScroll}px`,
-        message: `表格横向滚动 ${table.horizontalScroll}px（en-US 长词允许，但动作列必须可见）`,
+        message: `表格横向滚动 ${table.horizontalScroll}px（en-US 长词允许；动作列可见性单独判定）`,
       }));
     }
   }

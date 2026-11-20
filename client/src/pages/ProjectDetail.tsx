@@ -30,6 +30,7 @@ import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
 import { invalidateSchedulingReads } from '../lib/invalidateSchedulingReads';
 import { formatDate } from '../utils/date';
+import { useConfirmDialog } from '../hooks/useConfirmDialog';
 import { ProjectDemandChart } from '../components/ProjectDemandChart';
 import { InlineEdit } from '../components/ui/InlineEdit';
 import { CollapsibleSection } from '../components/ui/CollapsibleSection';
@@ -98,6 +99,7 @@ export function ProjectDetail() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { t } = useTranslation();
+  const confirm = useConfirmDialog();
   
   const [expandedSections, setExpandedSections] = useState({
     basic: true,
@@ -210,10 +212,16 @@ export function ProjectDetail() {
   };
 
   // Handle assignment deletion
-  const handleAssignmentDelete = () => {
+  const handleAssignmentDelete = async () => {
     if (!selectedAssignment) return;
 
-    if (confirm(t('projects:deleteAssignmentConfirm'))) {
+    const confirmed = await confirm.ask({
+      title: t('common:delete'),
+      message: t('projects:deleteAssignmentConfirm'),
+      confirmText: t('common:delete'),
+      variant: 'danger',
+    });
+    if (confirmed) {
       deleteAssignmentMutation.mutate({ id: selectedAssignment.id, version: (selectedAssignment as any).version });
       setSelectedAssignment(null);
     }
@@ -268,7 +276,7 @@ export function ProjectDetail() {
   // Enhanced loading state with skeleton
   if (isLoading) {
     return (
-      <div className="max-w-7xl mx-auto p-6 space-y-6">
+      <div className="project-detail-page max-w-7xl mx-auto p-6 space-y-6">
         <Card>
           <CardHeader>
             <div className="flex items-center justify-between">
@@ -310,7 +318,7 @@ export function ProjectDetail() {
   // Enhanced error state
   if (error || !project) {
     return (
-      <div className="max-w-7xl mx-auto p-6">
+      <div className="project-detail-page max-w-7xl mx-auto p-6">
         <Alert variant="destructive">
           <XCircle className="h-4 w-4" />
           <AlertTitle>{t('projects:loadErrorTitle')}</AlertTitle>
@@ -731,6 +739,8 @@ export function ProjectDetail() {
           </DialogContent>
         </Dialog>
       </div>
+
+      {confirm.dialog}
     </div>
   );
 }

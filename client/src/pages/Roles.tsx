@@ -9,6 +9,7 @@ import { DataTable, Column } from '../components/ui/DataTable';
 import { FilterBar } from '../components/ui/FilterBar';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
 import { ErrorMessage } from '../components/ui/ErrorMessage';
+import { useConfirmDialog } from '../hooks/useConfirmDialog';
 import type { Role } from '../types';
 import './Roles.css';
 
@@ -16,6 +17,7 @@ export default function Roles() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const confirm = useConfirmDialog();
   const [filters, setFilters] = useState({
     search: '',
     has_planners: '',
@@ -46,8 +48,14 @@ export default function Roles() {
     }
   });
 
-  const handleDeleteRole = (roleId: string, roleName: string) => {
-    if (confirm(t('roles:deleteConfirm', { name: roleName }))) {
+  const handleDeleteRole = async (roleId: string, roleName: string) => {
+    const confirmed = await confirm.ask({
+      title: t('common:delete'),
+      message: t('roles:deleteConfirm', { name: roleName }),
+      confirmText: t('common:delete'),
+      variant: 'danger',
+    });
+    if (confirmed) {
       deleteRoleMutation.mutate(roleId);
     }
   };
@@ -192,7 +200,7 @@ export default function Roles() {
   }
 
   return (
-    <div className="page-container">
+    <div className="page-container roles-page">
       <div className="page-header">
         <div>
           <h1>{t('roles:title')}</h1>
@@ -222,6 +230,8 @@ export default function Roles() {
         onRowClick={(row) => navigate(`/roles/${row.id}`)}
         itemsPerPage={20}
       />
+
+      {confirm.dialog}
     </div>
   );
 }

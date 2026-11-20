@@ -43,17 +43,6 @@ jest.mock('../../components/ProjectDemandChart', () => ({
   )
 }));
 
-// Mock localStorage
-const mockLocalStorage = {
-  getItem: jest.fn(),
-  setItem: jest.fn(),
-  removeItem: jest.fn(),
-  clear: jest.fn()
-};
-Object.defineProperty(window, 'localStorage', {
-  value: mockLocalStorage
-});
-
 // Test data
 const mockProject = {
   id: 'project-1',
@@ -142,11 +131,9 @@ const TestWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 describe('ProjectDetail', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    window.localStorage.clear();
+    window.localStorage.setItem('userRole', 'admin');
     mockUseParams.mockReturnValue({ id: 'project-1' });
-    mockLocalStorage.getItem.mockImplementation((key) => {
-      if (key === 'userRole') return 'admin';
-      return null;
-    });
 
     // Setup default API mocks
     (api.projects.get as jest.Mock).mockResolvedValue({
@@ -311,10 +298,7 @@ describe('ProjectDetail', () => {
     });
 
     test('disables inline editing for viewer users', async () => {
-      mockLocalStorage.getItem.mockImplementation((key) => {
-        if (key === 'userRole') return 'viewer';
-        return null;
-      });
+      window.localStorage.setItem('userRole', 'viewer');
 
       render(
         <TestWrapper>
@@ -690,10 +674,7 @@ describe('ProjectDetail', () => {
 
   describe('Permissions', () => {
     test('shows edit controls for admin users', async () => {
-      mockLocalStorage.getItem.mockImplementation((key) => {
-        if (key === 'userRole') return 'admin';
-        return null;
-      });
+      window.localStorage.setItem('userRole', 'admin');
 
       render(
         <TestWrapper>
@@ -713,10 +694,7 @@ describe('ProjectDetail', () => {
     });
 
     test('hides edit controls for viewer users', async () => {
-      mockLocalStorage.getItem.mockImplementation((key) => {
-        if (key === 'userRole') return 'viewer';
-        return null;
-      });
+      window.localStorage.setItem('userRole', 'viewer');
 
       render(
         <TestWrapper>

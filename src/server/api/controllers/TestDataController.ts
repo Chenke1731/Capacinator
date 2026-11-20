@@ -29,7 +29,7 @@ export class TestDataController extends BaseController {
 
   async deleteAllocations(req: Request, res: Response) {
     // For now, return success - this endpoint may not be needed
-    res.json({ message: 'Deleted 0 test allocations' });
+    res.json({ success: true, message: 'Deleted 0 test allocations' });
   }
 
   async deleteAvailabilityOverrides(req: Request, res: Response) {

@@ -43,11 +43,11 @@
   margin-bottom: 0.25rem;
 }
 
-.search-input-wrapper {
+:where(.filter-bar) .search-input-wrapper {
   position: relative;
 }
 
-.search-icon {
+:where(.filter-bar) .search-icon {
   position: absolute;
   left: 0.75rem;
   top: 50%;
@@ -55,7 +55,7 @@
   color: var(--text-muted);
 }
 
-.search-input {
+:where(.filter-bar) .search-input {
   padding-left: 2.5rem;
 }
 

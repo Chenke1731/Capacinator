@@ -134,7 +134,7 @@
 }
 
 /* Button styles */
-.btn {
+:where(.locations-page) .btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -150,38 +150,38 @@
   transition: all 0.2s ease;
 }
 
-.btn:hover {
+:where(.locations-page) .btn:hover {
   border-color: var(--border-hover);
   background: var(--bg-secondary);
 }
 
-.btn-primary {
+:where(.locations-page) .btn-primary {
   background: var(--color-primary);
   border-color: var(--color-primary);
   color: var(--solid-foreground);
 }
 
-.btn-primary:hover {
+:where(.locations-page) .btn-primary:hover {
   background: var(--color-primary-dark);
   border-color: var(--color-primary-dark);
 }
 
-.btn-ghost {
+:where(.locations-page) .btn-ghost {
   background: transparent;
   border-color: transparent;
 }
 
-.btn-ghost:hover {
+:where(.locations-page) .btn-ghost:hover {
   background: var(--bg-secondary);
   border-color: var(--border-color);
 }
 
-.btn-sm {
+:where(.locations-page) .btn-sm {
   padding: 6px 10px;
   font-size: 13px;
 }
 
-.btn-danger:hover {
+:where(.locations-page) .btn-danger:hover {
   background: var(--status-danger-solid);
   border-color: var(--status-danger-solid);
   color: var(--solid-foreground);

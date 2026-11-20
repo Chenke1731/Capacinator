@@ -291,7 +291,7 @@ Cognitive Walkthrough（认知走查，Polson/Wharton，可用性工程标准方
 - `npm run verify:boards`——结构+几何+可供性断言（图标物理可见、塌陷检测、池标签、编辑模型声明；尾部 spawn verify:states）
 - `npm run verify:visual`——像素基线 + axe 预算 + 碰撞，双主题×双视口
 - `node scripts/verify-invariants.mjs`——U1 双语/长内容布局、U3 动作安全、D2 API 信封；`--changed` 随 T1，`--static-only` 进 PR 闸；标准与阈值见 [docs/quality/ui-invariants.md](quality/ui-invariants.md)
-- `node scripts/verify-css-isolation.mjs`——跨路由 CSS 残留只读普查（真实 SPA 路由顺序，computed-style 指纹）；一次/夜间跑，不进每次小改
+- `node scripts/verify-css-isolation.mjs`——跨路由 CSS 残留普查（真实 SPA 路由顺序，computed-style 指纹）；CSS/共享原语改动在 T1 以 `--strict` 阻塞；`:where(page-root)` scope 不提高特异性
 - 单测——交互语义与落库
 
 ## 业界方法引入与归位

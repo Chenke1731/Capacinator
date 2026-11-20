@@ -13,6 +13,7 @@ import { ErrorMessage } from '../components/ui/ErrorMessage';
 import ProjectTypeModal from '../components/modals/ProjectTypeModal';
 import { useModal } from '../hooks/useModal';
 import { useBookmarkableTabs } from '../hooks/useBookmarkableTabs';
+import { useConfirmDialog } from '../hooks/useConfirmDialog';
 import type { ProjectType } from '../types';
 import './ProjectTypes.css';
 
@@ -20,6 +21,7 @@ export default function ProjectTypes() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const confirm = useConfirmDialog();
   const [filters, setFilters] = useState({
     search: ''
   });
@@ -72,8 +74,14 @@ export default function ProjectTypes() {
     }
   });
 
-  const handleDeleteProjectType = (projectTypeId: string, projectTypeName: string) => {
-    if (confirm(t('projects:projectTypes.deleteConfirmation', { name: projectTypeName }))) {
+  const handleDeleteProjectType = async (projectTypeId: string, projectTypeName: string) => {
+    const confirmed = await confirm.ask({
+      title: t('common:delete'),
+      message: t('projects:projectTypes.deleteConfirmation', { name: projectTypeName }),
+      confirmText: t('common:delete'),
+      variant: 'danger',
+    });
+    if (confirmed) {
       deleteProjectTypeMutation.mutate(projectTypeId);
     }
   };
@@ -152,41 +160,41 @@ export default function ProjectTypes() {
     {
       key: 'actions',
       header: t('common:actions'),
-      width: '290px',
+      width: '150px',
       render: (_, row) => (
         <div className="table-actions">
           <button
-            className="btn table-action-btn"
+            className="btn table-action-btn project-type-action-icon"
             onClick={(e) => {
               e.stopPropagation();
               navigate(`/project-types/${row.id}`);
             }}
             title={t('common:viewDetails')}
+            aria-label={t('common:viewDetails')}
           >
             <Eye size={14} />
-            {t('common:viewDetails')}
           </button>
           <button
-            className="btn table-action-btn"
+            className="btn table-action-btn project-type-action-icon"
             onClick={(e) => {
               e.stopPropagation();
               handleEditProjectType(row);
             }}
             title={t('common:edit')}
+            aria-label={t('common:edit')}
           >
             <Edit2 size={14} />
-            {t('common:edit')}
           </button>
           <button
-            className="btn table-action-btn btn-danger"
+            className="btn table-action-btn project-type-action-icon btn-danger"
             onClick={(e) => {
               e.stopPropagation();
               handleDeleteProjectType(row.id, row.name);
             }}
             title={t('common:delete')}
+            aria-label={t('common:delete')}
           >
             <Trash2 size={14} />
-            {t('common:delete')}
           </button>
         </div>
       )
@@ -385,6 +393,8 @@ export default function ProjectTypes() {
         onSuccess={handleProjectTypeSuccess}
         editingProjectType={editingProjectType}
       />
+
+      {confirm.dialog}
     </div>
   );
 }

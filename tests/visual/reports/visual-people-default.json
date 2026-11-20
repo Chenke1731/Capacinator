@@ -20,10 +20,52 @@
         "height": 900
       },
       "axe": {
-        "count": 0,
+        "count": 5,
         "cap": 0,
-        "added": [],
-        "identities": []
+        "added": [
+          "color-contrast|[\"tr:nth-child(2) > td:nth-child(8) > .table-actions > .btn-danger.quick-action-btn[title=\\\"调整分配\\\"]\"]",
+          "color-contrast|[\"tr:nth-child(4) > td:nth-child(8) > .table-actions > .btn-danger.quick-action-btn[title=\\\"调整分配\\\"]\"]",
+          "color-contrast|[\"tr:nth-child(5) > td:nth-child(8) > .table-actions > .btn-danger.quick-action-btn[title=\\\"调整分配\\\"]\"]",
+          "color-contrast|[\"tr:nth-child(6) > td:nth-child(8) > .table-actions > .btn-danger.quick-action-btn[title=\\\"调整分配\\\"]\"]",
+          "color-contrast|[\"tr:nth-child(7) > td:nth-child(8) > .table-actions > .btn-danger.quick-action-btn[title=\\\"调整分配\\\"]\"]"
+        ],
+        "identities": [
+          {
+            "rule": "color-contrast",
+            "target": [
+              "tr:nth-child(2) > td:nth-child(8) > .table-actions > .btn-danger.quick-action-btn[title=\"调整分配\"]"
+            ],
+            "html": "<button class=\"btn btn-sm btn-danger quick-action-btn\" title=\"调整分配\">"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "tr:nth-child(4) > td:nth-child(8) > .table-actions > .btn-danger.quick-action-btn[title=\"调整分配\"]"
+            ],
+            "html": "<button class=\"btn btn-sm btn-danger quick-action-btn\" title=\"调整分配\">"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "tr:nth-child(5) > td:nth-child(8) > .table-actions > .btn-danger.quick-action-btn[title=\"调整分配\"]"
+            ],
+            "html": "<button class=\"btn btn-sm btn-danger quick-action-btn\" title=\"调整分配\">"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "tr:nth-child(6) > td:nth-child(8) > .table-actions > .btn-danger.quick-action-btn[title=\"调整分配\"]"
+            ],
+            "html": "<button class=\"btn btn-sm btn-danger quick-action-btn\" title=\"调整分配\">"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "tr:nth-child(7) > td:nth-child(8) > .table-actions > .btn-danger.quick-action-btn[title=\"调整分配\"]"
+            ],
+            "html": "<button class=\"btn btn-sm btn-danger quick-action-btn\" title=\"调整分配\">"
+          }
+        ]
       },
       "collisions": [],
       "overflow": [],
@@ -32,7 +74,7 @@
       "checks": [
         {
           "name": "axe people-dark-1600: 对比度/命中目标违规 ≤ 预算",
-          "ok": true
+          "ok": false
         },
         {
           "name": "碰撞 people-dark-1600: 零重叠",
@@ -44,7 +86,7 @@
         },
         {
           "name": "像素 people-dark-1600: 与基线一致(≤0.5%)",
-          "ok": true
+          "ok": false
         },
         {
           "name": "只读与运行 people-dark-1600",
@@ -55,7 +97,7 @@
       "baseline": "tests/visual/__screenshots__/people-dark-1600.png",
       "backdrops": [],
       "svgAxisText": [],
-      "durationMs": 8293
+      "durationMs": 7562
     },
     {
       "tag": "people-dark-1366",
@@ -68,10 +110,36 @@
         "height": 768
       },
       "axe": {
-        "count": 0,
+        "count": 3,
         "cap": 0,
-        "added": [],
-        "identities": []
+        "added": [
+          "color-contrast|[\"tr:nth-child(2) > td:nth-child(8) > .table-actions > .btn-danger.quick-action-btn[title=\\\"调整分配\\\"]\"]",
+          "color-contrast|[\"tr:nth-child(4) > td:nth-child(8) > .table-actions > .btn-danger.quick-action-btn[title=\\\"调整分配\\\"]\"]",
+          "color-contrast|[\"tr:nth-child(5) > td:nth-child(8) > .table-actions > .btn-danger.quick-action-btn[title=\\\"调整分配\\\"]\"]"
+        ],
+        "identities": [
+          {
+            "rule": "color-contrast",
+            "target": [
+              "tr:nth-child(2) > td:nth-child(8) > .table-actions > .btn-danger.quick-action-btn[title=\"调整分配\"]"
+            ],
+            "html": "<button class=\"btn btn-sm btn-danger quick-action-btn\" title=\"调整分配\">"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "tr:nth-child(4) > td:nth-child(8) > .table-actions > .btn-danger.quick-action-btn[title=\"调整分配\"]"
+            ],
+            "html": "<button class=\"btn btn-sm btn-danger quick-action-btn\" title=\"调整分配\">"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "tr:nth-child(5) > td:nth-child(8) > .table-actions > .btn-danger.quick-action-btn[title=\"调整分配\"]"
+            ],
+            "html": "<button class=\"btn btn-sm btn-danger quick-action-btn\" title=\"调整分配\">"
+          }
+        ]
       },
       "collisions": [],
       "overflow": [],
@@ -80,7 +148,7 @@
       "checks": [
         {
           "name": "axe people-dark-1366: 对比度/命中目标违规 ≤ 预算",
-          "ok": true
+          "ok": false
         },
         {
           "name": "碰撞 people-dark-1366: 零重叠",
@@ -92,7 +160,7 @@
         },
         {
           "name": "像素 people-dark-1366: 与基线一致(≤0.5%)",
-          "ok": true
+          "ok": false
         },
         {
           "name": "只读与运行 people-dark-1366",
@@ -103,7 +171,7 @@
       "baseline": "tests/visual/__screenshots__/people-dark-1366.png",
       "backdrops": [],
       "svgAxisText": [],
-      "durationMs": 7085
+      "durationMs": 7044
     },
     {
       "tag": "people-light-1600",
@@ -151,7 +219,7 @@
       "baseline": "tests/visual/__screenshots__/people-light-1600.png",
       "backdrops": [],
       "svgAxisText": [],
-      "durationMs": 7130
+      "durationMs": 7209
     },
     {
       "tag": "people-light-1366",
@@ -199,7 +267,7 @@
       "baseline": "tests/visual/__screenshots__/people-light-1366.png",
       "backdrops": [],
       "svgAxisText": [],
-      "durationMs": 6951
+      "durationMs": 6971
     }
   ]
 }

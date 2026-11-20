@@ -27,7 +27,7 @@ describe('People/PersonDetails insights CSS ownership', () => {
   });
 
   test('PersonDetails.css 保留可读的标题色', () => {
-    const block = detailsCss.match(/(?:^|\n)\.section-header h2\s*\{([^}]*)\}/);
+    const block = detailsCss.match(/(?:^|\n)(?::where\(\.person-details\)|\.person-details)\s+\.section-header h2\s*\{([^}]*)\}/);
     expect(block).not.toBeNull();
     expect(block![1]).toMatch(/color:\s*var\(--text-primary\)/);
   });

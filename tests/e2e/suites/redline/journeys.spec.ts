@@ -456,7 +456,7 @@ test('isolation: demand report reflects scenario-scoped assignments only', async
     // Verify — data-level: demand is zero in the empty scenario
     await authenticatedPage.goto('/reports?tab=demand');
     await authenticatedPage.waitForSelector('[role="tabpanel"]', { timeout: 15000 });
-    const totalDemand = authenticatedPage.locator('.summary-card:has(h3:text-is("Total Demand")) .metric');
+    const totalDemand = authenticatedPage.locator('.summary-card:has(h4:text-is("Total Demand")) .metric');
     const demandText = await totalDemand.textContent();
     const emptyTotal = parseInt(demandText?.replace(/[^\d]/g, '') || '0');
     expect(emptyTotal).toBe(0);

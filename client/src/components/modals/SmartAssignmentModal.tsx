@@ -11,6 +11,8 @@ import { invalidateSchedulingReads } from '../../lib/invalidateSchedulingReads';
 import { getLocale } from '../../i18n';
 import { calculatePhaseDurationWeeks } from '../../utils/phaseDurations';
 import { useAssignmentRecommendations, ProjectRecommendation } from '../../hooks/useAssignmentRecommendations';
+import { useConfirmDialog } from '../../hooks/useConfirmDialog';
+import { useToast } from '../../hooks/use-toast';
 import type { PersonWithAssignments } from '../../hooks/useAssignmentRecommendations';
 import {
   Dialog,
@@ -133,6 +135,8 @@ export function SmartAssignmentModal({
 }: SmartAssignmentModalProps) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
+  const { toast } = useToast();
+  const confirm = useConfirmDialog();
   const isReduceMode = actionType === 'reduce_workload';
   const [activeTab, setActiveTab] = useState(triggerContext === 'manual_add' ? 'manual' : 'recommended');
   const [selectedRecommendation, setSelectedRecommendation] = useState<ProjectRecommendation | null>(null);
@@ -301,7 +305,13 @@ export function SmartAssignmentModal({
   };
   const removeSelectedAssignments = async () => {
     if (selectedAssignments.length === 0) return;
-    if (!confirm(t('assignments:smart.removeSelectedConfirm', { count: selectedAssignments.length }))) {
+    const confirmed = await confirm.ask({
+      title: t('common:delete'),
+      message: t('assignments:smart.removeSelectedConfirm', { count: selectedAssignments.length }),
+      confirmText: t('common:delete'),
+      variant: 'danger',
+    });
+    if (!confirmed) {
       return;
     }
     try {
@@ -461,10 +471,13 @@ export function SmartAssignmentModal({
                           error.message ||
                           t('assignments:smart.errors.createAssignmentFailed');
 
-      alert(t('assignments:smart.errors.createFailed', {
-        message: errorMessage,
-        details: error.response?.data?.details || t('assignments:smart.errors.unknownError')
-      }));
+      toast({
+        title: t('assignments:smart.errors.createFailed', {
+          message: errorMessage,
+          details: error.response?.data?.details || t('assignments:smart.errors.unknownError'),
+        }),
+        variant: 'destructive',
+      });
     }
   });
 
@@ -485,7 +498,7 @@ export function SmartAssignmentModal({
     },
     onError: (error: ApiError) => {
       console.error('Failed to delete assignment:', error);
-      alert(t('assignments:smart.errors.deleteFailed'));
+      toast({ title: t('assignments:smart.errors.deleteFailed'), variant: 'destructive' });
     }
   });
 
@@ -512,12 +525,12 @@ export function SmartAssignmentModal({
     
     // Validate required fields
     if (!formData.project_id && !selectedRecommendation) {
-      alert(t('assignments:smart.errors.selectProject'));
+      toast({ title: t('assignments:smart.errors.selectProject'), variant: 'destructive' });
       return;
     }
 
     if (!formData.role_id) {
-      alert(t('assignments:smart.errors.selectRole'));
+      toast({ title: t('assignments:smart.errors.selectRole'), variant: 'destructive' });
       return;
     }
 
@@ -527,19 +540,19 @@ export function SmartAssignmentModal({
     if (!roleExists) {
       console.error('Invalid role ID:', formData.role_id);
       console.error('Available roles:', rolesData);
-      alert(t('assignments:smart.errors.invalidRole'));
+      toast({ title: t('assignments:smart.errors.invalidRole'), variant: 'destructive' });
       return;
     }
 
     // Only validate dates if not using phase mode
     if (!formData.phase_id) {
       if (!formData.start_date) {
-        alert(t('assignments:smart.errors.selectStartDate'));
+        toast({ title: t('assignments:smart.errors.selectStartDate'), variant: 'destructive' });
         return;
       }
 
       if (!formData.end_date) {
-        alert(t('assignments:smart.errors.selectEndDate'));
+        toast({ title: t('assignments:smart.errors.selectEndDate'), variant: 'destructive' });
         return;
       }
     }
@@ -618,7 +631,8 @@ export function SmartAssignmentModal({
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <>
+      <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl smart-assignment-modal bg-background text-foreground">
         <DialogHeader>
           <DialogTitle className="text-lg font-semibold leading-none tracking-tight flex items-center gap-2">
@@ -848,12 +862,18 @@ export function SmartAssignmentModal({
                               </div>
                               <button
                                 type="button"
-                                onClick={() => {
+                                onClick={async () => {
                                   if (!assignmentId) {
-                                    alert(t('assignments:smart.errors.missingAssignmentId'));
+                                    toast({ title: t('assignments:smart.errors.missingAssignmentId'), variant: 'destructive' });
                                     return;
                                   }
-                                  if (confirm(t('assignments:smart.removeConfirm', { name: assignment.project_name }))) {
+                                  const confirmed = await confirm.ask({
+                                    title: t('common:delete'),
+                                    message: t('assignments:smart.removeConfirm', { name: assignment.project_name }),
+                                    confirmText: t('common:delete'),
+                                    variant: 'danger',
+                                  });
+                                  if (confirmed) {
                                     deleteAssignmentMutation.mutate({ id: assignmentId, version: assignment.version });
                                   }
                                 }}
@@ -1168,5 +1188,7 @@ export function SmartAssignmentModal({
         </form>
       </DialogContent>
     </Dialog>
+      {confirm.dialog}
+    </>
   );
 }

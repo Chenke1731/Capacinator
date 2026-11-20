@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
 import { invalidateSchedulingReads } from '../lib/invalidateSchedulingReads';
+import { useConfirmDialog } from '../hooks/useConfirmDialog';
+import { useToast } from '../hooks/use-toast';
 import InteractiveTimeline, { TimelineItem, TimelineViewport } from './InteractiveTimeline';
 import './InteractiveTimeline.css';
 import { addDays, format } from 'date-fns';
@@ -41,6 +43,8 @@ interface VisualPhaseManagerProps {
 
 export function VisualPhaseManager({ projectId, projectName: _projectName, onPhasesChange, compact = false, externalViewport, onViewportChange, alignmentDimensions, chartTimeData }: VisualPhaseManagerProps) {
   const { t } = useTranslation();
+  const { ask: askConfirm, dialog: confirmDialog } = useConfirmDialog();
+  const { toast } = useToast();
   // Debug alignment dimensions
   React.useEffect(() => {
     // debug alignment hook (intentionally empty)
@@ -270,7 +274,11 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
       if (err?.response?.data?.validation_errors) {
         const errors = err.response.data.validation_errors;
         console.error('Phase update validation failed:', errors);
-        alert(t('phases:visual.dependencyValidationFailed') + '\n' + errors.join('\n'));
+        toast({
+          title: t('phases:visual.dependencyValidationFailed'),
+          description: errors.join('\n'),
+          variant: 'destructive',
+        });
       } else {
         console.error('Phase update failed:', err);
       }
@@ -346,11 +354,17 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
   }, [phasesData]);
 
   // Handle phase deletion
-  const handlePhaseDelete = useCallback((itemId: string) => {
-    if (confirm(t('phases:manager.deletePhaseConfirmPermanent'))) {
+  const handlePhaseDelete = useCallback(async (itemId: string) => {
+    const confirmed = await askConfirm({
+      title: t('common:delete'),
+      message: t('phases:manager.deletePhaseConfirmPermanent'),
+      confirmText: t('common:delete'),
+      variant: 'danger',
+    });
+    if (confirmed) {
       deletePhaseMutation.mutate(itemId);
     }
-  }, [deletePhaseMutation, t]);
+  }, [askConfirm, deletePhaseMutation, t]);
 
   // Handle adding new phase
   const handleAddPhase = useCallback((afterItemId?: string, position?: { x: number, date: Date }) => {
@@ -410,7 +424,13 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
   }, []);
 
   const handleDeleteDependency = useCallback(async (dependencyId: string) => {
-    if (window.confirm(t('phases:visual.deleteDependencyConfirm'))) {
+    const confirmed = await askConfirm({
+      title: t('common:delete'),
+      message: t('phases:visual.deleteDependencyConfirm'),
+      confirmText: t('common:delete'),
+      variant: 'danger',
+    });
+    if (confirmed) {
       try {
         await api.projectPhaseDependencies.delete(dependencyId);
         refetchDependencies();
@@ -418,7 +438,7 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
         console.error('Failed to delete dependency:', error);
       }
     }
-  }, [refetchDependencies, t]);
+  }, [askConfirm, refetchDependencies, t]);
 
   // Close context menu on click outside
   useEffect(() => {
@@ -981,6 +1001,8 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
         onSubmit={handleDependencyModalSubmit}
         onClose={handleDependencyModalClose}
       />
+
+      {confirmDialog}
     </div>
   );
 }

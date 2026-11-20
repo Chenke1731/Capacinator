@@ -65,8 +65,13 @@ node scripts/verify-invariants.mjs --id U1,U3 --all \
   --lang zh-CN,en-US --viewports 1366x768,1600x900 \
   --json tmp/invariant-audit/u1u3-all.json
 
+# 长内容压力：首行数据替换为无空格长 token，检查单元格溢出/动作列可达性
+node scripts/verify-invariants.mjs --id U1 --all --stress --lang zh-CN,en-US --viewports 1366x768
+
 # 跨路由 CSS 只读普查（SPA pushState/popstate，一次浏览器）
 node scripts/verify-css-isolation.mjs --all --json tmp/css-isolation-census/report.json
+# CSS/共享原语改动时作为阻塞闸（T1 已接线）
+node scripts/verify-css-isolation.mjs --all --strict
 # 追查某个污染路由的来源
 node scripts/verify-css-isolation.mjs --all --trace --trace-route assignments
 ```
@@ -75,34 +80,33 @@ node scripts/verify-css-isolation.mjs --all --trace --trace-route assignments
 
 ## 基线与债务
 
-- 基线：`scripts/lib/invariant-baseline.json`（当前 74 个唯一签名，owner `ui-invariants`，到期 2026-12-31）。
+- 基线：`scripts/lib/invariant-baseline.json`（当前 29 个唯一签名，owner `ui-invariants`，到期 2026-12-31）。
 - 只允许 `--write-baseline` 在**初次普查**时登记存量；新增告警必须修复，不得再写基线。
-- 当前基线内容：
-  - U3 native dialog 37 条（Assignments/Availability/AuditLog/People/PersonDetails/ProjectTypes 等）；
-  - D2 控制器裸响应 4 条 + 客户端防御解析 41 条（共 45 个 finding，重复代码文本在基线中合并为唯一签名）。
+- 当前基线内容：仅 D2 未触碰端点的 29 个客户端防御解析签名（36 个 finding 合并重复代码文本）。
+  - U3 native dialog 已清零，基线条目已删除；
+  - 本批触碰的控制器（Import 2、ProjectPhaseDependencies、TestData）和页面
+    （People/Assignments/PersonDetails）防御解析已修复并从基线移除。
 - 到期前必须逐类清债或重新裁决；`expires` 到期后 baseline 条目应删除并转红。
 
 ## 当前普查结果（2026-11-20）
 
-- **U1**：1366/1600 全量 0 blocking。warn：Intake 动作列 33%、People en-US 横滚 257/23px、
-  person-detail fixture 缺失、2 个表首行 >96px。
-- **U3**：运行时 0 blocking（已修 ProjectTypes 展开钮、Availability 月切换钮的 aria/title）。
-  warn：8 个动作列仍多文字按钮；native dialog 37 条存量。
-- **D2**：4 控制器 + 41 客户端防御解析已登记基线。
-- **U2**：11 条路由在累计 SPA 路由序列后出现样式变化；已确认：
-  - `Projects -> Assignments`：`.project-info` 从 static 变 sticky、宽 400px；
-  - `PersonDetails/ProjectDetail -> Assignments`：`.info-value` 字号/padding/布局变化；
-  - 多路由 -> Settings/Locations/Components：`.btn` 的 nowrap/min-height/gap 级联变化。
-  11 条污染路由：person-detail、assignments、scenarios、reports、reports-capacity、
-  reports-utilization、reports-gaps、audit-log、locations、settings、components。
-  这些进入 U2 债务（owner `ui-invariants`，到期 2026-12-31），不在本批修复；
-  修复批次必须按 route 回溯并删对应债务。
+- **U1**：1366/1600 全量 0 blocking、0 warning；仅 4 条 info（People en-US 横向滚动/动作列需横滚）。
+  `--stress` 长内容模式 0 blocking、0 warning，28 条动作列需横滚 info。
+- **U3**：运行时 0 blocking、0 warning；37 条 native dialog 已全部迁移（alert→toast，confirm→ConfirmDialog）；
+  Intake/ProjectTypes/Roles 动作列已压缩为图标 + 单个文字主操作。
+- **D2**：本批触碰端点已清；剩余 29 个未触碰客户端防御解析签名在基线内。
+- **U2**：SPA 30 路由顺序普查 **0 polluted、0 coverage error**。
+  - `.project-info`、`.project-name`、`.info-value`、`.inline-editable`、`.btn*`、`.charts-grid` 等
+    已按 `:where(page-root)` 收敛（特异性与原来的裸选择器一致，避免压过 App.css dark 覆盖）；
+  - `ProjectDetail`/`AuditLog`/`Roles` 根类已补齐，供 scope 使用；
+  - U2 不再有污染债；CSS/共享原语改动在 T1 以 `--strict` 阻塞。
 
 ## 接线
 
 - `verify:pr`：静态 `U3 + D2`（无浏览器，baseline 外新增即红）。
-- `verify:t1`：`U1 + U3 --changed`（改动路由，1366/1600 双语）。
-- 夜间/里程碑：`U1 + U3 --all`；U2 普查每周或大改后跑一次。
+- `verify:t1`：`U1 + U3 --changed`（改动路由，1366/1600 双语）；CSS/共享原语改动追加
+  `verify-css-isolation --all --strict`。
+- 夜间/里程碑：`U1 + U3 --all` + `U1 --stress`；U2 普查每周或大改后跑一次。
 - `verify:t2` / 全量 visual/E2E 仍是里程碑门禁，不被本扫描替代。
 
 ## 后续

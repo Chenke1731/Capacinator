@@ -18,7 +18,7 @@ import { chromium } from 'playwright';
 import { auditEnvironment, authenticate, setupReadOnlyPage } from './lib/ui-profiles.mjs';
 import { resolveRoutes } from './lib/invariants/routes.mjs';
 import { measurePage } from './lib/invariants/runtime-metrics.mjs';
-import { evaluateU1 } from './lib/invariants/u1-text-fit.mjs';
+import { evaluateU1, evaluateLongContent } from './lib/invariants/u1-text-fit.mjs';
 import { evaluateU3, scanNativeDialogs, nativeDialogFindings, findNativeDialogsInText } from './lib/invariants/u3-action-safety.mjs';
 import { scanD2, d2Findings, scanControllerText, scanClientDefensiveText } from './lib/invariants/d2-api-envelope.mjs';
 
@@ -33,7 +33,7 @@ const value = (name) => {
 const valid = new Set([
   '--id', '--changed', '--all', '--route', '--profile', '--lang', '--viewports',
   '--theme', '--strict', '--json', '--selftest', '--settle', '--help',
-  '--write-baseline', '--static-only', '--verbose',
+  '--write-baseline', '--static-only', '--verbose', '--stress',
 ]);
 for (let i = 0; i < argv.length; i += 1) {
   if (!valid.has(argv[i])) throw new Error(`Unknown argument ${argv[i]}`);
@@ -43,7 +43,7 @@ for (let i = 0; i < argv.length; i += 1) {
   }
 }
 if (has('--help')) {
-  console.log(`verify-invariants: --id U1,U3,D2 [--changed|--all|--route PATH|--profile NAME] [--lang zh-CN,en-US] [--viewports 1366x768,1600x900] [--theme light] [--strict] [--verbose] [--static-only] [--json FILE] [--write-baseline] [--selftest]`);
+  console.log(`verify-invariants: --id U1,U3,D2 [--changed|--all|--route PATH|--profile NAME] [--lang zh-CN,en-US] [--viewports 1366x768,1600x900] [--theme light] [--strict] [--verbose] [--stress] [--static-only] [--json FILE] [--write-baseline] [--selftest]`);
   process.exit(0);
 }
 
@@ -58,6 +58,7 @@ const viewports = (value('--viewports') ?? '1366x768,1600x900').split(',').map((
 const theme = value('--theme') ?? 'light';
 const settle = Number(value('--settle') ?? 350);
 const strict = has('--strict');
+const stress = has('--stress');
 
 function loadBaseline() {
   if (!fs.existsSync(BASELINE_PATH)) return { entries: {} };
@@ -73,17 +74,18 @@ const isBaselined = (finding) => Boolean(baseline.entries?.[baselineKey(finding)
 
 function report(findings) {
   const active = findings.filter((finding) => !isBaselined(finding));
-  const blocking = active.filter((finding) => finding.severity === 'fail' || strict);
+  const blocking = active.filter((finding) => finding.severity === 'fail' || (strict && finding.severity === 'warn'));
   const verbose = has('--verbose');
-  const warnings = active.filter((finding) => finding.severity !== 'fail');
+  const warnings = active.filter((finding) => finding.severity === 'warn');
+  const infos = active.filter((finding) => finding.severity === 'info');
   for (const finding of active.filter((item) => item.severity === 'fail')) {
     const where = finding.route === '*' ? finding.selector : `${finding.route} ${finding.viewport} ${finding.language}`;
     console.log(`FAIL ${finding.id} ${where} ${finding.rule}: ${finding.message}`);
   }
   if (verbose) {
-    for (const finding of warnings) {
+    for (const finding of [...warnings, ...infos]) {
       const where = finding.route === '*' ? finding.selector : `${finding.route} ${finding.viewport} ${finding.language}`;
-      console.log(`WARN ${finding.id} ${where} ${finding.rule}: ${finding.message}`);
+      console.log(`${finding.severity === 'warn' ? 'WARN' : 'INFO'} ${finding.id} ${where} ${finding.rule}: ${finding.message}`);
     }
   } else {
     const groups = new Map();
@@ -96,6 +98,19 @@ function report(findings) {
     for (const [key, group] of groups) {
       const [id, rule] = key.split('|');
       console.log(`WARN ${id} ${rule}: ${group.count} occurrence(s) — e.g. ${group.sample.selector}: ${group.sample.message}`);
+    }
+    if (infos.length) {
+      const infoGroups = new Map();
+      for (const finding of infos) {
+        const key = `${finding.id}|${finding.rule}`;
+        const group = infoGroups.get(key) ?? { count: 0, sample: finding };
+        group.count += 1;
+        infoGroups.set(key, group);
+      }
+      for (const [key, group] of infoGroups) {
+        const [id, rule] = key.split('|');
+        console.log(`INFO ${id} ${rule}: ${group.count} occurrence(s) — e.g. ${group.sample.selector}: ${group.sample.message}`);
+      }
     }
   }
   return { active, blocking };
@@ -147,6 +162,22 @@ async function runRuntime(idsToRun) {
             const metrics = await page.evaluate(measurePage);
             const contextInfo = { route, language, viewport };
             if (idsToRun.includes('U1')) findings.push(...evaluateU1(metrics, contextInfo));
+            if (idsToRun.includes('U1') && stress) {
+              await page.evaluate(() => {
+                const token = 'VeryLongUnbrokenContentValueWithoutSpaces';
+                for (const table of document.querySelectorAll('table')) {
+                  const row = table.querySelector('tbody tr');
+                  if (!row) continue;
+                  for (const cell of [...row.querySelectorAll('td')].slice(0, -1)) {
+                    if (cell.querySelector('button, input, select, textarea, [role="button"]')) continue;
+                    cell.textContent = token.repeat(3);
+                  }
+                }
+              });
+              await page.waitForTimeout(100);
+              const stressMetrics = await page.evaluate(measurePage);
+              findings.push(...evaluateLongContent(stressMetrics, contextInfo));
+            }
             if (idsToRun.includes('U3')) findings.push(...evaluateU3(metrics, contextInfo));
             const routeFindings = findings.filter((finding) => finding.route === route.id && finding.language === language && finding.viewport === `${viewport.width}x${viewport.height}`);
             const fails = routeFindings.filter((finding) => finding.severity === 'fail').length;
@@ -214,6 +245,14 @@ async function selftest() {
   check('U1 detects oversized action ratio', u1.some((finding) => finding.rule === 'action-ratio' && finding.severity === 'fail'));
   check('U1 detects button wrap', u1.some((finding) => finding.rule === 'button-wrap'));
 
+  const longContent = evaluateLongContent({
+    tables: [{
+      selector: 'table', action: null,
+      dataCells: [{ index: 0, selector: 'td', text: 'long token', hasControl: false, overflowX: 'visible', scrollWidth: 300, clientWidth: 100 }],
+    }],
+  }, { route: { id: 'selftest', path: '/selftest' }, language: 'en-US', viewport: { width: 1366, height: 768 } });
+  check('U1 detects long-content overflow', longContent.some((finding) => finding.rule === 'long-content-overflow'));
+
   const u3Metrics = {
     tables: [{ selector: 'table', action: { header: 'Actions', textButtonCount: 3 } }],
     buttons: [
@@ -275,6 +314,7 @@ if (has('--json')) {
 if (has('--write-baseline')) writeBaseline(findings);
 
 const blockingCount = blocking.length;
-const warnings = active.filter((finding) => finding.severity !== 'fail').length;
-console.log(`\n${blockingCount ? 'FAIL' : 'PASS'} invariants ${ids.join(',')}: ${blockingCount} blocking, ${warnings} warning(s)${strict ? ' (strict)' : ''}`);
+const warnings = active.filter((finding) => finding.severity === 'warn').length;
+const infos = active.filter((finding) => finding.severity === 'info').length;
+console.log(`\n${blockingCount ? 'FAIL' : 'PASS'} invariants ${ids.join(',')}: ${blockingCount} blocking, ${warnings} warning(s), ${infos} info${strict ? ' (strict)' : ''}`);
 process.exit(blockingCount ? 1 : 0);

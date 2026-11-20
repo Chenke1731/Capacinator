@@ -472,6 +472,8 @@ export class ImportController extends BaseController {
         }
         
         return res.status(400).json({
+          error: 'INVALID_FILE_TYPE',
+          message: 'File must be an Excel file (.xlsx or .xls)',
           valid: false,
           canImport: false,
           errors: [{
@@ -507,6 +509,8 @@ export class ImportController extends BaseController {
         }
         
         return res.status(400).json({
+          error: 'INVALID_STRUCTURE',
+          message: `Validation failed: ${validationError instanceof Error ? validationError.message : 'Unknown error'}`,
           valid: false,
           canImport: false,
           errors: [{

@@ -7,7 +7,7 @@
    board renders none of these classes. Unscoped copies only leaked onto other
    pages' headers (align-items flex-start + 1.875rem h1 overriding the owner). */
 
-.project-name {
+:where(.projects-board) .project-name {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;

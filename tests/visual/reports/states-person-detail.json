@@ -24,12 +24,15 @@
           "font": 14,
           "top": 64,
           "clipTop": 40,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 274,
+          "clipLeft": 250,
+          "offsetLeft": 24
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
           "family": "btn btn-success action-btn|",
-          "text": "分配至项目",
+          "text": "调整分配",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(249, 250, 251)",
           "effectiveBackground": [
@@ -43,9 +46,12 @@
           "width": 620,
           "height": 45,
           "font": 14,
-          "top": 499.109375,
+          "top": 497.1875,
           "clipTop": 166,
-          "offsetTop": 333.109375
+          "offsetTop": 331.1875,
+          "left": 299,
+          "clipLeft": 274,
+          "offsetLeft": 25
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -64,13 +70,17 @@
           "width": 620,
           "height": 45,
           "font": 14,
-          "top": 499.109375,
+          "top": 497.1875,
           "clipTop": 166,
-          "offsetTop": 333.109375
+          "offsetTop": 331.1875,
+          "left": 931,
+          "clipLeft": 274,
+          "offsetLeft": 657
         }
       ],
       "issues": [],
       "scope": ".person-details",
+      "staticGaps": [],
       "axe": [],
       "newIssues": []
     },
@@ -97,12 +107,15 @@
           "font": 14,
           "top": 64,
           "clipTop": 40,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 274,
+          "clipLeft": 250,
+          "offsetLeft": 24
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
           "family": "btn btn-success action-btn|",
-          "text": "分配至项目",
+          "text": "调整分配",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(249, 250, 251)",
           "effectiveBackground": [
@@ -116,9 +129,12 @@
           "width": 620,
           "height": 45,
           "font": 14,
-          "top": 499.109375,
+          "top": 497.1875,
           "clipTop": 166,
-          "offsetTop": 333.109375
+          "offsetTop": 331.1875,
+          "left": 299,
+          "clipLeft": 274,
+          "offsetLeft": 25
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -137,9 +153,12 @@
           "width": 620,
           "height": 45,
           "font": 14,
-          "top": 499.109375,
+          "top": 497.1875,
           "clipTop": 166,
-          "offsetTop": 333.109375
+          "offsetTop": 331.1875,
+          "left": 931,
+          "clipLeft": 274,
+          "offsetLeft": 657
         }
       ],
       "issues": [],
@@ -170,12 +189,15 @@
           "font": 14,
           "top": 64,
           "clipTop": 40,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 274,
+          "clipLeft": 250,
+          "offsetLeft": 24
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
           "family": "btn btn-success action-btn|",
-          "text": "分配至项目",
+          "text": "调整分配",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(243, 244, 246)",
           "effectiveBackground": [
@@ -189,9 +211,12 @@
           "width": 620,
           "height": 45,
           "font": 14,
-          "top": 499.109375,
+          "top": 497.1875,
           "clipTop": 166,
-          "offsetTop": 333.109375
+          "offsetTop": 331.1875,
+          "left": 299,
+          "clipLeft": 274,
+          "offsetLeft": 25
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -210,9 +235,12 @@
           "width": 620,
           "height": 45,
           "font": 14,
-          "top": 499.109375,
+          "top": 497.1875,
           "clipTop": 166,
-          "offsetTop": 333.109375
+          "offsetTop": 331.1875,
+          "left": 931,
+          "clipLeft": 274,
+          "offsetLeft": 657
         }
       ],
       "issues": [],
@@ -243,12 +271,15 @@
           "font": 14,
           "top": 64,
           "clipTop": 40,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 274,
+          "clipLeft": 250,
+          "offsetLeft": 24
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
           "family": "btn btn-success action-btn|",
-          "text": "分配至项目",
+          "text": "调整分配",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(249, 250, 251)",
           "effectiveBackground": [
@@ -262,9 +293,12 @@
           "width": 620,
           "height": 45,
           "font": 14,
-          "top": 499.109375,
+          "top": 497.1875,
           "clipTop": 166,
-          "offsetTop": 333.109375
+          "offsetTop": 331.1875,
+          "left": 299,
+          "clipLeft": 274,
+          "offsetLeft": 25
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -283,9 +317,12 @@
           "width": 620,
           "height": 45,
           "font": 14,
-          "top": 499.109375,
+          "top": 497.1875,
           "clipTop": 166,
-          "offsetTop": 333.109375
+          "offsetTop": 331.1875,
+          "left": 931,
+          "clipLeft": 274,
+          "offsetLeft": 657
         }
       ],
       "issues": [],
@@ -316,12 +353,15 @@
           "font": 14,
           "top": 64,
           "clipTop": 40,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 274,
+          "clipLeft": 250,
+          "offsetLeft": 24
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
           "family": "btn btn-success action-btn|",
-          "text": "分配至项目",
+          "text": "调整分配",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(249, 250, 251)",
           "effectiveBackground": [
@@ -335,9 +375,12 @@
           "width": 620,
           "height": 45,
           "font": 14,
-          "top": 499.109375,
+          "top": 497.1875,
           "clipTop": 166,
-          "offsetTop": 333.109375
+          "offsetTop": 331.1875,
+          "left": 299,
+          "clipLeft": 274,
+          "offsetLeft": 25
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -356,9 +399,12 @@
           "width": 620,
           "height": 45,
           "font": 14,
-          "top": 499.109375,
+          "top": 497.1875,
           "clipTop": 166,
-          "offsetTop": 333.109375
+          "offsetTop": 331.1875,
+          "left": 931,
+          "clipLeft": 274,
+          "offsetLeft": 657
         }
       ],
       "issues": [],
@@ -389,12 +435,15 @@
           "font": 14,
           "top": 64,
           "clipTop": 40,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 274,
+          "clipLeft": 250,
+          "offsetLeft": 24
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
           "family": "btn btn-success action-btn|",
-          "text": "分配至项目",
+          "text": "调整分配",
           "foreground": "rgb(229, 231, 235)",
           "background": "rgb(31, 41, 55)",
           "effectiveBackground": [
@@ -408,9 +457,12 @@
           "width": 620,
           "height": 47,
           "font": 14,
-          "top": 501.109375,
+          "top": 499.1875,
           "clipTop": 166,
-          "offsetTop": 335.109375
+          "offsetTop": 333.1875,
+          "left": 299,
+          "clipLeft": 274,
+          "offsetLeft": 25
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -429,13 +481,17 @@
           "width": 620,
           "height": 47,
           "font": 14,
-          "top": 501.109375,
+          "top": 499.1875,
           "clipTop": 166,
-          "offsetTop": 335.109375
+          "offsetTop": 333.1875,
+          "left": 931,
+          "clipLeft": 274,
+          "offsetLeft": 657
         }
       ],
       "issues": [],
       "scope": ".person-details",
+      "staticGaps": [],
       "axe": [],
       "newIssues": []
     },
@@ -462,12 +518,15 @@
           "font": 14,
           "top": 64,
           "clipTop": 40,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 274,
+          "clipLeft": 250,
+          "offsetLeft": 24
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
           "family": "btn btn-success action-btn|",
-          "text": "分配至项目",
+          "text": "调整分配",
           "foreground": "rgb(229, 231, 235)",
           "background": "rgb(31, 41, 55)",
           "effectiveBackground": [
@@ -481,9 +540,12 @@
           "width": 620,
           "height": 47,
           "font": 14,
-          "top": 501.109375,
+          "top": 499.1875,
           "clipTop": 166,
-          "offsetTop": 335.109375
+          "offsetTop": 333.1875,
+          "left": 299,
+          "clipLeft": 274,
+          "offsetLeft": 25
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -502,9 +564,12 @@
           "width": 620,
           "height": 47,
           "font": 14,
-          "top": 501.109375,
+          "top": 499.1875,
           "clipTop": 166,
-          "offsetTop": 335.109375
+          "offsetTop": 333.1875,
+          "left": 931,
+          "clipLeft": 274,
+          "offsetLeft": 657
         }
       ],
       "issues": [],
@@ -535,12 +600,15 @@
           "font": 14,
           "top": 64,
           "clipTop": 40,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 274,
+          "clipLeft": 250,
+          "offsetLeft": 24
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
           "family": "btn btn-success action-btn|",
-          "text": "分配至项目",
+          "text": "调整分配",
           "foreground": "rgb(229, 231, 235)",
           "background": "rgba(255, 255, 255, 0.05)",
           "effectiveBackground": [
@@ -554,9 +622,12 @@
           "width": 620,
           "height": 47,
           "font": 14,
-          "top": 501.109375,
+          "top": 499.1875,
           "clipTop": 166,
-          "offsetTop": 335.109375
+          "offsetTop": 333.1875,
+          "left": 299,
+          "clipLeft": 274,
+          "offsetLeft": 25
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -575,9 +646,12 @@
           "width": 620,
           "height": 47,
           "font": 14,
-          "top": 501.109375,
+          "top": 499.1875,
           "clipTop": 166,
-          "offsetTop": 335.109375
+          "offsetTop": 333.1875,
+          "left": 931,
+          "clipLeft": 274,
+          "offsetLeft": 657
         }
       ],
       "issues": [],
@@ -608,12 +682,15 @@
           "font": 14,
           "top": 64,
           "clipTop": 40,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 274,
+          "clipLeft": 250,
+          "offsetLeft": 24
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
           "family": "btn btn-success action-btn|",
-          "text": "分配至项目",
+          "text": "调整分配",
           "foreground": "rgb(229, 231, 235)",
           "background": "rgb(31, 41, 55)",
           "effectiveBackground": [
@@ -627,9 +704,12 @@
           "width": 620,
           "height": 47,
           "font": 14,
-          "top": 501.109375,
+          "top": 499.1875,
           "clipTop": 166,
-          "offsetTop": 335.109375
+          "offsetTop": 333.1875,
+          "left": 299,
+          "clipLeft": 274,
+          "offsetLeft": 25
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -648,9 +728,12 @@
           "width": 620,
           "height": 47,
           "font": 14,
-          "top": 501.109375,
+          "top": 499.1875,
           "clipTop": 166,
-          "offsetTop": 335.109375
+          "offsetTop": 333.1875,
+          "left": 931,
+          "clipLeft": 274,
+          "offsetLeft": 657
         }
       ],
       "issues": [],
@@ -681,12 +764,15 @@
           "font": 14,
           "top": 64,
           "clipTop": 40,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 274,
+          "clipLeft": 250,
+          "offsetLeft": 24
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
           "family": "btn btn-success action-btn|",
-          "text": "分配至项目",
+          "text": "调整分配",
           "foreground": "rgb(229, 231, 235)",
           "background": "rgb(31, 41, 55)",
           "effectiveBackground": [
@@ -700,9 +786,12 @@
           "width": 620,
           "height": 47,
           "font": 14,
-          "top": 501.109375,
+          "top": 499.1875,
           "clipTop": 166,
-          "offsetTop": 335.109375
+          "offsetTop": 333.1875,
+          "left": 299,
+          "clipLeft": 274,
+          "offsetLeft": 25
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -721,9 +810,12 @@
           "width": 620,
           "height": 47,
           "font": 14,
-          "top": 501.109375,
+          "top": 499.1875,
           "clipTop": 166,
-          "offsetTop": 335.109375
+          "offsetTop": 333.1875,
+          "left": 931,
+          "clipLeft": 274,
+          "offsetLeft": 657
         }
       ],
       "issues": [],

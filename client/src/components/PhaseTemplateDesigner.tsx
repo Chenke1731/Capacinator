@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
+import { useConfirmDialog } from '../hooks/useConfirmDialog';
 import type { ProjectPhase } from '../types';
 import './PhaseTemplateDesigner.css';
 
@@ -37,6 +38,7 @@ interface PhaseTemplateDesignerProps {
 
 export default function PhaseTemplateDesigner({ projectTypeId, phases }: PhaseTemplateDesignerProps) {
   const { t } = useTranslation();
+  const confirm = useConfirmDialog();
   const [localPhases, setLocalPhases] = useState<ProjectTypePhase[]>([]);
   const [showAddPhase, setShowAddPhase] = useState(false);
 
@@ -103,8 +105,14 @@ export default function PhaseTemplateDesigner({ projectTypeId, phases }: PhaseTe
     updatePhaseMutation.mutate({ phaseId, data: updates });
   };
 
-  const handleRemovePhase = (phaseId: string) => {
-    if (confirm(t('phases:template.removeConfirm'))) {
+  const handleRemovePhase = async (phaseId: string) => {
+    const confirmed = await confirm.ask({
+      title: t('common:delete'),
+      message: t('phases:template.removeConfirm'),
+      confirmText: t('common:delete'),
+      variant: 'danger',
+    });
+    if (confirmed) {
       // Find the phase to get its actual phase_id
       const phaseToRemove = localPhases.find(p => p.id === phaseId);
       if (phaseToRemove) {
@@ -415,6 +423,8 @@ export default function PhaseTemplateDesigner({ projectTypeId, phases }: PhaseTe
           <p>{t('phases:template.noTemplatePhasesHint')}</p>
         </div>
       )}
+
+      {confirm.dialog}
     </div>
   );
 }

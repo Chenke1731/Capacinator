@@ -148,6 +148,61 @@ test.describe('Assignment CRUD Operations', () => {
       }
     });
   });
+  test.describe('Table density', () => {
+    test('keeps headers and action column within budget at 1366/1600', async ({
+      authenticatedPage,
+      testHelpers,
+      testDataHelpers,
+    }) => {
+      await testDataHelpers.createTestAssignment(testContext, {
+        project: testData.projects[0],
+        person: testData.people[0],
+        allocation: 50,
+      });
+      await testHelpers.navigateTo('/assignments');
+      await testHelpers.waitForDataTable();
+
+      for (const width of [1366, 1600]) {
+        await authenticatedPage.setViewportSize({ width, height: width === 1600 ? 900 : 768 });
+        await authenticatedPage.waitForTimeout(200);
+        const metrics = await authenticatedPage.evaluate(() => {
+          const table = document.querySelector('table') as HTMLTableElement;
+          const row = table.querySelector('tbody tr') as HTMLElement;
+          const headers = [...table.querySelectorAll('thead th')] as HTMLElement[];
+          const actionCell = row.querySelector('td:last-child') as HTMLElement;
+          const buttons = [...row.querySelectorAll('.table-actions button')] as HTMLElement[];
+          const lineCount = (el: Element | null) => {
+            if (!el) return 0;
+            const range = document.createRange();
+            range.selectNodeContents(el);
+            const rects = [...range.getClientRects()].filter((rect) => rect.width > 1);
+            return new Set(rects.map((rect) => Math.round(rect.top))).size || 1;
+          };
+          const wrapper = table.parentElement as HTMLElement;
+          return {
+            tableWidth: table.getBoundingClientRect().width,
+            actionWidth: actionCell.getBoundingClientRect().width,
+            headerHeight: table.querySelector('thead tr')!.getBoundingClientRect().height,
+            rowHeight: row.getBoundingClientRect().height,
+            wrappedHeaders: headers.filter((th) => lineCount(th.querySelector('span') ?? th) > 1).length,
+            buttonOverflow: buttons.some(
+              (button) =>
+                button.getBoundingClientRect().right >
+                actionCell.getBoundingClientRect().right + 1
+            ),
+            innerScroll: wrapper.scrollWidth - wrapper.clientWidth,
+          };
+        });
+        expect(metrics.actionWidth, `actions width @${width}`).toBeLessThanOrEqual(180);
+        expect(metrics.actionWidth / metrics.tableWidth).toBeLessThanOrEqual(0.2);
+        expect(metrics.headerHeight, `header height @${width}`).toBeLessThanOrEqual(56);
+        expect(metrics.rowHeight, `row height @${width}`).toBeLessThanOrEqual(112);
+        expect(metrics.wrappedHeaders, `wrapped headers @${width}`).toBe(0);
+        expect(metrics.buttonOverflow).toBe(false);
+        // en-US 较长表头允许少量横向滚动；中文在 1366/1600 实测无滚动。
+      }
+    });
+  });
   test.describe('Update Assignment', () => {
     test(`${tags.crud} ${patterns.crud('assignment').update}`, async ({ 
       authenticatedPage, 

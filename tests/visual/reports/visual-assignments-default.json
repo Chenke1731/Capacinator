@@ -1,5 +1,10 @@
 {
+  "totalCombinations": 4,
   "combinations": 4,
+  "shard": {
+    "index": 1,
+    "total": 1
+  },
   "checks": 20,
   "updatePixels": false,
   "registerExistingAxe": false,
@@ -49,7 +54,8 @@
       "artifact": "tests/visual/reports/visual-assignments-dark-1600.png",
       "baseline": "tests/visual/__screenshots__/assignments-dark-1600.png",
       "backdrops": [],
-      "svgAxisText": []
+      "svgAxisText": [],
+      "durationMs": 11715
     },
     {
       "tag": "assignments-dark-1366",
@@ -96,7 +102,8 @@
       "artifact": "tests/visual/reports/visual-assignments-dark-1366.png",
       "baseline": "tests/visual/__screenshots__/assignments-dark-1366.png",
       "backdrops": [],
-      "svgAxisText": []
+      "svgAxisText": [],
+      "durationMs": 10522
     },
     {
       "tag": "assignments-light-1600",
@@ -143,7 +150,8 @@
       "artifact": "tests/visual/reports/visual-assignments-light-1600.png",
       "baseline": "tests/visual/__screenshots__/assignments-light-1600.png",
       "backdrops": [],
-      "svgAxisText": []
+      "svgAxisText": [],
+      "durationMs": 10630
     },
     {
       "tag": "assignments-light-1366",
@@ -190,7 +198,8 @@
       "artifact": "tests/visual/reports/visual-assignments-light-1366.png",
       "baseline": "tests/visual/__screenshots__/assignments-light-1366.png",
       "backdrops": [],
-      "svgAxisText": []
+      "svgAxisText": [],
+      "durationMs": 10417
     }
   ]
 }

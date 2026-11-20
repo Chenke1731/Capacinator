@@ -57,7 +57,7 @@ Stop condition:
 | 改动面 | 最低充分 oracle | 允许升级的条件 |
 |---|---|---|
 | 局部逻辑/文案/禁用条件 | targeted Jest + typecheck | 触碰共享组件、契约或异步状态 |
-| CSS/布局几何 | lint:ui + 受影响 states profile + targeted 几何测试 | 默认像素外观变化才 visual；新浮层/裁剪才浏览器几何/E2E |
+| CSS/布局几何 | lint:ui + 受影响 states profile + targeted 几何测试（表格加 1366/1600 列宽预算） | 默认像素外观变化才 visual；新浮层/裁剪才浏览器几何/E2E |
 | 交互状态机/手势 | 状态×事件矩阵 + 重复手势测试 + focused review | 新页面、共享原语或跨页行为才 full review |
 | 浮层/贴锚/遮挡 | 贴锚/遮挡/焦点 targeted 浏览器测试 + states floatingRoot | 跨页面/新导航路径才 E2E 套件 |
 | 服务端契约/数据库语义 | 真实 schema 集成测试 | 影响多契约面才全量后端回归 |
@@ -84,6 +84,13 @@ Oracle：贴锚/遮挡/焦点 targeted 浏览器测试 + states floatingRoot + �
 故障假设：字符串绑定与 SQLite 0/1 存储不匹配。
 Oracle：真实 migrations + SQLite 集成测试（修前红）。
 Mock controller 单测不可作为 oracle：它复现不了数据库类型亲和性。
+
+### 表格列宽预算（动作列把表头/行压成竖排）
+
+故障假设：动作列 min-content 超出预算时，自动布局优先压数据列，表头换行、行高膨胀；共享类（如全局 `.status-indicator`）泄漏进页面单元格；en-US 长词放大问题。
+Oracle：1366/1600 浏览器几何测试——表头行数、表头/行高上限、动作列宽与占比、按钮是否溢出单元格。
+像素基线不能充当这个 oracle：它只证明"和上次一样"，会把坏布局冻结成正确；先过绝对几何阈值，再采基线。
+反例：People 五文本按钮动作列实测 min-content≈456px，表头 80.5px、行高 82px；压缩动作列后同为 1366 视口表头 48px、行高 74–78px。
 
 ## 代理预算
 

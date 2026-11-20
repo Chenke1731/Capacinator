@@ -1,7 +1,12 @@
 {
+  "totalCombinations": 4,
   "combinations": 4,
+  "shard": {
+    "index": 1,
+    "total": 1
+  },
   "checks": 20,
-  "updatePixels": true,
+  "updatePixels": false,
   "registerExistingAxe": false,
   "evidence": [
     {
@@ -38,7 +43,7 @@
           "ok": true
         },
         {
-          "name": "基线 people-dark-1600: 已采集",
+          "name": "像素 people-dark-1600: 与基线一致(≤0.5%)",
           "ok": true
         },
         {
@@ -48,7 +53,9 @@
       ],
       "artifact": "tests/visual/reports/visual-people-dark-1600.png",
       "baseline": "tests/visual/__screenshots__/people-dark-1600.png",
-      "backdrops": []
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 8293
     },
     {
       "tag": "people-dark-1366",
@@ -84,7 +91,7 @@
           "ok": true
         },
         {
-          "name": "基线 people-dark-1366: 已采集",
+          "name": "像素 people-dark-1366: 与基线一致(≤0.5%)",
           "ok": true
         },
         {
@@ -94,7 +101,9 @@
       ],
       "artifact": "tests/visual/reports/visual-people-dark-1366.png",
       "baseline": "tests/visual/__screenshots__/people-dark-1366.png",
-      "backdrops": []
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 7085
     },
     {
       "tag": "people-light-1600",
@@ -130,7 +139,7 @@
           "ok": true
         },
         {
-          "name": "基线 people-light-1600: 已采集",
+          "name": "像素 people-light-1600: 与基线一致(≤0.5%)",
           "ok": true
         },
         {
@@ -140,7 +149,9 @@
       ],
       "artifact": "tests/visual/reports/visual-people-light-1600.png",
       "baseline": "tests/visual/__screenshots__/people-light-1600.png",
-      "backdrops": []
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 7130
     },
     {
       "tag": "people-light-1366",
@@ -176,7 +187,7 @@
           "ok": true
         },
         {
-          "name": "基线 people-light-1366: 已采集",
+          "name": "像素 people-light-1366: 与基线一致(≤0.5%)",
           "ok": true
         },
         {
@@ -186,7 +197,9 @@
       ],
       "artifact": "tests/visual/reports/visual-people-light-1366.png",
       "baseline": "tests/visual/__screenshots__/people-light-1366.png",
-      "backdrops": []
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 6951
     }
   ]
 }

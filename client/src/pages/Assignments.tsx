@@ -427,7 +427,7 @@ export default function Assignments() {
             disabled={isComputed}
             className="inline-edit-input"
             style={{
-              width: '140px',
+              width: '124px',
               padding: '4px 8px',
               border: '1px solid transparent',
               borderRadius: '4px',
@@ -471,7 +471,7 @@ export default function Assignments() {
             disabled={isComputed}
             className="inline-edit-input"
             style={{
-              width: '140px',
+              width: '124px',
               padding: '4px 8px',
               border: '1px solid transparent',
               borderRadius: '4px',
@@ -552,41 +552,41 @@ export default function Assignments() {
     {
       key: 'actions',
       header: t('common:actions'),
-      width: '290px',
+      width: '150px',
       render: (_, row) => (
         <div className="table-actions">
           <button
-            className="btn table-action-btn"
+            className="btn table-action-btn assignment-action-icon"
             onClick={(e) => {
               e.stopPropagation();
               navigate(`/projects/${row.project_id}`);
             }}
             title={t('assignments:viewProject')}
+            aria-label={t('assignments:viewProject')}
           >
             <Eye size={14} />
-            {t('assignments:viewProject')}
           </button>
           <button
-            className="btn table-action-btn"
+            className="btn table-action-btn assignment-action-icon"
             onClick={(e) => {
               e.stopPropagation();
               handleEditAssignment(row);
             }}
             title={t('common:edit')}
+            aria-label={t('common:edit')}
           >
             <Edit2 size={14} />
-            {t('common:edit')}
           </button>
           <button
-            className="btn table-action-btn btn-danger"
+            className="btn table-action-btn assignment-action-icon btn-danger"
             onClick={(e) => {
               e.stopPropagation();
               handleDeleteAssignment(row, `${row.person_name} - ${row.project_name}`);
             }}
             title={t('common:delete')}
+            aria-label={t('common:delete')}
           >
             <Trash2 size={14} />
-            {t('common:delete')}
           </button>
         </div>
       )

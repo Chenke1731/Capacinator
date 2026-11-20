@@ -333,8 +333,8 @@ describe('People Workload Management', () => {
         // Should still show people but status will show as unknown
         const johnLink = screen.getByRole('link', { name: 'John Over-allocated' });
         expect(johnLink).toBeInTheDocument();
-        // Should show "View Details" action when no utilization data
-        expect(screen.getAllByText('View Details').length).toBeGreaterThan(0);
+        // details remain reachable via the name link, not a duplicate button
+        expect(screen.queryByText('View Details')).not.toBeInTheDocument();
       });
     });
   });

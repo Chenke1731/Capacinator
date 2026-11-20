@@ -4,6 +4,26 @@
   width: 100%;
 }
 
+/* Assignment 列宽预算：项目、两列日期输入、备注和动作列同时存在时，
+   1366 宽度下自动布局会先压表头（“人员”“持续时间”竖排）再压行。
+   表头与内联编辑器不换行，动作列收成三个图标，水平内边距收窄。 */
+.assignments-page table th {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  white-space: nowrap;
+}
+
+.assignments-page table td {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.assignments-page .btn.assignment-action-icon {
+  min-width: 30px;
+  min-height: 24px;
+  padding: 0.25rem 0.4rem;
+}
+
 /* Context Message for Assignment Filtering */
 .context-message {
   display: flex;

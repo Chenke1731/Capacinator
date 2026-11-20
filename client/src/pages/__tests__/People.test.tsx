@@ -434,9 +434,10 @@ describe('People Page', () => {
       renderComponent();
 
       await waitFor(() => {
-        // rows without utilization data only render the dedicated details
-        // button (no duplicate gray fallback)
-        expect(screen.getAllByText('View Details')).toHaveLength(3);
+        // rows without utilization data have no quick action; details remain
+        // reachable from the name link / row click, not a duplicate button
+        expect(screen.queryByText('View Details')).not.toBeInTheDocument();
+        expect(screen.getAllByRole('button', { name: 'Edit' })).toHaveLength(3);
       });
     });
 
@@ -783,7 +784,7 @@ describe('People Page', () => {
       expect(mockNavigate).toHaveBeenCalledWith('/reports?tab=utilization&person=person-2'); // U03: tab 参数名与 ReportsUnified 对齐
     });
 
-    test('navigates to person details for view action', async () => {
+    test('navigates to person details from the name link', async () => {
       const user = userEvent.setup();
       
       // Mock utilization data to have unknown status for one person
@@ -796,11 +797,8 @@ describe('People Page', () => {
 
       renderComponent();
 
-      await waitFor(() => {
-        expect(screen.getAllByText('View Details')[0]).toBeInTheDocument();
-      });
-
-      await user.click(screen.getAllByText('View Details')[0]);
+      const nameLink = await screen.findByRole('link', { name: /John Doe/i });
+      await user.click(nameLink);
 
       expect(mockNavigate).toHaveBeenCalledWith('/people/person-1');
     });

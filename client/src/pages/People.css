@@ -6,9 +6,13 @@
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  min-width: 0;
 }
 
 .person-name .name {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
   font-weight: 500;
   /* 主色文字令牌保证双主题 AA; 跨文件同名规则已从 App.css 删除, 无需 !important */
   color: var(--primary-text);
@@ -23,6 +27,43 @@
 
 .person-name .email {
   font-size: 0.75rem;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* People 列宽预算：8 列 + 动作列在 1366/1600 自动布局下会把表头/徽标
+   压成竖排。动作列只保留一个带文字主操作，次级操作图标化；关键文本不
+   换行，水平内边距收窄到 12px。 */
+.people-page table th {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  white-space: nowrap;
+}
+
+.people-page table td {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+.people-page .badge,
+.people-page .people-status-label {
+  white-space: nowrap;
+}
+
+.people-page .people-status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 0 0 auto;
+  width: auto;
+  height: auto;
+  justify-content: flex-start;
+  border-radius: 0;
+  background: none;
+  font-size: 1rem;
+  font-weight: 700;
 }
 
 .text-success {
@@ -97,26 +138,19 @@
 }
 
 /* Workload Status in Table */
-.workload-status {
+.people-page .people-workload-status {
   display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.status-indicator {
-  display: flex;
+  flex-direction: row;
   align-items: center;
   gap: 0.5rem;
-  font-size: 1rem;
-  font-weight: 700;
 }
 
-.status-percentage {
+.people-page .people-status-percentage {
   font-size: 0.875rem;
   font-weight: 700;
 }
 
-.status-label {
+.people-page .people-status-label {
   font-size: 0.9375rem;
   letter-spacing: 0.3px;
   font-weight: 700;
@@ -160,6 +194,12 @@
 
 .btn.quick-action-btn:hover {
   box-shadow: 0 1px 3px var(--shadow-sm);
+}
+
+.people-page .btn.quick-action-icon {
+  min-width: 30px;
+  min-height: 0;
+  padding: 0.25rem 0.4rem;
 }
 
 .btn-danger {

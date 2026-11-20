@@ -64,10 +64,10 @@ test.describe('People Management', () => {
         // Person name should be clickable
         const personLink = personRow.locator('td:first-child a, td:first-child button');
         await expect(personLink).toBeVisible();
-        // Action buttons should be present
-        await expect(personRow.locator('button:has-text("View")')).toBeVisible();
-        await expect(personRow.locator('button:has-text("Edit")')).toBeVisible();
-        await expect(personRow.locator('button[title*="Delete"], button:has([data-testid="trash"])')).toBeVisible();
+        // Action buttons should be present; secondary actions are icon-only
+        // with accessible names (details is the row/name link).
+        await expect(personRow.locator('button[aria-label="Edit"]')).toBeVisible();
+        await expect(personRow.locator('button[aria-label="Delete"]')).toBeVisible();
       }
     });
     test('should display team insights summary', async ({
@@ -95,7 +95,7 @@ test.describe('People Management', () => {
           'tbody tr',
           testData.people[0].name
         );
-        const workloadColumns = personRow.locator('.workload-status, .status-indicator');
+        const workloadColumns = personRow.locator('.people-workload-status');
         if (await workloadColumns.count() > 0) {
           // Check for utilization percentages
           const indicator = workloadColumns.nth(0);
@@ -177,7 +177,7 @@ test.describe('People Management', () => {
           'tbody tr',
           testData.people[1].name
         );
-        const editButton = personRow.locator('button:has-text("Edit")');
+        const editButton = personRow.locator('button[aria-label="Edit"]');
         await editButton.click();
         // Should navigate or show modal
         const url = authenticatedPage.url();
@@ -307,6 +307,56 @@ test.describe('People Management', () => {
       }
     });
   });
+  test.describe('Table density', () => {
+    test('keeps headers, badges and action buttons readable at 1366/1600', async ({
+      authenticatedPage,
+    }) => {
+      for (const width of [1366, 1600]) {
+        await authenticatedPage.setViewportSize({ width, height: width === 1600 ? 900 : 768 });
+        await authenticatedPage.waitForTimeout(200);
+        const metrics = await authenticatedPage.evaluate(() => {
+          const table = document.querySelector('table') as HTMLTableElement;
+          const row = table.querySelector('tbody tr') as HTMLElement;
+          const headers = [...table.querySelectorAll('thead th')] as HTMLElement[];
+          const actionCell = row.querySelector('td:last-child') as HTMLElement;
+          const buttons = [...row.querySelectorAll('.table-actions button')] as HTMLElement[];
+          const lines = (el: Element | null) => {
+            if (!el) return 0;
+            const range = document.createRange();
+            range.selectNodeContents(el);
+            return range.getClientRects().length;
+          };
+          const wrapper = table.parentElement as HTMLElement;
+          return {
+            tableWidth: table.getBoundingClientRect().width,
+            actionWidth: actionCell.getBoundingClientRect().width,
+            headerHeight: table.querySelector('thead tr')!.getBoundingClientRect().height,
+            rowHeight: row.getBoundingClientRect().height,
+            wrappedHeaders: headers.filter((th) => lines(th.querySelector('span')) > 1).length,
+            wrappedStatus: [...row.querySelectorAll('.badge, .people-status-label')].filter(
+              (el) => lines(el) > 1
+            ).length,
+            buttonOverflow: buttons.some(
+              (button) =>
+                button.getBoundingClientRect().right >
+                actionCell.getBoundingClientRect().right + 1
+            ),
+            innerScroll: wrapper.scrollWidth - wrapper.clientWidth,
+          };
+        });
+        expect(metrics.actionWidth, `actions width @${width}`).toBeLessThanOrEqual(320);
+        expect(metrics.actionWidth / metrics.tableWidth).toBeLessThanOrEqual(0.3);
+        expect(metrics.headerHeight, `header height @${width}`).toBeLessThanOrEqual(56);
+        expect(metrics.rowHeight, `row height @${width}`).toBeLessThanOrEqual(80);
+        expect(metrics.wrappedHeaders, `wrapped headers @${width}`).toBe(0);
+        expect(metrics.wrappedStatus, `wrapped status/badge @${width}`).toBe(0);
+        expect(metrics.buttonOverflow).toBe(false);
+        // en-US 表头较长时允许表格横向滚动（滚动优于把列压成竖排）；中文
+        // 页面在 1366/1600 实测无需滚动。滚动容器存在时仍要求零换行。
+      }
+    });
+  });
+
   test.describe('Accessibility', () => {
     test('should have proper ARIA labels for actions', async ({ 
       authenticatedPage,
@@ -320,12 +370,9 @@ test.describe('People Management', () => {
           'tbody tr',
           testData.people[0].name
         );
-        // Check action buttons have proper labels
-        const viewButton = personRow.locator('button:has-text("View")');
-        const editButton = personRow.locator('button:has-text("Edit")');
-        const deleteButton = personRow.locator('button[title*="Delete"]');
-        // Buttons should have accessible text or aria-label
-        await expect(viewButton).toBeVisible();
+        // Check action buttons have proper accessible names
+        const editButton = personRow.locator('button[aria-label="Edit"]');
+        const deleteButton = personRow.locator('button[aria-label="Delete"]');
         await expect(editButton).toBeVisible();
         await expect(deleteButton).toBeVisible();
       }

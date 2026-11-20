@@ -391,22 +391,22 @@ export default function People() {
     {
       key: 'utilization',
       header: t('people:columns.workload'),
-      width: '140px',
+      width: '165px',
       render: (_, row) => {
         const insights = getPersonInsights(row.id);
         const IconComponent = insights.icon;
 
         return (
-          <div className="workload-status">
-            <div className={`status-indicator status-${insights.color}`}>
+          <div className="people-workload-status">
+            <div className={`people-status-indicator status-${insights.color}`}>
               <IconComponent size={20} />
               {insights.percentage !== undefined && (
-                <span className="status-percentage">
+                <span className="people-status-percentage">
                   {Math.round(insights.percentage)}%
                 </span>
               )}
             </div>
-            <span className={`status-label text-${insights.color}`}>
+            <span className={`people-status-label text-${insights.color}`}>
               {t(`people:workloadStatus.${insights.status}`)}
             </span>
           </div>
@@ -416,12 +416,11 @@ export default function People() {
     {
       key: 'actions',
       header: t('people:columns.quickActions'),
-      width: '330px',
+      width: '240px',
       render: (_, row) => {
         const insights = getPersonInsights(row.id);
         const ActionIcon = insights.icon;
-        // rows without utilization data have no meaningful quick action —
-        // only show the standard 详情/编辑 pair instead of a duplicate button
+        // rows without utilization data have no meaningful quick action
         const hasQuickAction = insights.status !== 'unknown';
 
         return (
@@ -440,50 +439,39 @@ export default function People() {
               </button>
             )}
             <button
-              className="btn btn-outline btn-sm quick-action-btn"
-              onClick={(e) => {
-                e.stopPropagation();
-                navigate(`/people/${row.id}`);
-              }}
-              title={t('common:viewDetails')}
-            >
-              <Eye size={14} />
-              {t('common:viewDetails')}
-            </button>
-            <button
-              className="btn btn-outline btn-sm quick-action-btn"
+              className="btn btn-outline btn-sm quick-action-icon"
               onClick={(e) => {
                 e.stopPropagation();
                 handleEditPerson(row);
               }}
               title={t('common:edit')}
+              aria-label={t('common:edit')}
             >
-              <Edit2 size={14} />
-              {t('common:edit')}
+              <Edit2 size={14} aria-hidden="true" />
             </button>
             <button
-              className="btn btn-outline btn-sm quick-action-btn"
+              className="btn btn-outline btn-sm quick-action-icon"
               onClick={(e) => {
                 e.stopPropagation();
                 toggleActiveMutation.mutate(row);
               }}
               disabled={toggleActiveMutation.isPending}
               title={row.is_active === false ? t('people:activate') : t('people:deactivate')}
+              aria-label={row.is_active === false ? t('people:activate') : t('people:deactivate')}
             >
-              <Power size={14} />
-              {row.is_active === false ? t('people:activate') : t('people:deactivate')}
+              <Power size={14} aria-hidden="true" />
             </button>
             <button
-              className="btn btn-outline btn-sm quick-action-btn delete-person-btn"
+              className="btn btn-outline btn-sm quick-action-icon delete-person-btn"
               onClick={(e) => {
                 e.stopPropagation();
                 handleDeletePerson(row.id, row.name);
               }}
               disabled={deletePersonMutation.isPending}
               title={t('common:delete')}
+              aria-label={t('common:delete')}
             >
-              <Trash2 size={14} />
-              {t('common:delete')}
+              <Trash2 size={14} aria-hidden="true" />
             </button>
           </div>
         );

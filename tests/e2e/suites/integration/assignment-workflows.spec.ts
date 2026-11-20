@@ -156,7 +156,9 @@ test.describe('Assignment Integration Workflows', () => {
         console.log('No person with assignments found');
         return;
       }
-      await personWithAssignments.getByRole('button', { name: /view/i }).click();
+      // Action-column densification (7c9e761) removed the per-row View button;
+      // rows navigate on click since.
+      await personWithAssignments.click();
       await authenticatedPage.waitForSelector('text=Workload Insights', { timeout: 10000 });
       // Look for phase indicators in assignments
       const phaseAssignments = authenticatedPage.locator('table').filter({

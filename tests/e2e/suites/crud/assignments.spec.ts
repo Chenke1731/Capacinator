@@ -267,9 +267,11 @@ test.describe('Assignment CRUD Operations', () => {
         testData.projects[1].name
       );
       const deleteButton = assignmentRow.getByRole('button', { name: /delete/i });
-      // Handle confirmation dialog (native confirm())
-      authenticatedPage.on('dialog', dialog => dialog.accept());
+      // Confirmation goes through the shared ConfirmDialog (native confirm was
+      // migrated in c0b7d14; this suite was missed in that update)
       await deleteButton.click();
+      const confirmDialog = authenticatedPage.getByTestId('confirm-dialog');
+      await confirmDialog.getByRole('button', { name: 'Delete' }).click();
       // No toast — the row disappearing IS the success signal
       await expect(assignmentRow).toBeHidden({ timeout: 10000 });
       await testHelpers.waitForDataTable();

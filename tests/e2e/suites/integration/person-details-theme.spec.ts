@@ -39,7 +39,9 @@ test.describe('PersonDetails theme after People navigation (I02p)', () => {
       test.skip(true, 'No people fixture to navigate');
       return;
     }
-    await firstRow.getByRole('button', { name: /view/i }).click();
+    // Action-column densification (7c9e761) removed the per-row View button;
+    // rows navigate to the detail page on click since.
+    await firstRow.click();
     await authenticatedPage.waitForSelector('text=Workload Insights', { timeout: 10000 });
 
     const heading = authenticatedPage.locator('.insights-section .section-header h2').first();

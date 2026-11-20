@@ -217,9 +217,11 @@ test.describe('People Management', () => {
       );
       const deleteButton = personRow.locator('button[title*="Delete"]');
       if (await deleteButton.isVisible()) {
-        // Deletion goes through a native window.confirm — accept it
-        authenticatedPage.once('dialog', dialog => dialog.accept());
+        // Deletion goes through the shared ConfirmDialog (native confirm was
+        // migrated in c0b7d14; this suite was missed in that update)
         await deleteButton.click();
+        const confirmDialog = authenticatedPage.getByTestId('confirm-dialog');
+        await confirmDialog.getByRole('button', { name: 'Delete' }).click();
         // Wait for deletion
         await authenticatedPage.waitForLoadState("networkidle", { timeout: 10000 }).catch(() => {});
         await testHelpers.waitForDataTable();

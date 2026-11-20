@@ -113,22 +113,22 @@ export default function Roles() {
     {
       key: 'actions',
       header: t('common:actions'),
-      width: '290px',
+      width: '150px',
       render: (_, row) => (
         <div className="table-actions">
           <button
-            className="btn table-action-btn"
+            className="btn table-action-btn roles-action-icon"
             onClick={(e) => {
               e.stopPropagation();
               navigate(`/roles/${row.id}`);
             }}
             title={t('common:viewDetails')}
+            aria-label={t('common:viewDetails')}
           >
             <Eye size={14} />
-            {t('common:viewDetails')}
           </button>
           <button
-            className="btn table-action-btn"
+            className="btn table-action-btn roles-action-icon"
             onClick={(e) => {
               e.stopPropagation();
               // role editing lives on the details page (inline) — there is
@@ -136,20 +136,20 @@ export default function Roles() {
               navigate(`/roles/${row.id}`);
             }}
             title={t('common:edit')}
+            aria-label={t('common:edit')}
           >
             <Edit2 size={14} />
-            {t('common:edit')}
           </button>
           <button
-            className="btn table-action-btn btn-danger"
+            className="btn table-action-btn roles-action-icon btn-danger"
             onClick={(e) => {
               e.stopPropagation();
               handleDeleteRole(row.id, row.name);
             }}
             title={t('common:delete')}
+            aria-label={t('common:delete')}
           >
             <Trash2 size={14} />
-            {t('common:delete')}
           </button>
         </div>
       )

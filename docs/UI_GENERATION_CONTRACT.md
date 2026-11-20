@@ -290,6 +290,8 @@ Cognitive Walkthrough（认知走查，Polson/Wharton，可用性工程标准方
 - `npm run verify:states`——全称状态检查器（自动枚举全部可见交互元素，真实指针强制状态，双主题断言对比度/命中/遮挡/越界/字号/浮层贴锚；已收编进 verify-boards 交付闸；`verify:states:selftest` 注入必红防恒绿）
 - `npm run verify:boards`——结构+几何+可供性断言（图标物理可见、塌陷检测、池标签、编辑模型声明；尾部 spawn verify:states）
 - `npm run verify:visual`——像素基线 + axe 预算 + 碰撞，双主题×双视口
+- `node scripts/verify-invariants.mjs`——U1 双语/长内容布局、U3 动作安全、D2 API 信封；`--changed` 随 T1，`--static-only` 进 PR 闸；标准与阈值见 [docs/quality/ui-invariants.md](quality/ui-invariants.md)
+- `node scripts/verify-css-isolation.mjs`——跨路由 CSS 残留只读普查（真实 SPA 路由顺序，computed-style 指纹）；一次/夜间跑，不进每次小改
 - 单测——交互语义与落库
 
 ## 业界方法引入与归位

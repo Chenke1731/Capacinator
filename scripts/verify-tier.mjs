@@ -181,6 +181,11 @@ function main() {
     }
   }
 
+  // T1 UI invariants: changed routes only; full matrix stays at T2/nightly.
+  if (tier === 't1' && plan.clientTests.length) {
+    if (!run('UI invariants (U1 text fit + U3 actions, changed routes)', 'node', ['scripts/verify-invariants.mjs', '--id', 'U1,U3', '--changed'])) return 1;
+  }
+
   // T1 E2E (mapped specs only; source-to-spec mapping is explicit).
   if (tier === 't1' && plan.e2e.length) {
     const specs = existing(plan.e2e);

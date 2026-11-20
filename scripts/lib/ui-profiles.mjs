@@ -161,16 +161,16 @@ export async function authenticate() {
   if(!loginRes.ok||!auth.accessToken) throw new Error('Audit login failed');
   return {...auth,user:auth.user??person};
 }
-export async function setupReadOnlyPage(context,auth,theme) {
+export async function setupReadOnlyPage(context,auth,theme,{language='zh-CN'}={}) {
   const page=await context.newPage(),writes=[],errors=[];
   page.on('pageerror',e=>errors.push(e.message));
-  await page.addInitScript(({auth,theme})=>{
+  await page.addInitScript(({auth,theme,language})=>{
     localStorage.setItem('capacinator_current_user',JSON.stringify(auth.user));
     localStorage.setItem('auth_token',auth.accessToken);
     if(auth.refreshToken)localStorage.setItem('refresh_token',auth.refreshToken);
-    localStorage.setItem('capacinator-language','zh-CN');localStorage.setItem('theme',theme);
+    localStorage.setItem('capacinator-language',language);localStorage.setItem('theme',theme);
     localStorage.removeItem('req-col-widths-v5');
-  },{auth,theme});
+  },{auth,theme,language});
   if(fixtureSet)await page.addInitScript(iso=>{
     const OriginalDate=Date,fixed=OriginalDate.parse(iso);
     class AuditDate extends OriginalDate{constructor(...args){super(...(args.length?args:[fixed]));}static now(){return fixed;}}

@@ -22,10 +22,10 @@ import { auditEnvironment, authenticate, setupReadOnlyPage } from './ui-profiles
 export async function probeSession({ launch } = {}) {
   const browser = launch ?? await chromium.launch({ executablePath: auditEnvironment.chrome });
   const auth = await authenticate();
-  const run = async (url, theme = 'light', fn, { viewport = { width: 1600, height: 900 }, settle = 900 } = {}) => {
+  const run = async (url, theme = 'light', fn, { viewport = { width: 1600, height: 900 }, settle = 900, language = 'zh-CN' } = {}) => {
     const context = await browser.newContext({ viewport });
     try {
-      const s = await setupReadOnlyPage(context, auth, theme);
+      const s = await setupReadOnlyPage(context, auth, theme, { language });
       await s.page.goto(`${auditEnvironment.base}${url}`, { waitUntil: 'networkidle' });
       await s.page.waitForTimeout(settle);
       if (s.errors.length) throw new Error(`probe page errors: ${s.errors.join(' | ')}`);

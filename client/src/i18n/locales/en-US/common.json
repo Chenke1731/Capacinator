@@ -92,6 +92,10 @@
   "allocation": "Allocation",
   "date": "Date",
   "filterAll": "All {{label}}",
+  "expand": "Expand",
+  "collapse": "Collapse",
+  "previousMonth": "Previous month",
+  "nextMonth": "Next month",
   "notFound": {
     "title": "Page not found",
     "description": "The page you are looking for does not exist or has been moved.",

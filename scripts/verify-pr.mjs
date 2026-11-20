@@ -44,6 +44,7 @@ const steps = [
   // Full `verify:colors` is a T2 inventory gate and currently carries existing
   // unrelated debt; the PR gate only proves the guard itself is alive.
   ['Color guard self-test', 'npm', ['run', 'verify:colors:selftest']],
+  ['UI invariants (static: U3 + D2)', 'node', ['scripts/verify-invariants.mjs', '--id', 'U3,D2', '--static-only']],
   ['Typecheck (root)', 'npm', ['run', 'typecheck']],
   ['Typecheck (client budget)', 'node', ['scripts/client-typecheck-budget.mjs']],
   ['Typecheck (spec budget)', 'node', ['scripts/spec-typecheck-budget.mjs']],

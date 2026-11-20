@@ -220,6 +220,9 @@ export default function ProjectTypes() {
               <button
                 className="btn btn-icon btn-sm expand-toggle"
                 onClick={() => toggleNode(projectType.id)}
+                aria-label={t(isExpanded ? 'common:collapse' : 'common:expand')}
+                title={t(isExpanded ? 'common:collapse' : 'common:expand')}
+                aria-expanded={isExpanded}
               >
                 {isExpanded ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
               </button>

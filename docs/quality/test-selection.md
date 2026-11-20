@@ -57,7 +57,9 @@ Stop condition:
 | 改动面 | 最低充分 oracle | 允许升级的条件 |
 |---|---|---|
 | 局部逻辑/文案/禁用条件 | targeted Jest + typecheck | 触碰共享组件、契约或异步状态 |
-| CSS/布局几何 | lint:ui + 受影响 states profile + targeted 几何测试（表格加 1366/1600 列宽预算） | 默认像素外观变化才 visual；新浮层/裁剪才浏览器几何/E2E |
+| CSS/布局几何 | lint:ui + `verify-invariants --id U1,U3 --changed` + 受影响 states profile | 默认像素外观变化才 visual；新浮层/裁剪才浏览器几何/E2E |
+| 跨路由/共享 CSS | `verify-css-isolation --all --trace`（一次只读普查）+ lint:ui 所有权守卫 | 新共享类/重复 owner 才升级为 blocking |
+| API 契约/信封 | `verify-invariants --id D2 --static-only` + targeted integration | 新端点多契约面才全量后端回归 |
 | 交互状态机/手势 | 状态×事件矩阵 + 重复手势测试 + focused review | 新页面、共享原语或跨页行为才 full review |
 | 浮层/贴锚/遮挡 | 贴锚/遮挡/焦点 targeted 浏览器测试 + states floatingRoot | 跨页面/新导航路径才 E2E 套件 |
 | 服务端契约/数据库语义 | 真实 schema 集成测试 | 影响多契约面才全量后端回归 |
@@ -91,6 +93,18 @@ Mock controller 单测不可作为 oracle：它复现不了数据库类型亲和
 Oracle：1366/1600 浏览器几何测试——表头行数、表头/行高上限、动作列宽与占比、按钮是否溢出单元格。
 像素基线不能充当这个 oracle：它只证明"和上次一样"，会把坏布局冻结成正确；先过绝对几何阈值，再采基线。
 反例：People 五文本按钮动作列实测 min-content≈456px，表头 80.5px、行高 82px；压缩动作列后同为 1366 视口表头 48px、行高 74–78px。
+
+### 跨路由 CSS 残留（共享类在 A→B 后变样）
+
+故障假设：页面 A 的懒加载 CSS 在 SPA 切到 B 后仍常驻，覆盖 B 的共享类（`.project-info`、`.btn`、`.info-value`、`.status-indicator`）。
+Oracle：`verify-css-isolation --all --trace`：先 fresh 每路由 computed-style 指纹，再同一 SPA 会话累计导航比对；必要时按源路由回溯。
+不使用 full reload：它会销毁前一路由的 document，天然看不到残留。
+像素基线不能覆盖：同一路由在新会话里可能完全正常，只有路由顺序触发时才变。
+
+### 动作语义与 API 信封
+
+故障假设：图标按钮无可访问名/小目标；动作列堆多个文字按钮；native confirm 绕过主题/焦点；新端点裸数组、客户端重新长出防御解析。
+Oracle：`verify-invariants --id U3`（静态 native dialog + DOM 动作）+ `--id D2 --static-only`（控制器/客户端 AST）。
 
 ## 代理预算
 

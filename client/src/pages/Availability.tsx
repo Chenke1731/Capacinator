@@ -187,6 +187,8 @@ export default function Availability() {
           <button
             className="btn-icon"
             onClick={() => setCurrentMonth(new Date(year, month - 1))}
+            aria-label={t('common:previousMonth')}
+            title={t('common:previousMonth')}
           >
             <ChevronLeft size={20} />
           </button>
@@ -194,6 +196,8 @@ export default function Availability() {
           <button
             className="btn-icon"
             onClick={() => setCurrentMonth(new Date(year, month + 1))}
+            aria-label={t('common:nextMonth')}
+            title={t('common:nextMonth')}
           >
             <ChevronRight size={20} />
           </button>

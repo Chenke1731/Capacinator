@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "comment": "D1 metric registry — every user-visible number rendered on 2+ surfaces. The checker replays EXACTLY the queries each page sends (source field pins the code); comparison is surface-vs-surface (self-maintaining), never against hand-baked constants. consistency=must-equal => numbers must match bit-for-bit; documented-difference => a note explaining window/unit divergence is mandatory and the values are still reported.",
+  "metrics": [
+    {
+      "id": "people.count",
+      "label": "People count",
+      "unit": "people",
+      "consistency": "must-equal",
+      "strategy": "scalar",
+      "surfaces": [
+        {
+          "page": "people",
+          "endpoint": "/api/people?limit=2000",
+          "extract": "data.length",
+          "source": "People.tsx:54 api.people.list({limit:2000}); count = list length"
+        },
+        {
+          "page": "dashboard",
+          "endpoint": "/api/reporting/dashboard?start_date={today}&end_date={today}",
+          "extract": "data.summary.people",
+          "source": "Dashboard.tsx:62-65 getDashboard({start_date,end_date}); default range today→today"
+        }
+      ]
+    },
+    {
+      "id": "person.utilization_pct",
+      "label": "Per-person utilization %",
+      "unit": "percent",
+      "consistency": "documented-difference",
+      "note": "People insights use the windowless /people/dashboard/utilization endpoint (server default window); the Reports utilization page sends startDate=month-start&endDate=+3months (ReportsTabContent filters from getDefaultReportDateRange). Values may legitimately diverge; the census reports the max per-person delta. Product debt if large: neither surface labels its window to the user.",
+      "strategy": "per-person-pct",
+      "tolerance": 0.5,
+      "surfaces": [
+        {
+          "page": "people-insights",
+          "endpoint": "/api/people/dashboard/utilization",
+          "extract": "",
+          "pctPath": "total_allocation_percentage",
+          "idPath": "person_id",
+          "source": "People.tsx:69 / api-client.ts:377 getUtilization() — bare array, no params"
+        },
+        {
+          "page": "reports-utilization",
+          "endpoint": "/api/reporting/utilization?startDate={monthStart}&endDate={monthPlus3End}",
+          "extract": "data.utilizationData",
+          "pctPath": "total_allocation_percentage",
+          "idPath": "person_id",
+          "source": "ReportsTabContent.tsx:306 getUtilization(filters); filters = getDefaultReportDateRange() camel keys"
+        }
+      ]
+    },
+    {
+      "id": "people.overallocated_count",
+      "label": "Over-allocated people count",
+      "unit": "people",
+      "consistency": "documented-difference",
+      "note": "Derived per surface from the same two utilization endpoints as person.utilization_pct — same window caveat applies.",
+      "strategy": "count-over-100",
+      "surfaces": [
+        {
+          "page": "people-insights",
+          "endpoint": "/api/people/dashboard/utilization",
+          "extract": "",
+          "pctPath": "total_allocation_percentage",
+          "source": "People.tsx teamInsights.overAllocized (allocation > 100) — bare array"
+        },
+        {
+          "page": "reports-utilization",
+          "endpoint": "/api/reporting/utilization?startDate={monthStart}&endDate={monthPlus3End}",
+          "extract": "data.utilizationData",
+          "pctPath": "total_allocation_percentage",
+          "source": "ReportsTabContent.tsx overAllocatedCount (utilization > 100)"
+        }
+      ]
+    }
+  ]
+}

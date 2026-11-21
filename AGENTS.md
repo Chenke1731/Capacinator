@@ -359,15 +359,12 @@ npm run dist:linux       # Linux package (.AppImage)
 
 耗时审计结论:系列 11.9h 中**验证运行占 60-67%,编辑仅 ~15%**;~20-26%(145-185 min)属可回收浪费。以下纪律按此立规。
 
-### 验证分级(批内只跑低档,高档留给批末/里程碑)
-- **T0 批内改动后**:`npm run lint:ui` + `npm run typecheck` + 受影响面的 targeted jest(<1 min)。
-- **T1 批末提交前**:受影响单档 `node scripts/verify-states.mjs --profile X` ×N + `verify:colors`(若本批碰过 index.css/App.css,**批末统一刷一次**:`node scripts/verify-palette-colors.mjs --refresh-evidence && node scripts/verify-timeline-colors.mjs --refresh-evidence`——必须带 `--refresh-evidence`,默认档只量测不更新哈希锚;这两文件是 38 条证据的依赖锚,每编辑一次全陈旧,批内刷多轮纯浪费。2026-11-20 实录:不带该旗标跑一遍等于白跑)。
-- **T2 系列里程碑/合并前**:states 全量(107) + visual 全量(780) + client jest 全量 + verify:colors。
-- **E2E 分层(2026-11-20,清完 19 例存量债后立)**:推送前快档
-  `npx playwright test --grep "@smoke|@critical" --config playwright.config.ts`
-  (~40 条,3-5 min;smoke 21 + critical 20,标签基建在 fixtures/index.ts)。
-  E2E 全量(main+scenarios ≈ 35 min)只在 T2/里程碑跑——`verify:pr` 的 `--skip-e2e`
-  与全量之间此前没有中间档,存量红就是被这个空档掩盖的。
+### 验证分级(2026-11-21 重分层:按频率封顶,states/U4 归批末,配额闸治验证垄断)
+- **迭代 ≤60s**:`node scripts/verify-affected.mjs --changed`——lint:ui + **增量 typecheck**(tsconfig.client `incremental`,热跑 ~3s)+ 定向 jest + U1/U3 quick(1366/en-US)。**states/U4 是批末档**,迭代期 `--with-states`/`--with-u4` 显式开启。**批中触发任何全量矩阵前,先写下它服务的故障假设——写不出=不跑**(2026-11-20 实录:批中 4 轮全量普查,2 轮本可省)。
+- **批末 T1 ≤3min**:states/U4/U2-strict 受影响档 + 一次评审 + `verify:colors`(碰过 index.css/App.css 才刷:`node scripts/verify-palette-colors.mjs --refresh-evidence && node scripts/verify-timeline-colors.mjs --refresh-evidence`,必须带 `--refresh-evidence`)。
+- **推送 ≤2min**:smoke E2E 档 `npx playwright test --grep "@smoke|@critical" --config playwright.config.ts`(~33 条,1.6 min)。
+- **里程碑 T2 ≤90min**:states 全量 + visual 全量(分片) + jest 全量 + verify:colors + E2E 全量(main+scenarios ≈ 30 min)。
+- **配额闸(治 16:1 重演)**:连续验证型批(提交前缀全为 test/verify/chore/docs)≤2,**第 3 批必须是产品批(feat/fix)**——开批定范围时先 `git log --oneline -8` 核前缀;验证债像产品债一样排期,不得垄断会话。守卫季度救场 >1 次即自动化或拆除。
 - **visual 迭代期一律页级过滤**(`--page`/`--profile`);**任何全量 visual 之前必须先跑冒烟**:`node scripts/verify-visual-smoke.mjs`(3 组合 ~5 min,一次性暴露死档/状态机/信封三类陈旧假设——批 C 实录:四个陈旧假设串行暴露耗了 4 次全量 ≈ 90 min)。
 - **全量 visual 用分片**:`npm run verify:visual:shards -- --shards 4`(4 进程,单组合实测 ~6s,全量预计 5-7 min;单进程 18-25 min)。分片报告带 `-shard-i-of-n` 后缀;`--record-existing-axe`/`--capture-fixtures` 会写共享文件,已禁止与 `--shard` 同用。分片只并行化独立页面组合,不减少 axe/碰撞/像素检查。
 

@@ -236,6 +236,7 @@ export function classifyChangedFile(file) {
     p === 'gitleaks.toml' ||
     p === '.gitleaksignore' ||
     p === '.nvmrc' ||
+    p === 'tsconfig.client.json' ||
     p === '.gitignore' ||
     p === 'CLAUDE.md' ||
     p === 'AGENTS.md'

@@ -33,7 +33,7 @@ const value = (name) => {
 };
 const valid = new Set([
   '--changed', '--files', '--base', '--parallel', '--all-states', '--visual', '--e2e',
-  '--skip-browser', '--skip-u4', '--full-invariants', '--dry-run', '--selftest', '--help',
+  '--skip-browser', '--with-states', '--with-u4', '--full-invariants', '--dry-run', '--selftest', '--help',
 ]);
 for (let i = 0; i < argv.length; i += 1) {
   if (!valid.has(argv[i])) throw new Error(`Unknown argument ${argv[i]}`);
@@ -70,10 +70,14 @@ export function buildPlan(files, options = {}) {
   );
   const clientChanged = files.some((file) => file.startsWith('client/src/'));
   const i18nChanged = files.some((file) => file.startsWith('client/src/i18n/'));
-  const statesProfiles = options.allStates
-    ? Object.keys(profiles)
-    : plan.profiles;
-  const u4Pages = options.skipU4 ? [] : u4PagesFor(plan.profiles, plan.wide || sharedUi);
+  // Re-tier (2026-11-21): states and the U4 matrix are batch-end (T1)
+  // checks — verify-tier runs them regardless. At iteration they only run
+  // when explicitly opted in (--with-states / --with-u4), keeping the
+  // iteration lane under a minute.
+  const statesProfiles = options.withStates
+    ? (options.allStates ? Object.keys(profiles) : plan.profiles)
+    : [];
+  const u4Pages = options.u4 ? u4PagesFor(plan.profiles, plan.wide || sharedUi) : [];
   return {
     files,
     plan,
@@ -97,16 +101,16 @@ function selftest() {
   const i18n = buildPlan(['client/src/i18n/locales/en-US/reports.json']);
   const css = buildPlan(['client/src/pages/People.css']);
   const server = buildPlan(['src/server/api/controllers/PeopleController.ts']);
+  const pageOptIn = buildPlan(['client/src/pages/People.tsx'], { withStates: true, u4: true });
   const checks = [
-    ['page maps states', page.statesProfiles.includes('people')],
+    ['iteration omits states by default', page.statesProfiles.length === 0],
+    ['iteration omits U4 by default', page.u4Pages.length === 0],
+    ['page maps states when opted in', pageOptIn.statesProfiles.includes('people')],
     ['page needs U1/U3', page.u1u3],
-    ['page maps U4', page.u4Pages.includes('people')],
-    ['reports maps U4', reports.u4Pages.includes('reports')],
-    ['shared UI maps all U4', shared.u4Pages.length === 5],
+    ['page maps U4 when opted in', pageOptIn.u4Pages.includes('people')],
     ['i18n change detected', i18n.i18nChanged],
     ['page does not need U2', !page.u2],
     ['css needs U2', css.u2],
-    ['css maps states', css.statesProfiles.includes('people')],
     ['server maps server tests', server.plan.serverTests.length > 0],
   ];
   for (const [name, ok] of checks) console.log(`${ok ? 'PASS' : 'FAIL'} selftest ${name}`);
@@ -115,7 +119,7 @@ function selftest() {
 
 if (has('--selftest')) process.exit(selftest() ? 0 : 1);
 if (has('--help')) {
-  console.log('verify-affected: --changed | --files a,b [--base ref] [--parallel N] [--all-states] [--visual] [--e2e] [--skip-browser] [--skip-u4] [--full-invariants] [--dry-run] [--selftest]');
+  console.log('verify-affected: --changed | --files a,b [--base ref] [--parallel N] [--all-states] [--visual] [--e2e] [--skip-browser] [--with-states] [--with-u4] [--full-invariants] [--dry-run] [--selftest]');
   process.exit(0);
 }
 
@@ -129,7 +133,7 @@ if (!files.length) {
 }
 const parallel = Math.max(1, Math.min(6, Number(value('--parallel') ?? 3)));
 const dryRun = has('--dry-run');
-const plan = buildPlan(files, { visual: has('--visual'), e2e: has('--e2e'), allStates: has('--all-states'), skipU4: has('--skip-u4') });
+const plan = buildPlan(files, { visual: has('--visual'), e2e: has('--e2e'), allStates: has('--all-states'), withStates: has('--with-states'), u4: has('--with-u4') });
 
 function run(label, command, args) {
   return new Promise((resolve) => {

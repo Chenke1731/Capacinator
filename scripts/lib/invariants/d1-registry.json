@@ -73,6 +73,54 @@
           "source": "ReportsTabContent.tsx overAllocatedCount (utilization > 100)"
         }
       ]
+    },
+    {
+      "id": "projects.count",
+      "label": "Active/total projects count",
+      "unit": "projects",
+      "consistency": "documented-difference",
+      "note": "Dashboard counts projects active within its single-day window (today→today); the Projects page shows all projects regardless of date. A project ending yesterday or starting tomorrow appears in the page count but not the dashboard. First census: dashboard 44 vs page 48 (4 gap). If the dashboard card is labeled 'Active Projects' this is honest; verify at review.",
+      "strategy": "scalar",
+      "surfaces": [
+        {
+          "page": "dashboard",
+          "endpoint": "/api/reporting/dashboard?start_date={today}&end_date={today}",
+          "extract": "data.summary.projects",
+          "source": "Dashboard.tsx:176 summary.projects (single-day window)"
+        },
+        {
+          "page": "projects",
+          "endpoint": "/api/projects/board-feed",
+          "extract": "data.data.length",
+          "source": "Projects.tsx:424 boardFeed() — no date filter"
+        }
+      ]
+    },
+    {
+      "id": "person.assignment_count",
+      "label": "Per-person active project count",
+      "unit": "projects",
+      "consistency": "documented-difference",
+      "note": "The utilization endpoint's project_count counts only projects with assignments active TODAY (migration 070: start_date <= today AND end_date >= today, baseline scenario only); the raw assignment list carries all rows regardless of temporal status. 沈设计 first census: 4 active vs 7 total. Both numbers are correct for their surfaces — insights wants 'what now', management wants 'everything'. Product risk: if either UI labels this as just 'projects' without temporal context, the user sees two different numbers for the same person.",
+      "strategy": "per-person-count",
+      "surfaces": [
+        {
+          "page": "people-insights",
+          "endpoint": "/api/people/dashboard/utilization",
+          "extract": "",
+          "countPath": "project_count",
+          "idPath": "person_id",
+          "source": "People utilization endpoint project_count per person"
+        },
+        {
+          "page": "assignments-api",
+          "endpoint": "/api/assignments?limit=2000",
+          "extract": "data",
+          "idPath": "person_id",
+          "groupBy": "person_id+project_id",
+          "source": "GET /api/assignments full list — distinct projects per person (matches utilization endpoint's project_count semantics)"
+        }
+      ]
     }
   ]
 }

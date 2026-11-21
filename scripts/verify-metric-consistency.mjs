@@ -98,6 +98,24 @@ export function compareMetric(entry, surfaceValues) {
       if (Number(surface.value) !== Number(first)) {
         issues.push(`${entry.id}: ${surfaceValues[0].page}=${first} vs ${surface.page}=${surface.value} over-allocated`);
       }
+    } else if (entry.strategy === 'per-person-count') {
+      const tolerance = entry.tolerance ?? 0;
+      const left = new Map(first.map((row) => [row.person_id, row.count]));
+      let compared = 0;
+      let maxDelta = 0;
+      for (const row of surface.value) {
+        const other = left.get(row.person_id);
+        if (other === undefined) continue;
+        compared += 1;
+        if (!Number.isFinite(other) || !Number.isFinite(row.count)) {
+          issues.push(`${entry.id}: non-finite count for ${row.person_id} (left=${other} right=${row.count})`);
+          continue;
+        }
+        maxDelta = Math.max(maxDelta, Math.abs(other - row.count));
+      }
+      report.join = { compared, maxDelta };
+      if (compared === 0) issues.push(`${entry.id}: no overlapping person_id between surfaces`);
+      else if (maxDelta > tolerance) issues.push(`${entry.id}: max per-person count delta ${maxDelta} exceeds tolerance ${tolerance}`);
     }
   }
   return { ok: issues.length === 0, issues, report };
@@ -106,6 +124,24 @@ export function compareMetric(entry, surfaceValues) {
 function rowsFor(entry, surface, payload) {
   const array = extractPath(payload, surface.extract);
   if (!Array.isArray(array)) throw new Error(`${entry.id}/${surface.page}: extract path "${surface.extract}" is not an array`);
+  if (entry.strategy === 'per-person-count') {
+    if (surface.groupBy === 'person_id+project_id') {
+      // Count DISTINCT projects per person — the utilization endpoint's
+      // project_count deduplicates by project while raw assignment rows
+      // do not (沈设计 7 rows / 4 projects, first census finding).
+      const perPerson = new Map();
+      for (const row of array) {
+        const personId = row.person_id;
+        if (!perPerson.has(personId)) perPerson.set(personId, new Set());
+        perPerson.get(personId).add(row.project_id);
+      }
+      return [...perPerson.entries()].map(([person_id, projects]) => ({ person_id, count: projects.size }));
+    }
+    return array.map((row) => ({
+      person_id: row[surface.idPath ?? 'person_id'],
+      count: Number(row[surface.countPath]),
+    }));
+  }
   return array.map((row) => ({
     person_id: row[surface.idPath ?? 'person_id'],
     pct: Number(row[surface.pctPath]),
@@ -170,6 +206,7 @@ for (const entry of registry.metrics) {
     let value;
     if (entry.strategy === 'scalar') value = extractPath(payload, surface.extract);
     else if (entry.strategy === 'per-person-pct') value = rowsFor(entry, surface, payload);
+    else if (entry.strategy === 'per-person-count') value = rowsFor(entry, surface, payload);
     else if (entry.strategy === 'count-over-100') {
       value = rowsFor(entry, surface, payload).filter((row) => row.pct > 100).length;
     }

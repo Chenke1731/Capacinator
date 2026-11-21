@@ -361,6 +361,7 @@ npm run dist:linux       # Linux package (.AppImage)
 - **批末 T1 ≤3min**:states/U4/U2-strict 受影响档 + 一次评审 + `verify:colors`(碰过 index.css/App.css 才刷:`node scripts/verify-palette-colors.mjs --refresh-evidence && node scripts/verify-timeline-colors.mjs --refresh-evidence`,必须带 `--refresh-evidence`)。
 - **推送 ≤2min**:smoke E2E 档 `npx playwright test --grep "@smoke|@critical" --config playwright.config.ts`(~33 条,1.6 min)。
 - **里程碑 T2 ≤90min**:states 全量 + visual 全量(分片) + jest 全量 + verify:colors + E2E 全量(main+scenarios ≈ 30 min)。
+- **里程碑触发(2026-11-21,判断触发→规则触发;上次 T2 以 git tag 锚定)**:任一满足即跑 T2——①自上次 `t2-*` tag 起 ≥12 提交或 ≥40 文件/1500 行(`git diff --shortstat $(git describe --tags --match='t2-*' --abbrev=0)..HEAD` 机械可测);②主题系列第 3+ 批收口;③风险事件(数据库迁移/依赖升级/dist 构建/共享面大重构);④距上次 tag ≥14 天(防隐形腐烂,E2E 债 19 例即藏于此空档)。推送衔接:≤3 提交+smoke 绿直接推,跨阈值必须先 T2。T2 全绿后 `git tag t2-<日期>`,阈值全部对 tag 计算——"距上次全量多久/改了多少"从感觉变一条命令。
 - **配额闸(治 16:1 重演)**:连续验证型批(提交前缀全为 test/verify/chore/docs)≤2,**第 3 批必须是产品批(feat/fix)**——开批定范围时先 `git log --oneline -8` 核前缀;验证债像产品债一样排期,不得垄断会话。守卫季度救场 >1 次即自动化或拆除。
 - **visual 迭代期一律页级过滤**(`--page`/`--profile`);**任何全量 visual 之前必须先跑冒烟**:`node scripts/verify-visual-smoke.mjs`(3 组合 ~5 min,一次性暴露死档/状态机/信封三类陈旧假设——批 C 实录:四个陈旧假设串行暴露耗了 4 次全量 ≈ 90 min)。
 - **全量 visual 用分片**:`npm run verify:visual:shards -- --shards 4`(4 进程,单组合实测 ~6s,全量预计 5-7 min;单进程 18-25 min)。分片报告带 `-shard-i-of-n` 后缀;`--record-existing-axe`/`--capture-fixtures` 会写共享文件,已禁止与 `--shard` 同用。分片只并行化独立页面组合,不减少 axe/碰撞/像素检查。
